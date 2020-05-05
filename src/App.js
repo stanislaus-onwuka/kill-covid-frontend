@@ -1,18 +1,20 @@
 import React from 'react';
-import Login from './Pages/login/login.js';
+import { Route, Switch } from 'react-router-dom';
+import Login from './pages/login/login.js';
 import './App.css';
-import Signup from "./Pages/signup/sign-up.js";
-import { Route, Switch } from 'react-router';
+import Signup from "./pages/signup/sign-up.js";
+
 
 
 function App() {
   return (
-    <>
-      <Switch>
+    <div>
+        <Switch>
           <Route path="/Login" component={Login} />
           <Route path="/" component={Signup} />
       </Switch>
-    </>
+    </div>
+      
   );
 }
 
