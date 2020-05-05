@@ -1,0 +1,21 @@
+.login-signup-container{
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 2rem;
+}
+.login-signup-container p{
+  color: #c9c4c4;
+  font-weight: 100;
+}
+.login-signup-container button{
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 80% ;
+  color: #234661;
+  background-color: #fff;
+  border: solid 1px #234661;
+  border-radius: 1rem;
+  font-weight: 600;
+  letter-spacing: .2rem;
+}

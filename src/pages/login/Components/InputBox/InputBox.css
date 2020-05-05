@@ -1,0 +1,22 @@
+.login-input-box-container{
+  width: 80%;
+  margin: 1.5rem auto;
+  text-align: center;
+}
+.login-input-box-container input{
+  margin: 0 auto;
+  display: block;
+  padding: 1rem;
+  width: 80% ;
+  border: solid 2px #234661;
+  border-radius: 1rem;
+}
+.login-input-box-container button{
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 80% ;
+  color: #fff;
+  background-color: #234661;
+  border: none;
+  border-radius: 1rem;
+}
