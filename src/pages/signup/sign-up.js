@@ -3,7 +3,7 @@ import "./sign-up.css";
 import twitter from "../../Assets/twitter-brands.svg";
 import facebook from "../../Assets/facebook-brands.svg";
 import google from "../../Assets/google-brands.svg";
-
+import {Link} from "react-router-dom"
 
 const signup = () => {
     return(
@@ -29,7 +29,7 @@ const signup = () => {
                          <div style={{
                             marginTop: "30px"
                          }}>
-                            <a href="/">Log In</a>
+                            <Link to="/Login">Log In</Link>
                          </div>  
                   </div>   
             </section>                    
