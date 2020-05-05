@@ -1,11 +1,14 @@
 import React from 'react';
+import Login from './Pages/login/login.js';
 import './App.css';
-import Signup from "./pages/signup/sign-up.js";
+import Signup from "./Pages/signup/sign-up.js";
+
 
 function App() {
   return (
     <>
        <Signup />
+       <Login />
     </>
   );
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import "./sign-up.css";
-import twitter from "../../assets/twitter-brands.svg";
-import facebook from "../../assets/facebook-brands.svg";
-import google from "../../assets/google-brands.svg";
+import twitter from "../../Assets/twitter-brands.svg";
+import facebook from "../../Assets/facebook-brands.svg";
+import google from "../../Assets/google-brands.svg";
 
 
 const signup = () => {
