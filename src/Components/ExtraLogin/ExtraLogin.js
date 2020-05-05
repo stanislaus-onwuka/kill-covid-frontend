@@ -1,7 +1,7 @@
 import React from 'react';
-import twitterIcon from "../../Assets/svg/twitter.svg";
-import facebookIcon from "../../Assets/svg/facebook.svg";
-import googleIcon from "../../Assets/svg/google.svg";
+import twitterIcon from "../../Assets/twitter.svg";
+import facebookIcon from "../../Assets/facebook.svg";
+import googleIcon from "../../Assets/google.svg";
 import './ExtraLogin.css';
 
 function ExtraLogin() {

@@ -1,8 +1,8 @@
 import React from 'react';
 import "./sign-up.css";
-import twitter from "../../Assets/twitter-brands.svg";
-import facebook from "../../Assets/facebook-brands.svg";
-import google from "../../Assets/google-brands.svg";
+import twitter from "../../Assets/twitter.svg";
+import facebook from "../../Assets/facebook.svg";
+import google from "../../Assets/google.svg";
 import {Link} from "react-router-dom"
 
 const signup = () => {
