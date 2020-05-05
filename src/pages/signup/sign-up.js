@@ -11,7 +11,7 @@ const signup = () => {
             <section className="signup">
                   <div className="signup-container">
                         <div className="heading">
-                           <h2>Sign up</h2>
+                           <h1>Sign up</h1>
                            <em>Create an account</em>
                         </div>
                         <form>

@@ -11,10 +11,10 @@
 }
 
 .signup-container{
-    width: 60%;
+    width: 50%;
 }
 
-.signup h2{
+.signup h1{
     color: #234661;
     margin: 0;
 }
@@ -53,16 +53,25 @@ form input::placeholder{
 .socials{
     display: flex;
     justify-content: space-around;
-    width: 100px;
+    width: 150px;
     margin: auto;
 }
 
 .socials img{
-    height: 24px;
+    height: 2.5rem;
 }
 
 .signup-submit{
     background-color: #234661;
     border: 0px;
     color: #fff;
+    width: 200px;
+    margin: auto;
+}
+
+
+@media only screen and (max-width: 500px){
+        .signup-container{
+            width: 75%;
+        }
 }
