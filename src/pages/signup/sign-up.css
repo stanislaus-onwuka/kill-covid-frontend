@@ -10,6 +10,10 @@
     background-color: #F0F2F6;
 }
 
+.signup-container{
+    width: 60%;
+}
+
 .signup h2{
     color: #234661;
     margin: 0;
