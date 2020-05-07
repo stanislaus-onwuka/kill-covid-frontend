@@ -11,7 +11,16 @@
   border: solid 2px #234661;
   border-radius: 1rem;
 }
-.login-input-box-container button{
+.login-input-box-container input:nth-child(2){
+  margin-top: 1rem;
+}
+.login-input-box-container input::placeholder{
+  color: #a69fae;
+}
+.login-input-box-container a{
+  display: block;
+  text-decoration: none;
+  margin: 0 auto;
   margin-top: 1rem;
   padding: 1rem;
   width: 80% ;

@@ -1,0 +1,15 @@
+.evalIcon{
+  width: 4rem;
+}
+.evalHeader{
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  color: #2b4d67 ;
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+.evalheader-container{
+  margin: 1rem auto;
+  width: 50%;
+  text-align: center;
+}

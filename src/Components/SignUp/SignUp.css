@@ -8,8 +8,11 @@
   color: #c9c4c4;
   font-weight: 100;
 }
-.login-signup-container button{
+.login-signup-container a{
+  text-decoration: none;
+  margin: 0 auto;
   margin-top: 1rem;
+  display: block;
   padding: 1rem;
   width: 80% ;
   color: #234661;

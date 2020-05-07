@@ -1,0 +1,28 @@
+.evaluation-container{
+  background-color: #f0f2f6;
+  min-height: 100vh;
+  padding-top: 2rem;
+  
+}
+.evaluation-container .footer-svg{
+  /* margin-top: 5rem; */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (orientation: landscape){
+  .evaluation-container{
+    background-color: #f0f2f6;
+    min-height: 100vh;
+    padding-top: 2rem;
+    
+  }
+  .evaluation-container .footer-svg{
+    margin-top: 5rem;
+    position: static;
+    /* position: absolute;
+    bottom: 0; */
+    width: 100%;
+  }
+}
