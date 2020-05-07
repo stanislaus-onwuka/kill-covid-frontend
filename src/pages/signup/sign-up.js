@@ -1,8 +1,8 @@
 import React from 'react';
 import "./sign-up.css";
-import twitter from "../../Assets/twitter.svg";
-import facebook from "../../Assets/facebook.svg";
-import google from "../../Assets/google.svg";
+import twitter from "./../../Assets/svg/twitter.svg";
+import facebook from "./../../Assets/svg/facebook.svg";
+import google from "./../../Assets/svg/google.svg";
 import {Link} from "react-router-dom"
 
 const signup = () => {
@@ -26,9 +26,7 @@ const signup = () => {
                            <img src={google} alt="google" />
                         </div>
                         <em>Already have an account?</em>
-                         <div style={{
-                            marginTop: "30px"
-                         }}>
+                         <div className="signup-login-btn">
                             <Link to="/Login">Log In</Link>
                          </div>  
                   </div>   
