@@ -47,19 +47,13 @@ form input{
     margin: 0 auto;
     display: block;
     padding: 1rem;
-    width: 64% ;
+    width: 80% ;
     border: solid 2px #234661;
     border-radius: 1rem;
     margin-bottom: 1rem;
+    font-size: 1rem;
 }
 
-.signup a{
-    padding: 10px 70px;    
-    border: 2px solid #234661;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #234661;
-}
 
 form input::placeholder{
     color: #a69fae;
@@ -67,6 +61,11 @@ form input::placeholder{
 .signup-container em{
     display: inline-block;
     margin: 1rem;
+    font-size: 1.2rem;
+}
+.signup-container em.socials-text{
+    
+    margin-top: 2rem;
 }
 
 .heading{
@@ -80,9 +79,9 @@ form input::placeholder{
     width: 45%;
 }
 
-.socials img{
+.socials a{
     width: 3rem;
-    margin: .2rem;
+    margin: .5rem;
 }
 
 .signup-submit{
@@ -99,7 +98,7 @@ form input::placeholder{
     margin: 0 auto;
     display: block;
     padding: 1rem;
-    width: 64% ;
+    width: 80% ;
     color: #234661;
     background-color: #fff;
     border: solid 1px #234661;

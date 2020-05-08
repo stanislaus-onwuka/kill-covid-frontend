@@ -13,9 +13,8 @@ function App() {
           <Route path="/Login" component={Login} />
           <Route path="/Eval" component={Evaluation} />
           <Route path="/" component={Signup} />
-      </Switch>
+        </Switch>
     </div>
-      
   );
 }
 

@@ -1,12 +1,14 @@
 .login-signup-container{
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
+  margin-top: 3rem;
   text-align: center;
   padding-bottom: 2rem;
 }
 .login-signup-container p{
   color: #c9c4c4;
   font-weight: 100;
+  font-size: 1.2rem;
 }
 .login-signup-container a{
   text-decoration: none;
