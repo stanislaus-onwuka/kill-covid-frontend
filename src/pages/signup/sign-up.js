@@ -7,7 +7,7 @@ import {Link} from "react-router-dom"
 
 const signup = () => {
     return(
-       <>
+       <div>
             <section className="signup">
                   <div className="signup-container">
                         <div className="heading">
@@ -19,19 +19,22 @@ const signup = () => {
                            <input name="username" placeholder="Create a username"/>
                            <input type="submit" value="Sign Up" className="signup-submit"/>
                         </form>
-                        <em>Or Sign up with</em>
+                        <em className="socials-text">Or Sign up with</em>
                         <div className="socials">
-                           <img src={twitter} alt="twitter" />
-                           <img src={facebook} alt="facebook" />
-                           <img src={google} alt="google" />
+                          {/* eslint-disable-next-line */}
+                           <a href="#" className="twitter-logo"><img src={twitter} alt='twitter-logo'></img></a>
+                           {/* eslint-disable-next-line */}
+                           <a href="#" className="facebook-logo"><img src={facebook} alt='facebook-logo'></img></a>
+                           {/* eslint-disable-next-line */}
+                           <a href="#" className="google-logo"><img src={google} alt='google-logo'></img></a>
                         </div>
-                        <em>Already have an account?</em>
+                        <em className="socials-text">Already have an account?</em>
                          <div className="signup-login-btn">
-                            <Link to="/Login">Log In</Link>
+                            <Link className="btn" to="/Login">Log In</Link>
                          </div>  
                   </div>   
-            </section>                    
-       </>
+            </section>                  
+       </div>
     );
 }
 

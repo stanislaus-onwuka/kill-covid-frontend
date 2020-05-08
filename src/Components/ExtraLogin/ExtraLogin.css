@@ -1,9 +1,10 @@
 .extra-login-container{
   margin: 1rem auto;
   text-align: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 .extra-login-container p{
+  font-size: 1.2rem;
   color: #c9c4c4;
 }
 .login-links-container {
@@ -14,5 +15,5 @@
 }
 .twitter-logo img,.facebook-logo img,.google-logo img{
   width: 3rem;
-  margin: .2rem;
+  margin: .5rem;
 }
