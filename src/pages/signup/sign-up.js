@@ -11,12 +11,16 @@ const signup = () => {
             <section className="signup">
                   <div className="signup-container">
                         <div className="heading">
-                           <h1>Sign up</h1>
+                           <h2>Sign up</h2>
                            <em>Create an account</em>
                         </div>
                         <form>
-                           <input name="phone" placeholder="Phone Number"/>
-                           <input name="username" placeholder="Create a username"/>
+                           <input name="phone" 
+                           type="text"
+                           placeholder="Phone Number"/>
+                           <input name="username" 
+                           type="text"
+                           placeholder="Create a username"/>
                            <input type="submit" value="Sign Up" className="signup-submit"/>
                         </form>
                         <em className="socials-text">Or Sign up with</em>
