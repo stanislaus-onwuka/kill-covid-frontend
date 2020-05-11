@@ -18,6 +18,21 @@
 .dashboard a{
   transform: translateY(.5rem);
 }
+.dashboard-control{
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  height: 3.5rem;
+}
+.dashboard-control span{
+  margin: 0 auto;
+  margin-top: .4rem;
+}
+.dashboard-control .circle{
+  width: .5rem;
+}
+
 .dashboard img{
   width: 1.5rem;
 }
+
