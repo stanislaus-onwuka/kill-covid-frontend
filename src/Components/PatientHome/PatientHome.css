@@ -1,0 +1,128 @@
+.patient-home-container{
+  padding-top: 2rem;
+  width: 90%;
+  margin: 0 auto;
+}
+.patient-home-profile{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.patient-home-profile img{
+  width: 3rem;
+  border-radius: 50%;
+}
+.patient-home-profile em{
+  margin-top: 1rem;
+  font-style: normal;
+  color: #a8a4a4;
+}
+.patient-home-records-container em{
+  font-size: 2rem;
+  font-style: normal;
+  color: #224a68;
+}
+.patient-home-records{
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.patient-home-body-temp,.patient-home-body-pressure{
+  padding: .5rem;
+  width: 48%;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  color: #224a68;
+  box-shadow: 0 .1rem .4rem rgba(0,0,0,.2);
+}
+.patient-home-body-temp{
+  background-color: #f3e8d4;
+}
+.patient-home-body-temp img,.patient-home-body-pressure img{
+  width: 1.5rem;
+  margin: .3rem 0 0 .3rem;
+  display: block;
+}
+.patient-home-body-temp .text,.patient-home-body-pressure .text{
+  display: inline-block;
+  font-size: 1rem;
+  margin: 1rem 0 0 .3rem;
+}
+.patient-home-body-temp .temp,.patient-home-body-pressure .pressure{
+  display: block;
+  margin: .8rem 0 .3rem .3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.patient-home-body-pressure{
+  background-color: #f5dfdf;
+  margin-left: 4%;
+}
+
+.patient-home-records a{
+  margin: 1rem 0;
+  display: block;
+  width: 100vw;
+  text-align: right;
+  color: #2c72a8;
+  text-decoration: none;
+}
+.patient-home-indication-box{
+  display: flex;
+  width: 100%;
+  background-color: #99e283;
+  color: #0b6319;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 .1rem .4rem rgba(0,0,0,.2);
+  justify-content: space-between;
+}
+.patient-home-indication-box img{
+  width: 20%;
+  margin-right: 2rem;
+}
+.patient-home-indication-box .text{
+  margin-top: .4rem;
+}
+.patient-home-indication-box .text em{
+  color: #0b6319;
+}
+.patient-home-indication-box .text p{
+  font-size: .8rem;
+}
+.patient-home-indication-box .text span{
+  display: block;
+}
+.patient-home-activity{
+  margin: 1rem 0;
+}
+.patient-home-activity em{
+  font-style: normal;
+  display: inline-block;
+  color: #224a68;
+  padding: 1rem;
+  padding-left: 0;
+}
+.patient-home-acivity-schedule-container{
+  padding: 1rem;
+  padding-top: 0;
+  border: solid 1px rgba(0,0,0,.2);
+  border-radius: 1rem;
+}
+.patient-home-acivity-schedule-container em{
+  padding: 1rem 0 1rem 1rem;
+  font-size: .8rem;
+}
+.patient-home-acivity-schedule{
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem;
+  border-bottom: solid 1px rgba(0,0,0,.2);
+  color: #224a68;
+}
+.patient-home-acivity-schedule span:first-child{
+  font-weight: 600;
+}
+.patient-home-acivity-schedule img{
+  width: 1.5rem;
+}

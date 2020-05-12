@@ -8,7 +8,9 @@ import circle from './../../Assets/svg/circle.svg';
 import info from './../../Assets/svg/info.svg';
 import message from './../../Assets/svg/message.svg';
 import profile from './../../Assets/svg/profile.svg';
+import PatientHome from '../../Components/PatientHome/PatientHome';
 import './Patient.css';
+
 
 class Patient extends Component{
   constructor(){
@@ -23,52 +25,45 @@ class Patient extends Component{
       console.log(this.state)
     });
   }
+  setContent(){
+    switch(this.state.page){
+      case 'home':
+        return <PatientHome />
+      default:
+        return <>
+          I have not been set yet
+        </>
+    }
+  }
+  setDashboard(pageName,activeIcon,inactiveIcon){
+    if(this.state.page===pageName){
+      return <>
+        <a onClick={()=> this.onLinkClick(pageName)} href="#"><img src={activeIcon} alt='home-icon'></img></a>
+        <span><img className="circle" src={circle} alt='circle-icon'></img></span>
+      </>
+    }
+    else{
+     return <a onClick={()=> this.onLinkClick(pageName)} href="#"><img src={inactiveIcon} alt='home-icon'></img></a>
+    }
+  }
 
   render(){
     return(
       <div className="patient-container">
-
+        {this.setContent()}
+        <div className="spacing"></div>
         <div className="dashboard">
           <div className="dashboard-control">
-            {
-              this.state.page==='home'
-              ? <>
-                <a onClick={()=> this.onLinkClick('home')} href="#"><img src={activeHome} alt='home-icon'></img></a>
-                <span><img className="circle" src={circle} alt='circle-icon'></img></span>
-              </>
-              : <a onClick={()=> this.onLinkClick('home')} href="#"><img src={home} alt='home-icon'></img></a>
-            }
+            { this.setDashboard('home',activeHome,home) }
           </div>
           <div className="dashboard-control">
-            {
-              this.state.page==='info'
-              ? <>
-                <a onClick={()=> this.onLinkClick('info')} href="#"><img src={activeInfo} alt='info-icon'></img></a>
-                <span><img className="circle" src={circle} alt='circle-icon'></img></span>
-              </>
-              : <a onClick={()=> this.onLinkClick('info')} href="#"><img src={info} alt='info-icon'></img></a>
-            }
+            { this.setDashboard('info',activeInfo,info) }
           </div>
           <div className="dashboard-control">
-           {
-              this.state.page==='message'
-              ? <>
-                <a onClick={()=> this.onLinkClick('message')} href="#"><img src={activeMessage} alt='mesage-icon'></img></a>
-                <span><img className="circle" src={circle} alt='circle-icon'></img></span>
-              </>
-              : <a onClick={()=> this.onLinkClick('message')} href="#"><img src={message} alt='mesage-icon'></img></a>
-            }
-            
+            { this.setDashboard('message',activeMessage,message) }
           </div>
           <div className="dashboard-control">
-            {
-              this.state.page==='profile'
-              ? <>
-                <a onClick={()=> this.onLinkClick('profile')} href="#"><img src={activeProfile} alt='profile-icon'></img></a>
-                <span><img className="circle" src={circle} alt='circle-icon'></img></span>
-              </>
-              : <a onClick={()=> this.onLinkClick('profile')} href="#"><img src={profile} alt='profile-icon'></img></a>
-            }
+            { this.setDashboard('profile',activeProfile,profile) }
           </div>
         </div>
       </div>
