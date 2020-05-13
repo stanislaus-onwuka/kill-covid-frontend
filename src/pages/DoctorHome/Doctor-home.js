@@ -1,4 +1,4 @@
-import React from './node_modules/react'
+import React from 'react'
 import "./Doctor-home.css"
 import Report from "../../Components/DoctorHomeReports/DoctorHomeReports"
 import ProfilePic from "../../Assets/avatar.svg"
