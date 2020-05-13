@@ -23,9 +23,7 @@ class Patient extends Component{
   }
 
   onLinkClick(page){
-    this.setState({page},()=>{
-      console.log(this.state)
-    });
+    this.setState({page});
   }
   setContent(){
     switch(this.state.page){

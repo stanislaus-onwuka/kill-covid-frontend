@@ -35,3 +35,13 @@
 .patient-home-activity-schedule img{
   width: 1.5rem;
 }
+@media screen and (max-width:380px){
+  .patient-home-activity-schedule{
+    font-size: .75rem;
+    padding: 0;
+    margin-top: .6rem;
+  }
+  .patient-home-activity-schedule span:first-child{
+    margin-right: 0;
+  }
+}

@@ -67,7 +67,7 @@
   display: block;
   text-align: right;
   font-style: normal;
-  margin: .5rem 0 1rem 0;
+  margin: 1rem 0 1rem 0;
 }
 .patient-profile-container button{
   display: block;
@@ -76,4 +76,9 @@
   border: none;
   border-radius: .5rem;
   background-color: #9bc3d8;
+}
+@media screen and (max-width:360px){
+  .patient-profile-container .quarantine .objective span:first-child,.patient-profile-container .quarantine .countdown span:first-child{
+    font-size: 2rem;
+  }
 }
