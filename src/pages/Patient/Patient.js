@@ -9,6 +9,8 @@ import info from './../../Assets/svg/info.svg';
 import message from './../../Assets/svg/message.svg';
 import profile from './../../Assets/svg/profile.svg';
 import PatientHome from '../../Components/PatientHome/PatientHome';
+import PatientInfo from '../../Components/PatientInfo/PatientInfo';
+import PatientProfile from '../../Components/PatientProfile/PatientProfile';
 import './Patient.css';
 
 
@@ -29,6 +31,10 @@ class Patient extends Component{
     switch(this.state.page){
       case 'home':
         return <PatientHome />
+      case 'info':
+        return <PatientInfo />
+      case 'profile':
+        return <PatientProfile />
       default:
         return <>
           I have not been set yet

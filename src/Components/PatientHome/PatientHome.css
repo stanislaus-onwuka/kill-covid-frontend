@@ -93,36 +93,4 @@
 .patient-home-indication-box .text span{
   display: block;
 }
-.patient-home-activity{
-  margin: 1rem 0;
-}
-.patient-home-activity em{
-  font-style: normal;
-  display: inline-block;
-  color: #224a68;
-  padding: 1rem;
-  padding-left: 0;
-}
-.patient-home-acivity-schedule-container{
-  padding: 1rem;
-  padding-top: 0;
-  border: solid 1px rgba(0,0,0,.2);
-  border-radius: 1rem;
-}
-.patient-home-acivity-schedule-container em{
-  padding: 1rem 0 1rem 1rem;
-  font-size: .8rem;
-}
-.patient-home-acivity-schedule{
-  display: flex;
-  justify-content: space-between;
-  padding: .5rem;
-  border-bottom: solid 1px rgba(0,0,0,.2);
-  color: #224a68;
-}
-.patient-home-acivity-schedule span:first-child{
-  font-weight: 600;
-}
-.patient-home-acivity-schedule img{
-  width: 1.5rem;
-}
+

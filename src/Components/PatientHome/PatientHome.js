@@ -2,9 +2,8 @@ import React from 'react';
 import profilePic from './../../Assets/prof.png';
 import temperature from './../../Assets/svg/temperature.svg';
 import pressure from './../../Assets/svg/pressure.svg';
-import checked from './../../Assets/svg/checked.svg';
-import bell from './../../Assets/svg/bell.svg';
 import happy from './../../Assets/svg/happy.svg';
+import ActivitySchedule from './../ActivitySchedule/ActivitySchedule';
 import './PatientHome.css'
 
 const PatientHome = () => {
@@ -37,37 +36,7 @@ const PatientHome = () => {
           </div>
         </div>
       </section>
-      <section className="patient-home-activity">
-        <em>Activity Schedule</em>
-        <div className="patient-home-acivity-schedule-container">
-          <em>WAT</em>
-          <div className="patient-home-acivity-schedule">
-            <span>7:00</span>
-            <span>Take 200mg of Paracetamol</span>
-            <img src={checked} alt="checked-icon"></img>
-          </div>
-          <div className="patient-home-acivity-schedule">
-            <span>8:00</span>
-            <span>Take 200mg of Paracetamol</span>
-            <img src={checked} alt="checked-icon"></img>
-          </div>
-          <div className="patient-home-acivity-schedule">
-            <span>9:00</span>
-            <span>Take 200mg of Paracetamol</span>
-            <img src={checked} alt="checked-icon"></img>
-          </div>
-          <div className="patient-home-acivity-schedule">
-            <span>10:00</span>
-            <span>Take 200mg of Paracetamol</span>
-            <img src={bell} alt="checked-icon"></img>
-          </div>
-          <div className="patient-home-acivity-schedule">
-            <span>11:00</span>
-            <span>Take 200mg of Paracetamol</span>
-            <img src={bell} alt="checked-icon"></img>
-          </div>
-        </div>
-      </section>
+      <ActivitySchedule />
     </div>
   );
 }
