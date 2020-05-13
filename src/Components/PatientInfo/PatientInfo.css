@@ -22,6 +22,7 @@
   background-color: #fff;
   border-radius: 1.5rem;
   display: flex;
+  box-shadow: 0 .1rem 1rem rgba(0,0,0,.2);
 }
 .patient-info-container .info-tab .img-div{
   width: 4rem;
