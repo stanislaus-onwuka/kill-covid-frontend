@@ -1,5 +1,14 @@
-*{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+@font-face{
+  font-family: 'SF Pro Text';
+  src: url('./Assets/font/SFProText-Medium.eot');
+  src: url('./Assets/font/SFProText-Medium.eot?#iefix') format('embedded-opentype'),
+  url('./Assets/font/SFProText-Medium.woff') format('woff'),
+  url('./Assets/font/SFProText-Medium.woff2') format('woff2'),
+  url('./Assets/font/SFProText-Medium.ttf') format('truetype'),
+  url('./Assets/font/SFProText-Medium.svg#SFProText-Medium') format('svg');
+}
+body{
+  font-family: 'SF Pro Text',Verdana, Geneva, Tahoma, sans-serif;
 }
 button{
   cursor: pointer;

@@ -1,6 +1,6 @@
+
 .signup{
-    height: 100vh;
-    width: 100%;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,39 +11,61 @@
 }
 
 .signup-container{
-    width: 50%;
+    width: 100%;
+    min-height: 100vh;
 }
 
-.signup h1{
+.signup-container .heading{
+    margin-top: 5rem;
+    margin-bottom: 1.5rem;
+}
+
+.signup h2{
     color: #234661;
-    margin: 0;
+    font-size: 2rem;
+    letter-spacing: .2rem;
+    font-weight: 500;
+}
+
+.signup em{
+    color: #c9c4c4;
+    font-style: normal;
+    font-size: 1rem;
 }
 
 .signup form{
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    margin: 0 auto;
 }
 
 form input{
     padding: 10px;
     border: 2px solid #234661;
     border-radius: 10px;
-    margin-bottom: 7px;
+    margin: 0 auto;
+    display: block;
+    padding: 1rem;
+    width: 80% ;
+    border: solid 2px #234661;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
 }
 
-.signup a{
-    padding: 10px 70px;    
-    border: 2px solid #234661;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #234661;
-}
 
 form input::placeholder{
-    font-size: 12px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #a69fae;
+}
+.signup-container em{
+    display: inline-block;
+    margin: 1rem;
+    font-size: 1.2rem;
+}
+.signup-container em.socials-text{
+    
+    margin-top: 2rem;
 }
 
 .heading{
@@ -53,25 +75,35 @@ form input::placeholder{
 .socials{
     display: flex;
     justify-content: space-around;
-    width: 150px;
-    margin: auto;
+    margin: 0 auto;
+    width: 45%;
 }
 
-.socials img{
-    height: 2.5rem;
+.socials a{
+    width: 3rem;
+    margin: .5rem;
 }
 
 .signup-submit{
     background-color: #234661;
     border: 0px;
     color: #fff;
-    width: 200px;
-    margin: auto;
+    font-size: 1rem;
+    font-family: 'SF Pro Text',Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
-@media only screen and (max-width: 500px){
-        .signup-container{
-            width: 75%;
-        }
+.signup-login-btn a{
+    text-decoration: none;
+    font-size: 1rem;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    display: block;
+    padding: 1rem;
+    width: 80% ;
+    color: #234661;
+    background-color: #fff;
+    border: solid 1px #234661;
+    border-radius: 1rem;
+    font-weight: 600;
+    letter-spacing: .2rem;
 }

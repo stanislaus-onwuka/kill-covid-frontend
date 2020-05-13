@@ -1,0 +1,35 @@
+.evaluation-container{
+  background-color: #f0f2f6;
+  min-height: 100vh;
+  padding-top: 5rem;
+}
+.evaluation-container .footer-svg{
+  /* margin-top: 5rem; */
+  transform: translateY(4rem);
+  width: 100%;
+  display: block;
+}
+.scrollable{
+  height: 45vh;
+  overflow-y: scroll;
+}
+input[type="text"]::placeholder{
+  letter-spacing: .1rem;
+  font-family: 'SF Pro Text',Verdana, Geneva, Tahoma, sans-serif;
+}
+
+@media (orientation: landscape){
+  .evaluation-container{
+    background-color: #f0f2f6;
+    min-height: 100vh;
+    padding-top: 2rem;
+    
+  }
+  .evaluation-container .footer-svg{
+    margin-top: 5rem;
+    position: static;
+    /* position: absolute;
+    bottom: 0; */
+    width: 100%;
+  }
+}
