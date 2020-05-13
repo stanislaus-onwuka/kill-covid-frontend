@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Login from './Pages/login/login.js';
-import Signup from "./Pages/signup/sign-up.js";
-import Evaluation from './Pages/Evaluation/Evaluation.js';
-import DoctorHome from "./Pages/Doctor Home/Doctor-home"
+import Login from "./pages/login/login";
+import Signup from "./pages/signup/sign-up.js";
+import Evaluation from './pages/Evaluation/Evaluation.js';
+import DoctorHome from "./pages/DoctorHome/Doctor-home";
 import './App.css';
 
 
