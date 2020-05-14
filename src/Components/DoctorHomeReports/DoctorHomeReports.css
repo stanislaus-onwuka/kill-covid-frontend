@@ -1,0 +1,24 @@
+.placard {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #c3c3c3;
+}
+
+.placard img {
+    height: 50px;
+}
+
+.arr{
+    height: 30px !important;
+}
+
+.placard-content h2 {
+    font-size: 20px;
+}
+
+.placard-content em {
+    font-size: 16px;
+}

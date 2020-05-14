@@ -1,0 +1,51 @@
+body{
+    font-family: Verdana,
+    Geneva,
+    Tahoma,
+    sans-serif !important;
+}
+
+.dhomeContainer {
+    height: 100vh;
+    width: 100%;
+    background-color: #eee;
+}
+
+.dhomeHeader {
+    height: 30vh;
+    width: 100%;
+    background-color: #234661;
+    color: #fff;
+    font-weight: lighter;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.dhomeHeader h1 {
+    font-size: 24px;
+    letter-spacing: 1.2px;
+    margin-left:
+        10px;
+}
+
+.dhomeHeader p {
+    color: #eee;
+    font-size: 16px;
+    margin: 15px 10px;
+}
+
+.dhomeHeader input {
+    padding: 15px;
+    border: none;
+    border-radius: 300px;
+    margin: 0 auto;
+    position: absolute;
+    top: 170px;
+    left: 25vw;
+}
+
+.reports{
+    margin-top: 20px;
+}
