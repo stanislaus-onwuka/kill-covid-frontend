@@ -77,8 +77,70 @@
   border-radius: .5rem;
   background-color: #9bc3d8;
 }
+.patient-symptom-container{
+  width: 100%;
+  padding: 2rem;
+  padding-top: 4rem;
+}
+.patient-symptom-container img{
+  width: 1.5rem;
+  margin-top: .2rem;
+  position: absolute;
+}
+.patient-symptom-container h1{
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #224a68;
+  text-align: center;
+}
+.patient-symptom-container .select-boxes{
+  margin: 4rem 0 0 1rem;
+}
+.patient-symptom-container .select-boxes .spacing{
+  margin: .3rem 0 .3rem 1rem;
+  height: 2.5rem;
+  border-left: dashed 1px black;
+}
+.patient-symptom-container .select-boxes .select-box input[type="checkbox"]{
+  visibility: hidden;
+  display: none;
+}
+.patient-symptom-container .select-boxes .select-box{
+  position: relative;
+}
+.patient-symptom-container .select-boxes .select-box label{
+  font-size: 1.5rem;
+  padding-left: 4rem;
+  display: inline-block;
+  color: #224a68;
+  z-index: 2;
+}
+.patient-symptom-container .select-boxes .select-box .check{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background-color: #c9c4c4;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.patient-symptom-container .select-boxes .select-box input[type="checkbox"]:checked + span{
+ background: url('./../../Assets/svg/ticked.svg');
+ background-position: center;
+ background-size: contain;
+}
+
+
+
+
 @media screen and (max-width:360px){
   .patient-profile-container .quarantine .objective span:first-child,.patient-profile-container .quarantine .countdown span:first-child{
     font-size: 2rem;
   }
 }
+
+
+

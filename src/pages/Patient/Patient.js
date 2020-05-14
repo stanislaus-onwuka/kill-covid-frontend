@@ -11,6 +11,7 @@ import profile from './../../Assets/svg/profile.svg';
 import PatientHome from '../../Components/PatientHome/PatientHome';
 import PatientInfo from '../../Components/PatientInfo/PatientInfo';
 import PatientProfile from '../../Components/PatientProfile/PatientProfile';
+import PatientConsultation from '../../Components/PatientConsultation/PatientConsultation';
 import './Patient.css';
 
 
@@ -18,7 +19,7 @@ class Patient extends Component{
   constructor(){
     super();
     this.state = {
-      page : 'home'
+      page : 'consultation'
     }
   }
 
@@ -33,6 +34,8 @@ class Patient extends Component{
         return <PatientInfo />
       case 'profile':
         return <PatientProfile />
+      case 'consultation':
+        return <PatientConsultation />
       default:
         return <>
           I have not been set yet
@@ -64,7 +67,7 @@ class Patient extends Component{
             { this.setDashboard('info',activeInfo,info) }
           </div>
           <div className="dashboard-control">
-            { this.setDashboard('message',activeMessage,message) }
+            { this.setDashboard('consultation',activeMessage,message) }
           </div>
           <div className="dashboard-control">
             { this.setDashboard('profile',activeProfile,profile) }

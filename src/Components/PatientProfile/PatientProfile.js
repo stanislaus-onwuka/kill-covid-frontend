@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import userImage from './../../Assets/prof.png';
+import backIcon from './../../Assets/svg/arrow-left.svg';
 import ActivitySchedule from './../ActivitySchedule/ActivitySchedule';
 import './PatientProfile.css';
 
@@ -42,14 +43,79 @@ class PatientProfile extends Component {
         </div>
       );
     }else{
-      return <div>
-        Hello there
+      return <div className="patient-symptom-container">
+      <img onClick={()=>{this.onButtonClick('home')}} src={backIcon} alt='back-icon'></img>
+      <h1>Add Symptoms</h1>
+      <div className="select-boxes">
+  
+        <div className='select-box'>
+          <label  htmlFor="mild-cough">
+            Mild Cough
+            <input type="checkbox" id="mild-cough" name="mild-cough" value="mild-cough" />
+            <span className="check"></span>
+          </label>
+        </div>
+
+        <div className="spacing"></div>
+
+        <div className='select-box'>
+          <label  htmlFor="dry-cough">
+            Dry Cough
+            <input type="checkbox" id="dry-cough" name="dry-cough" value="dry-cough" />
+            <span className="check"></span>
+          </label>
+        </div>
+
+        <div className="spacing"></div>
+
+        <div className='select-box'>
+          <label  htmlFor="fatigue">
+            Fatigue
+            <input type="checkbox" id="fatigue" name="fatigue" value="fatigue" />
+            <span className="check"></span>
+          </label>
+        </div>
+
+        <div className="spacing"></div>
+
+        <div className='select-box'>
+          <label  htmlFor="fever">
+            Fever
+            <input type="checkbox" id="fever" name="fever" value="fever" />
+            <span className="check"></span>
+          </label>
+        </div>   
+
+        <div className="spacing"></div>         
+
+        <div className='select-box'>
+          <label  htmlFor="sore-throat">
+            Sore Throat
+            <input type="checkbox" id="sore-throat" name="sore-throat" value="sore-throat" />
+            <span className="check"></span>
+          </label>
+        </div>  
+
+        <div className="spacing"></div>
+
+        <div className='select-box'>
+          <label  htmlFor="difficulty-breathing">
+            Difficulty Breathing
+            <input type="checkbox" id="difficulty-breathing" name="difficulty-breathing" value="difficulty-breathing" />
+            <span className="check"></span>
+          </label>
+        </div>  
+
       </div>
+      
+    </div>
     }
   }
 
   render(){
-    return this.setDisplay();
+    return(
+        this.setDisplay()
+    );
   }
   
 }

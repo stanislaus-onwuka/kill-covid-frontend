@@ -1,0 +1,47 @@
+.patient-consultation-container{
+  width: 100%;
+  padding: 2rem;
+  color: #224a68;
+}
+.patient-consultation-container h1{
+  text-align: center;
+  margin: 2rem 0 3rem 0;
+}
+.patient-consultation-container em{
+  font-style: normal;
+}
+.patient-consultation-container .consult-box{
+  background-color: #fff;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 .1rem .3rem rgba(0,0,0,.3);
+}
+.patient-consultation-container .consult-box .header{
+  display: flex;
+  justify-content: space-between;
+}
+.patient-consultation-container .consult-box .header em:first-child{
+  font-weight: 600;
+}
+.patient-consultation-container .consult-box p{
+  font-size: .85rem;
+  margin-top: 1rem;
+}
+.patient-consultation-container .emergency{
+  display: inline-block;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 3.5rem;
+  text-align: center;
+}
+.patient-consultation-container .emergency button{
+  color: #fff;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  background-color: #ef4747;
+  border: none;
+  font-size: 1.1rem;
+}
