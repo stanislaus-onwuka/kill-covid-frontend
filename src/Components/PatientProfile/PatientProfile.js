@@ -24,7 +24,7 @@ class PatientProfile extends Component {
         <div className="patient-profile-container">
           <h1>My Account</h1>
           <div className="patient-info">
-            <img src={userImage} alt='patient-image'></img>
+            <img src={userImage} alt='patient'></img>
             <em>Paul Okoye</em>
           </div>
           <div className="quarantine">

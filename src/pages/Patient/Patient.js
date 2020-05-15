@@ -19,7 +19,7 @@ class Patient extends Component{
   constructor(){
     super();
     this.state = {
-      page : 'consultation'
+      page : 'home'
     }
   }
 
@@ -45,12 +45,16 @@ class Patient extends Component{
   setDashboard(pageName,activeIcon,inactiveIcon){
     if(this.state.page===pageName){
       return <>
+        {/* eslint-disable-next-line */}
         <a onClick={()=> this.onLinkClick(pageName)} href="#"><img src={activeIcon} alt='home-icon'></img></a>
         <span><img className="circle" src={circle} alt='circle-icon'></img></span>
       </>
     }
     else{
-     return <a onClick={()=> this.onLinkClick(pageName)} href="#"><img src={inactiveIcon} alt='home-icon'></img></a>
+     return <>
+     {/* eslint-disable-next-line */}
+     <a onClick={()=> this.onLinkClick(pageName)} href="#"><img src={inactiveIcon} alt='home-icon'></img></a>
+     </>
     }
   }
 

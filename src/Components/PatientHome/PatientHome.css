@@ -94,6 +94,83 @@
   display: block;
 }
 
+.patient-record-container{
+  width: 100%;
+  padding: 2rem;
+  padding-top: 4rem;
+}
+.patient-record-container img{
+  z-index: 2;
+  margin-top: 0.5rem;
+  width: 1.5rem;
+  position: absolute;
+}
+.patient-record-container h1{
+  font-weight: 100;
+  font-size: 2rem;
+  color: #224a68;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.patient-record-container .switch-btn{
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  border-radius: 1rem;
+}
+.patient-record-container .switch-btn button{
+  background-color: transparent;
+  border-radius: 1rem;
+  border: none;
+  width: 50%;
+  color: #224a68;
+  padding: 1rem;
+  font-size: 1rem;
+  transition: all .3s;
+}
+
+.switch-btn .temp:focus,.switch-btn .pressure:focus{
+  outline: 0;
+}
+.patient-record-container .switch-btn button.active{
+  background-color: #f3e8d4;
+  box-shadow: 0 .2rem .3rem rgba(0,0,0,.2);
+}
+.patient-record-container .current-record{
+  margin: 2rem auto;
+  text-align: center;
+  color: #224a68;
+}
+.patient-record-container .current-record em{
+  display: block;
+}
+.patient-record-container .current-record em:first-child{
+  font-style: normal;
+  font-size: 1.2rem;
+}
+.patient-record-container .current-record em:nth-child(2){
+  padding-top: 1rem;
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 600;
+}
+.patient-record-container .graph-container img.graph{
+  width: 100%;
+  position: static;
+  margin: 1rem auto;
+  margin-bottom: 2rem;
+}
+.patient-record-container .graph-container ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.patient-record-container .graph-container ul li{
+  list-style: none;
+  color: #6ba9d8;
+}
+
+
 @media screen and (max-width:335px){
   .patient-home-body-temp .temp,.patient-home-body-pressure .pressure{
     font-size: 1rem;
