@@ -1,0 +1,60 @@
+.patient-info-container{
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.patient-info-container h1{
+  text-align: center;
+  color: #224a68;
+  margin: 2rem 0 2rem 0;
+}
+.patient-info-container input{
+  width: 100%;
+  padding: .7rem;
+  background-color: #e2e2e4 ;
+  font-size: .8rem;
+  border: none;
+  border-radius: .5rem;
+}
+.patient-info-container .info-tab{
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 1.5rem;
+  display: flex;
+  box-shadow: 0 .1rem 1rem rgba(0,0,0,.2);
+}
+.patient-info-container .info-tab .img-div{
+  width: 4rem;
+  height: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  border-radius: 50%;
+}
+.patient-info-container .info-tab .img-virus{
+  background-color: #f5b4b4;
+}
+.patient-info-container .info-tab .img-symptom{
+  background-color: #8d9fae;
+}
+.patient-info-container .info-tab .img-prevention{
+  background-color: #99e283;
+}
+.patient-info-container .info-tab .img-div img{
+  width: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.patient-info-container .info-tab .text{
+  margin: 2rem 0 0 1rem;
+}
+.patient-info-container .info-tab .text h2{
+  color: #224a68;
+  margin-bottom: .5rem;
+}
+.patient-info-container .info-tab .text p{
+  color: #b3b3b4;
+}
