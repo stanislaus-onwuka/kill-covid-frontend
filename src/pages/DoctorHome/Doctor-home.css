@@ -11,6 +11,11 @@ body{
     background-color: #eee;
 }
 
+.dh-container{
+    width: auto;
+    text-align: left;
+}
+
 .dhomeHeader {
     height: 30vh;
     width: 100%;
@@ -36,16 +41,29 @@ body{
     margin: 15px 10px;
 }
 
-.dhomeHeader input {
+.search {
     padding: 15px;
     border: none;
     border-radius: 300px;
     margin: 0 auto;
-    position: absolute;
-    top: 170px;
-    left: 25vw;
+    position: relative;
+    top: -25px;
+    width: 60%;
+    left: 20%;
 }
 
 .reports{
     margin-top: 20px;
+}
+
+@media only screen and (min-width: 700px){
+    .search{
+        width: 40%;
+        left: 30%;
+    }
+    .dh-container{
+        width: 80%;
+        text-align: center;
+        margin: auto;
+    }
 }

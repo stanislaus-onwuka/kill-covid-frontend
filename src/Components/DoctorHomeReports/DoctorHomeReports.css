@@ -1,6 +1,7 @@
 .placard {
     height: 100px;
-    width: 100%;
+    width: 60%;
+    margin: auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -11,14 +12,28 @@
     height: 50px;
 }
 
-.arr{
+.arr {
     height: 30px !important;
 }
 
 .placard-content h2 {
     font-size: 20px;
+    color: #234661;
+    margin-bottom: 5px;
 }
 
-.placard-content em {
+.placard-content p {
     font-size: 16px;
+    color: #A0A0A2;
+    margin: 5px 0;
+}
+
+.placard span {
+    color: #74ACC9;
+}
+
+@media only screen and (max-width: 700px) {
+    .placard {
+        width: 90%;
+    }
 }

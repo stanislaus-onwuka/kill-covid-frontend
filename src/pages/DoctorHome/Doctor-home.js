@@ -8,12 +8,14 @@ const doctorHome = () => {
             <>
                 <div className="dhomeContainer">
                     <div className="dhomeHeader">
-                        <h1>Welcome Dr Emmanuel</h1>
-                        <p>We appreciate your efforts in fighting covid-19<br />
-                           Please check for recently sent reports
-                        </p>
-                        <input name="search-home" placeholder="Search" />
+                        <div className="dh-container">
+                            <h1>Welcome Dr Emmanuel</h1>
+                            <p>We appreciate your efforts in fighting covid-19<br/>
+                            Please check for recently sent reports
+                            </p>
+                        </div>
                     </div>
+                    <input name="search-home" className="search" />
                     <div className="reports">
                         <Report profileImg={ProfilePic}
                             name="Paul Okoye"

@@ -8,8 +8,8 @@ const DoctorHomeReport = (props) => (
             <img src={props.profileImg} alt="img" />
                 <div className="placard-content">
                     <h2>{props.name}</h2>
-                    <em>Guaranteed on: <span>{props.grant}</span></em><br/>
-                    <em>Last Recorded Symptom: {props.symptom}</em>
+                    <p>Guaranteed on: <span>{props.grant}</span></p>
+                    <p>Last Recorded Symptom: <span>{props.symptom}</span></p>
                 </div>
             <img src={arrow} alt="arrowimg" className="arr" />
         </div>
