@@ -23,7 +23,9 @@ class PatientHome extends Component {
         <div className='patient-home-container'>
           <div className="patient-home-profile">
             <em> Welcome Paul,</em>
-            <img src={profilePic} alt="patient"></img>
+            <div>
+              <img src={profilePic} alt="patient"></img>
+            </div>
           </div>
           <section className="patient-home-records-container">
             <em>Here is our most recent record of you.</em>

@@ -12,27 +12,27 @@ const ActivitySchedule = () => {
       <div className="patient-home-activity-schedule">
         <span>7:00</span>
         <span>Take 200mg of Paracetamol</span>
-        <img src={checked} alt="checked-icon"></img>
+        <div><img src={checked} alt="checked-icon"></img></div>
       </div>
       <div className="patient-home-activity-schedule">
         <span>8:00</span>
         <span>Take 200mg of Paracetamol</span>
-        <img src={checked} alt="checked-icon"></img>
+        <div><img src={checked} alt="checked-icon"></img></div>
       </div>
       <div className="patient-home-activity-schedule">
         <span>9:00</span>
         <span>Take 200mg of Paracetamol</span>
-        <img src={checked} alt="checked-icon"></img>
+        <div><img src={checked} alt="checked-icon"></img></div>
       </div>
       <div className="patient-home-activity-schedule">
         <span>10:00</span>
         <span>Take 200mg of Paracetamol</span>
-        <img src={bell} alt="checked-icon"></img>
+        <div><img src={bell} alt="checked-icon"></img></div>
       </div>
       <div className="patient-home-activity-schedule">
         <span>11:00</span>
         <span>Take 200mg of Paracetamol</span>
-        <img src={bell} alt="checked-icon"></img>
+        <div><img src={bell} alt="checked-icon"></img></div>
       </div>
     </div>
   </section>
