@@ -106,6 +106,8 @@ class PatientProfile extends Component {
           </label>
         </div>  
 
+        <button onClick={()=>{this.onButtonClick('home')}}> Submit </button>
+
       </div>
       
     </div>

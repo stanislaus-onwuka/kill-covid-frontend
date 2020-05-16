@@ -132,7 +132,17 @@
  background-position: center;
  background-size: contain;
 }
-
+.patient-symptom-container .select-boxes button{
+  margin-top: 3rem;
+  padding: 1rem ;
+  border: none;
+  border-radius: 1rem;
+  background-color: #4482b1;
+  color: #fff;
+  width: 60%;
+  font-size: 1rem;
+  text-align: center;
+}
 
 
 
