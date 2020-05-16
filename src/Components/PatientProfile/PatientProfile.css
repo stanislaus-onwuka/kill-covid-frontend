@@ -1,0 +1,156 @@
+.patient-profile-container{
+  width: 100%;
+  padding: 1rem;
+}
+.patient-profile-container h1{
+  margin-top: 2rem;
+  text-align: center;
+  color: #224a68;
+  font-weight: 100;
+}
+.patient-profile-container .patient-info{
+  margin-top: 4rem;
+}
+.patient-profile-container .patient-info img{
+  width: 30%;
+  margin: 0 auto;
+  display: block;
+  padding: .1rem;
+  border: solid 2px #224a68;
+  border-radius: 50%;
+}
+.patient-profile-container .patient-info em{
+  display: block;
+  margin-top: 2rem;
+  text-align: center;
+  font-style: normal;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #224a68;
+}
+.patient-profile-container .quarantine{
+  width: 100%;
+  height: 10rem;
+  background-color: #fff;
+  border-radius: 2rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 .3rem .5rem rgba(0,0,0,.2);
+}
+.patient-profile-container .quarantine .objective,.patient-profile-container .quarantine .countdown{
+  padding: .5rem;
+  margin-top: 1rem;
+}
+.patient-profile-container .quarantine .objective span:first-child{
+  font-size: 2.5rem;
+  display: block;
+  color: #224a68;
+}
+.patient-profile-container .quarantine .objective span:nth-child(2){
+  color: #a8a4a4;
+  font-size: 1.1rem;
+}
+.patient-profile-container .quarantine .countdown span:first-child{
+  font-size: 2.5rem;
+  display: block;
+  color: #3591d8;
+}
+.patient-profile-container .quarantine .countdown span:nth-child(2){
+  color: #a8a4a4;
+  font-size: 1.1rem;
+}
+.patient-profile-container em.date{
+  color: #224a68;
+  font-size: 1.2rem;
+  display: block;
+  text-align: right;
+  font-style: normal;
+  margin: 1rem 0 1rem 0;
+}
+.patient-profile-container button{
+  display: block;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  border: none;
+  border-radius: .5rem;
+  background-color: #9bc3d8;
+}
+.patient-symptom-container{
+  width: 100%;
+  padding: 2rem;
+  padding-top: 4rem;
+}
+.patient-symptom-container img{
+  width: 1.5rem;
+  margin-top: .2rem;
+  position: absolute;
+}
+.patient-symptom-container h1{
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #224a68;
+  text-align: center;
+}
+.patient-symptom-container .select-boxes{
+  margin: 4rem 0 0 1rem;
+}
+.patient-symptom-container .select-boxes .spacing{
+  margin: .3rem 0 .3rem 1rem;
+  height: 2.5rem;
+  border-left: dashed 1px black;
+}
+.patient-symptom-container .select-boxes .select-box input[type="checkbox"]{
+  visibility: hidden;
+  display: none;
+}
+.patient-symptom-container .select-boxes .select-box{
+  position: relative;
+}
+.patient-symptom-container .select-boxes .select-box label{
+  font-size: 1.5rem;
+  padding-left: 4rem;
+  display: inline-block;
+  color: #224a68;
+  z-index: 2;
+}
+.patient-symptom-container .select-boxes .select-box .check{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background-color: #c9c4c4;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.patient-symptom-container .select-boxes .select-box input[type="checkbox"]:checked + span{
+ background: url('./../../Assets/svg/ticked.svg');
+ background-position: center;
+ background-size: contain;
+}
+.patient-symptom-container .select-boxes button{
+  margin-top: 3rem;
+  padding: 1rem ;
+  border: none;
+  border-radius: 1rem;
+  background-color: #4482b1;
+  color: #fff;
+  width: 60%;
+  font-size: 1rem;
+  text-align: center;
+}
+
+
+
+@media screen and (max-width:360px){
+  .patient-profile-container .quarantine .objective span:first-child,.patient-profile-container .quarantine .countdown span:first-child{
+    font-size: 2rem;
+  }
+}
+
+
+

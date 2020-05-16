@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import {Link} from 'react-router-dom';
 import './EvalContent.css';
 
 let countries =  [
@@ -407,6 +408,20 @@ class EvalContent extends Component{
 		}
 	
 		}
+	displayContinueBtn = () => {
+		if(this.state.pageNo > 1 && this.state.pageNo <=4){
+			return <>
+			{/* eslint-disable-next-line */}
+			<a className="eval-next-btn" href="#" onClick={this.switchPage}> Next </a>
+			</>
+		}
+		else if(this.state.pageNo===5){
+			return <>
+			{/* eslint-disable-next-line */}
+			<Link className="eval-next-btn" to="/Patient"> Finish </Link>
+			</>
+		}
+	}
 	
 
 	render(){
@@ -414,11 +429,8 @@ class EvalContent extends Component{
 			<div className="eval-content-container">
 
 			{this.renderComp()}
-			{
-				this.state.pageNo >1 
-				?	<a className="eval-next-btn" href="#" onClick={this.switchPage}> Next </a>
-				: console.log()
-			}		
+		
+			{this.displayContinueBtn()}		
 
 			</div>
 		)
