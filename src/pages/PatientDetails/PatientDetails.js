@@ -47,6 +47,12 @@ const PatientDetails = () => {
                             <Prescription />
                         </div>
                     </div>
+
+                    <div className="body-temp">
+                        <div className="head-container">
+                            <h4>BODY TEMPERATURE</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
