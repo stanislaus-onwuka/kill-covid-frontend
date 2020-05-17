@@ -12,3 +12,9 @@
 .patient-history h3 {
     font-weight: lighter;
 }
+
+@media only screen and (min-width: 700px){
+    .patient-history{
+        width: 70%;
+    }
+}

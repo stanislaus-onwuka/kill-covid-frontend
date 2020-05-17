@@ -8,3 +8,10 @@
 .prescribe h4{
     font-weight: lighter;
 }
+
+
+@media only screen and (max-width: 500px){
+    .prescribe{
+        width: 85%;
+    }
+}
