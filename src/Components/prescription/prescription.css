@@ -1,0 +1,10 @@
+.prescribe{
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+}
+
+.prescribe h4{
+    font-weight: lighter;
+}

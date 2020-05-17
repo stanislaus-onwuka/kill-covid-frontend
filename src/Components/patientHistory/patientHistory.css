@@ -1,0 +1,14 @@
+.patient-history {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    height: 65px;
+    background-color: lightGray;
+    margin: 15px auto;
+    border-left: 5px solid #28abfa;
+}
+
+.patient-history h3 {
+    font-weight: lighter;
+}

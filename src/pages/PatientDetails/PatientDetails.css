@@ -1,0 +1,93 @@
+.PatientDetails {
+    width: 100%;
+    color: #234661;
+}
+
+.Pcontainer img {
+    height: 50px;
+}
+
+.Pbanner {
+    height: 220px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+
+.Pbanner h3 {
+    text-transform: uppercase;
+}
+
+.Pbanner h2,
+.Pbanner h3 {
+    font-weight: lighter;
+}
+
+.Pbanner h2 {
+    margin-bottom: 15px;
+}
+
+.Pbanner img {
+    margin-bottom: 5px;
+}
+
+.Pswitch {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+
+}
+
+.Pswitch div {
+    border-right: 1px solid lightgray;
+    height: 70px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Pprog {
+    border-bottom: 3px solid;
+}
+
+.Pswitch h4 {
+    font-weight: lighter;
+}
+
+.head-container{
+    width: 87%;
+    margin: auto;
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+
+.head-container2 {
+    width: 70%;
+    margin: auto;
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+}
+
+.head-container2 h4 {
+    font-weight: lighter;
+}
+
+.head-container h4{
+    color: #28abfa;
+    font-weight: lighter;
+}
