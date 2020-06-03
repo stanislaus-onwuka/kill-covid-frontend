@@ -13,6 +13,7 @@
 }
 .patient-profile-container .patient-info img{
   width: 30%;
+  max-width:220px;
   margin: 0 auto;
   display: block;
   padding: .1rem;

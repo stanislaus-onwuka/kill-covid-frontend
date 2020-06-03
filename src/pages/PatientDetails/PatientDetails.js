@@ -1,9 +1,9 @@
 import React from "react";
 import './PatientDetails.css';
 import profilePic from "../../Assets/avatar.svg"
-import PatientHistory from "../../Components/patientHistory/patientHistory";
-import Prescription from "../../Components/prescription/prescription"
-import prescription from "../../Components/prescription/prescription";
+import PatientHistory from "../../components/patientHistory/patientHistory";
+import Prescription from "../../components/prescription/prescription"
+import prescription from "../../components/prescription/prescription";
 
 const PatientDetails = () => {
     return (

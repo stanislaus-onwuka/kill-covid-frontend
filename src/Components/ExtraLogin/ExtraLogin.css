@@ -9,6 +9,7 @@
 }
 .login-links-container {
   width: 45%;
+  max-width:550px;
   display: flex;
   justify-content: space-around;
   margin: 1rem auto;
@@ -16,4 +17,13 @@
 .twitter-logo img,.facebook-logo img,.google-logo img{
   width: 3rem;
   margin: .5rem;
+  transition: 0.3s;
+}
+
+.login-links-container a{
+  transition: 0.3s;
+}
+
+.login-links-container a:hover{
+  transform: scale(1.1);
 }

@@ -17,6 +17,7 @@
   display: block;
   padding: 1rem;
   width: 80% ;
+  max-width:550px;
   color: #234661;
   background-color: #fff;
   border: solid 1px #234661;

@@ -18,7 +18,7 @@ function App() {
           <Route path="/Patient" component={Patient} />
           <Route path="/Patient-details" component={PatientDetails} />
           <Route path="/Doctor-Home" component={DoctorHome} />
-          <Route path="/" component={Signup} />
+          <Route path="/" component={Signup}/>
         </Switch>
     </div>
   );

@@ -8,6 +8,7 @@
   display: block;
   padding: 1rem;
   width: 80% ;
+  max-width:500px;
   border: solid 2px #234661;
   border-radius: 1rem;
   font-size: 1rem;
@@ -25,8 +26,14 @@
   margin-top: 1rem;
   padding: 1rem;
   width: 80% ;
+  max-width:500px;
   color: #fff;
   background-color: #234661;
   border: none;
   border-radius: 1rem;
+  transition: 0.3s;
+}
+
+.login-input-box-container a:hover{
+  background-color:#152a3a ;
 }
