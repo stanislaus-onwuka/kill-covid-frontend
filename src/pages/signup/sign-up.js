@@ -35,7 +35,12 @@ const signup = () => {
                         <em className="socials-text">Already have an account?</em>
                          <div className="signup-login-btn">
                             <Link className="btn" to="/Login">Log In</Link>
-                         </div>  
+                         </div>
+
+                        <div className="doctor-login">
+                           <p>Doctor?</p>
+                           <Link to="/Doctor-Home">Click Here</Link> 
+                        </div>  
                   </div>   
             </section>                  
        </div>

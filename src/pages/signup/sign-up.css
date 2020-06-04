@@ -127,3 +127,21 @@ form input::placeholder{
     color: #fff ;
     background-color: #234661;
 }
+
+.doctor-login{
+    padding: 1rem 0;
+}
+
+.doctor-login p{
+    font-size: 23px;
+}
+
+.doctor-login a{
+    text-decoration: none;
+    color: #152a3a;
+    font-size: 16px;
+}
+
+.doctor-login a:hover{
+    text-decoration: underline;
+}
