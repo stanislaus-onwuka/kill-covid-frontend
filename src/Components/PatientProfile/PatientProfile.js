@@ -1,4 +1,4 @@
-import React, { Component } from './node_modules/react';
+import React, { Component } from 'react';
 import userImage from './../../Assets/prof.png';
 import backIcon from './../../Assets/svg/arrow-left.svg';
 import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
