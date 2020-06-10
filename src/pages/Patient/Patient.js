@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import home from './../../Assets/svg/home.svg';
-import activeHome from './../../Assets/svg/active-home.svg';
-import activeInfo from './../../Assets/svg/active-info.svg';
-import activeMessage from './../../Assets/svg/active-message.svg';
-import activeProfile from './../../Assets/svg/active-profile.svg';
-import circle from './../../Assets/svg/circle.svg';
-import info from './../../Assets/svg/info.svg';
-import message from './../../Assets/svg/message.svg';
-import profile from './../../Assets/svg/profile.svg';
-import PatientHome from './../../components/PatientHome/PatientHome';
-import PatientInfo from './../../components/PatientInfo/PatientInfo';
-import PatientProfile from './../../components/PatientProfile/PatientProfile';
-import PatientConsultation from './../../components/PatientConsultation/PatientConsultation';
+import home from '../../Assets/svg/home.svg';
+import activeHome from '../../Assets/svg/active-home.svg';
+import activeInfo from '../../Assets/svg/active-info.svg';
+import activeMessage from '../../Assets/svg/active-message.svg';
+import activeProfile from '../../Assets/svg/active-profile.svg';
+import circle from '../../Assets/svg/circle.svg';
+import info from '../../Assets/svg/info.svg';
+import message from '../../Assets/svg/message.svg';
+import profile from '../../Assets/svg/profile.svg';
+import PatientHome from '../../components/PatientHome/PatientHome';
+import PatientInfo from '../../components/PatientInfo/PatientInfo';
+import PatientProfile from '../../components/PatientProfile/PatientProfile';
+import PatientConsultation from '../../components/PatientConsultation/PatientConsultation';
 import './Patient.css';
 
 
