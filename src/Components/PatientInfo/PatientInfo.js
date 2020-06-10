@@ -1,4 +1,4 @@
-import React from './node_modules/react';
+import React from 'react';
 import  virus from './../../Assets/svg/virus.svg';
 import  symptom from './../../Assets/svg/symptom1.svg';
 import  shield from './../../Assets/svg/shield.svg';
