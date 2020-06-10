@@ -1,4 +1,4 @@
-import React,{ Component } from './node_modules/react';
+import React,{ Component } from 'react';
 import profilePic from './../../Assets/prof.png';
 import temperature from './../../Assets/svg/temperature.svg';
 import pressure from './../../Assets/svg/pressure.svg';
