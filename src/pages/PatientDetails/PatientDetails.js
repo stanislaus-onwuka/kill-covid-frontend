@@ -11,11 +11,13 @@ class PatientDetails extends Component{
         super()
         this.state={
             page:'progress'
+
         }
     }
 
     setPage(page){
         this.setState({page})
+
     }
 
     setDisplay(){
@@ -43,13 +45,13 @@ class PatientDetails extends Component{
                             <Prescription />
                         </div>
                     </div>
-
                     <div className="body-temp">
                         <div className="head-container">
                             <h4>BODY TEMPERATURE</h4>
                         </div>
                     </div>
                 </div>
+                
         }
         if(page==='info'){
             return <div className="information-div">
@@ -86,10 +88,10 @@ class PatientDetails extends Component{
                     </div>
 
                     <div className="Pswitch">
-                        <div onClick={()=>this.setPage('progress')} className="Pprog">
+                        <div onClick={()=>this.setPage('progress')} className="Pprog" >
                             <h4>PROGRESS</h4>
                         </div>
-                        <div onClick={()=>this.setPage('info')} className="Pinfo">
+                        <div onClick={()=>this.setPage('info')} className="Pinfo" >
                             <h4>INFORMATION</h4>
                         </div>
                     </div>

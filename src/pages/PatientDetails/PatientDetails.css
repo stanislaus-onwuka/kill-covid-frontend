@@ -53,8 +53,8 @@
     align-items: center;
 }
 
-.Pprog {
-    border-bottom: 7px solid;
+.underline{
+    border-bottom: 7px solid #234661;
 }
 
 .Pswitch h4 {
@@ -96,7 +96,6 @@
     padding: 2rem 1rem;
     margin: 0.5rem auto;
     width: 100%;
-    box-shadow: 1px -1px 9px #00000077;
 }
 
 .patient-info{
