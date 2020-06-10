@@ -1,4 +1,4 @@
-import React,{ Component } from './node_modules/react';
+import React,{ Component } from 'react';
 import {Link} from './node_modules/react-router-dom';
 import './EvalContent.css';
 
