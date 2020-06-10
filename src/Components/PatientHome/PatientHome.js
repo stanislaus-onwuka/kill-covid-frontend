@@ -3,6 +3,7 @@ import profilePic from './../../Assets/prof.png';
 import temperature from './../../Assets/svg/temperature.svg';
 import pressure from './../../Assets/svg/pressure.svg';
 import happy from './../../Assets/svg/happy.svg';
+import { ReactComponent as CancelIcon } from './../../Assets/svg/cancel.svg';
 import backIcon from './../../Assets/svg/arrow-left.svg';
 import graph from './../../Assets/graph.png';
 import ActivitySchedule from './../ActivitySchedule/ActivitySchedule';
@@ -17,10 +18,13 @@ class PatientHome extends Component {
       recordPage:'temp'
     }
   }
+
   setDisplay(){
+    
     if(this.state.page==='home'){
       return(
-        <div className='patient-home-container'>
+        <>
+          <div className='patient-home-container'>
           <div className="patient-home-profile">
             <em> Welcome Paul,</em>
             <div>
@@ -41,7 +45,12 @@ class PatientHome extends Component {
               <span className='pressure'>80/130mmHg</span>
               </div>
               {/* eslint-disable-next-line */}
-              <a onClick={()=>{this.onButtonClick('records')}} href='#'>Update records</a>
+              <a onClick={()=>{
+                document.querySelector('.update-records').classList.add('display');
+                document.querySelector('.patient-container').style.position = 'fixed';
+              }} href='#'>Update records</a>
+              {/* eslint-disable-next-line */}
+              <a onClick={()=>{this.onButtonClick('records')}} href='#'>View records</a>
               <div className="patient-home-indication-box">
                 <img src={happy} alt="happy-face"></img>
                 <div className='text'>
@@ -53,6 +62,31 @@ class PatientHome extends Component {
           </section>
           <ActivitySchedule />
         </div>
+          <div className='update-records'>
+          <div className='bg'></div>
+          <CancelIcon onClick={()=>{
+            document.querySelector('.update-records').classList.remove('display');
+            document.querySelector('.patient-container').style.position = 'static';
+          }} />
+          <div className='header'>
+            <h1>Update your Records</h1>
+            <em>We recommend using an efficient instrument to measure your vitals</em>
+          </div>
+          <form>
+            <label htmlFor='temp'>Body Temperature</label>
+            <input id='temp' type='text' />
+            <label>Blood Pressure</label>
+            <div className='inputs'>
+              <input className='pressure' type='text' />
+              <input className='temp' type='text' />
+            </div>
+            <button onClick={()=>{
+            document.querySelector('.update-records').classList.remove('display');
+            document.querySelector('.patient-container').style.position = 'static';
+          }}>SAVE</button>
+          </form>
+      </div>
+        </>
       );
     } else if(this.state.page === 'records'){
       return <div className="patient-record-container">

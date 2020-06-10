@@ -169,7 +169,73 @@
   list-style: none;
   color: #6ba9d8;
 }
-
+.update-records{
+  display: none;
+  z-index: 1;
+  background-color: rgba(70, 68, 68, 0.9);
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  padding: 4rem 2rem;
+}
+.update-records.display{
+  display: block
+}
+.update-records.display ~ .patient-home-container{
+  overflow: hidden;
+}
+.update-records svg{
+  position: relative;
+  top: -2rem;
+  height: 4rem;
+  width: 2rem;
+}
+.update-records .header h1{
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+.update-records .header em{
+  display: inline-block;
+  font-style: normal;
+  font-size: 1.2rem;
+  margin-bottom: 4rem;
+}
+.update-records form label{
+  display: inline-block;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.update-records form label:nth-child(3){
+  margin-top: 3rem;
+}
+.update-records form input{
+  border: none;
+  background-color: transparent;
+  border-bottom: solid 1px #fff;
+  width: 100%;
+  border-radius: 0;
+  font-size: 2rem;
+  color: #428eb0;
+}
+.update-records form .inputs{
+  display: flex;
+  justify-content: space-between;
+}
+.update-records form .inputs input{
+  width: 45%;
+}
+.update-records form button{
+  margin-top: 4rem;
+  width: 100%;
+  padding: 1rem;
+  color: #fff;
+  background-color: #4390b8;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 .3rem 1rem rgba(0, 0, 0, 0.2);
+}
 
 @media screen and (max-width:335px){
   .patient-home-body-temp .temp,.patient-home-body-pressure .pressure{

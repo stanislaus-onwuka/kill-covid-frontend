@@ -1,6 +1,7 @@
 .patient-container{
   background-color: #f0f2f6;
   min-height: 100vh;
+  position: relative;
 }
 .dashboard{
   padding: 2rem;
