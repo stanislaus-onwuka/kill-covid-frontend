@@ -11,6 +11,7 @@ const AddPrescription = () =>{
                 <h4>Medicine Name</h4>
                 <input type="text" className="medicine-name" name="medicine-name"></input>
             </div>
+            
             <div className="dosage-div">
                 <div className="dosage">
                     <h5>Dosage</h5>
