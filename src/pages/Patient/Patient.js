@@ -8,7 +8,7 @@ import circle from './../../Assets/svg/circle.svg';
 import info from './../../Assets/svg/info.svg';
 import message from './../../Assets/svg/message.svg';
 import profile from './../../Assets/svg/profile.svg';
-import PatientHome from './../../components/PatientHome/PatientHome';
+import PatientHome from './../../components/PatientHome/PatientHome.js';
 import PatientInfo from './../../components/PatientInfo/PatientInfo';
 import PatientProfile from './../../components/PatientProfile/PatientProfile';
 import PatientConsultation from './../../components/PatientConsultation/PatientConsultation';
