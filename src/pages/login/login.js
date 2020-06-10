@@ -1,8 +1,8 @@
 import React from 'react';
-import LoginHeader from "./../../components/LoginHeader/LoginHeader";
-import InputBox from './../../components/InputBox/InputBox';
-import ExtraLogin from './../../components/ExtraLogin/ExtraLogin';
-import SignUp from './../../components/SignUp/SignUp';
+import LoginHeader from "../../components/LoginHeader/LoginHeader";
+import InputBox from '../../components/InputBox/InputBox';
+import ExtraLogin from '../../components/ExtraLogin/ExtraLogin';
+import SignUp from '../../components/SignUp/SignUp';
 import './login.css';
 
 function Login() {
