@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Doctor-home.css"
-import Report from "../../components/DoctorHomeReports/DoctorHomeReports"
+import Report from "../../Components/DoctorHomeReports/DoctorHomeReports"
 import ProfilePic from "../../Assets/avatar.svg"
 
 const doctorHome = () => {

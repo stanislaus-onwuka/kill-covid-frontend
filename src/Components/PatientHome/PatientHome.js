@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React,{ Component } from './node_modules/react';
 import profilePic from './../../Assets/prof.png';
 import temperature from './../../Assets/svg/temperature.svg';
 import pressure from './../../Assets/svg/pressure.svg';
@@ -6,7 +6,7 @@ import happy from './../../Assets/svg/happy.svg';
 import { ReactComponent as CancelIcon } from './../../Assets/svg/cancel.svg';
 import backIcon from './../../Assets/svg/arrow-left.svg';
 import graph from './../../Assets/graph.png';
-import ActivitySchedule from './../ActivitySchedule/ActivitySchedule';
+import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
 import './PatientHome.css';
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from './node_modules/react';
 import checked from './../../Assets/svg/checked.svg';
 import bell from './../../Assets/svg/bell.svg';
 import './ActivitySchedule.css';
