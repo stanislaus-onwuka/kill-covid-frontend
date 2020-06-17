@@ -1,32 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
 import './PatientDetails.css';
 import profilePic from "../../Assets/avatar.svg";
-import PatientHistory from "../../components/patientHistory/patientHistory";
-import Prescription from "../../components/prescription/prescription";
+import PatientHistory from "../../Components/patientHistory/patientHistory";
+import Prescription from "../../Components/prescription/prescription";
 import {Link} from "react-router-dom";
 
 
-const PatientDetails = () => {
-    return (
-        <div className="PatientDetails">
-            <div className="Pcontainer">
+class PatientDetails extends Component{
+    constructor(){
+        super()
+        this.state={
+            page:'progress'
 
-                <div className="Pbanner">
-                    <h2>Patient's Details</h2>
-                    <img src={profilePic} alt="img"/>
-                    <h3>Paul Okoye</h3>
-                </div>
+        }
+    }
 
-                <div className="Pswitch">
-                    <div className="Pprog">
-                        <h4>PROGRESS</h4>
-                    </div>
-                    <div className="Pinfo">
-                        <h4>INFORMATION</h4>
-                    </div>
-                </div>
+    setPage(page){
+        this.setState({page})
 
-                <div className="progress-div">
+    }
+
+    setDisplay(){
+        let {page} = this.state
+        if(page==='progress'){
+            return <div className="progress-div">
                     <div className="history">
                         <div className="head-container">
                             <h4>HISTORY</h4>
@@ -48,39 +45,68 @@ const PatientDetails = () => {
                             <Prescription />
                         </div>
                     </div>
-
                     <div className="body-temp">
                         <div className="head-container">
                             <h4>BODY TEMPERATURE</h4>
                         </div>
                     </div>
                 </div>
-                <div className="information-div">
-                    <div className="patient-info patient-name">
-                        <h3 className="title">Name: </h3>
-                    </div>
-                    <div className="patient-info patient-gender">
-                        <h3 className="title">Gender: </h3>
-                    </div>
-                    <div className="patient-info patient-home-address">
-                        <h3 className="title">Home Address: </h3>
-                    </div>
-                    <div className="patient-info patient-phone-number">
-                        <h3 className="title">Phone Number: </h3>
-                    </div>
-                    <div className="patient-info patient-email">
-                        <h3 className="title">Email: </h3>
-                    </div>
-                    <div className="patient-info patient-age">
-                        <h3 className="title">Age: </h3>
-                    </div>
-                </div>
+                
+        }
+        if(page==='info'){
+            return <div className="information-div">
+            <div className="patient-info patient-name">
+                <h3 className="title">Name: </h3>
             </div>
+            <div className="patient-info patient-gender">
+                <h3 className="title">Gender: </h3>
+            </div>
+            <div className="patient-info patient-home-address">
+                <h3 className="title">Home Address: </h3>
+            </div>
+            <div className="patient-info patient-phone-number">
+                <h3 className="title">Phone Number: </h3>
+            </div>
+            <div className="patient-info patient-email">
+                <h3 className="title">Email: </h3>
+            </div>
+            <div className="patient-info patient-age">
+                <h3 className="title">Age: </h3>
+            </div>
+        </div>
+        }
+    }
+
+    render(){
+        return (
+            <div className="PatientDetails">
+                <div className="Pcontainer">
+                    <div className="Pbanner">
+                        <h2>Patient's Details</h2>
+                        <img src={profilePic} alt="img"/>
+                        <h3>Paul Okoye</h3>
+                    </div>
+
+                    <div className="Pswitch">
+                        <div onClick={()=>this.setPage('progress')} className="Pprog" >
+                            <h4>PROGRESS</h4>
+                        </div>
+                        <div onClick={()=>this.setPage('info')} className="Pinfo" >
+                            <h4>INFORMATION</h4>
+                        </div>
+                    </div>
+                    
+                    <div className="Pdisplay">
+                        {this.setDisplay()}
+                    </div>
+
+                    </div>
             <Link to="/add-prescription" className="add-prescription-link">
                 <img src={require("./plus.svg")} alt="add prescription button"/>
             </Link>
         </div>
-    );
-}
+        );
+    }
 
+}
 export default PatientDetails;
