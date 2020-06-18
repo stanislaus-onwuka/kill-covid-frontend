@@ -1,6 +1,6 @@
 import React from 'react'
 import "./DoctorHomeReports.css"
-import arrow from "../../Assets/point-to.svg"
+import arrow from "../../assets/point-to.svg"
 import {Link} from "react-router-dom"
 
 const DoctorHomeReport = (props) => (

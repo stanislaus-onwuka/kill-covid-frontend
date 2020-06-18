@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import './PatientDetails.css';
-import profilePic from "../../Assets/avatar.svg";
-import PatientHistory from "../../Components/patientHistory/patientHistory";
-import Prescription from "../../Components/prescription/prescription";
+import profilePic from "../../assets/avatar.svg";
+import PatientHistory from "../../components/patientHistory/patientHistory";
+import Prescription from "../../components/prescription/prescription";
 import {Link} from "react-router-dom";
 
 

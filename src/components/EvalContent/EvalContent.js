@@ -236,7 +236,7 @@ class EvalContent extends Component{
 
 			case 2:
 				return <>
-				<em> What are your names ? </em>
+				<em> What is your name ? </em>
 				<input className='eval-first-name-input' type='text' name="firstName" placeholder="First Name" />
 				<input className='eval-last-name-input' type='text' name="lastName" placeholder="Last Name" />				
 			</>
