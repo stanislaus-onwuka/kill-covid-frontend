@@ -1,6 +1,6 @@
 import React from 'react';
-import EvalHeader from '../../Components/EvalHeader/EvalHeader';
-import EvalContent from '../../Components/EvalContent/EvalContent';
+import EvalHeader from '../../components/EvalHeader/EvalHeader';
+import EvalContent from '../../components/EvalContent/EvalContent';
 import './Evaluation.css';
 
 function Evaluation(){
