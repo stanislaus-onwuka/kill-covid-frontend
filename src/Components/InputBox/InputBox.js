@@ -17,7 +17,7 @@ function InputBox({path}) {
   return(
     <div className="login-input-box-container">
       <>
-      <input type='text' placeholder="UserName" />
+      <input type='text' placeholder="Username / Phone No" />
       <Link to="/Eval">Log In</Link>
       </>
     </div>

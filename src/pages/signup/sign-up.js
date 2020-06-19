@@ -1,8 +1,8 @@
 import React from 'react';
 import "./sign-up.css";
-import twitter from "../../Assets/svg/twitter.svg";
-import facebook from "../../Assets/svg/facebook.svg";
-import google from "../../Assets/svg/google.svg";
+import twitter from "../../assets/svg/twitter.svg";
+import facebook from "../../assets/svg/facebook.svg";
+import google from "../../assets/svg/google.svg";
 import {Link} from "react-router-dom"
 
 const signup = () => {
@@ -36,11 +36,6 @@ const signup = () => {
                          <div className="signup-login-btn">
                             <Link className="btn" to="/Login">Log In</Link>
                          </div>
-
-                        <div className="doctor-login">
-                           <p>Doctor?</p>
-                           <Link to="/Doctor-Home">Click Here</Link> 
-                        </div>  
                   </div>   
             </section>                  
        </div>

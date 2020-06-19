@@ -129,7 +129,7 @@
   transition: all 0.3s;
 }
 .patient-symptom-container .select-boxes .select-box input[type="checkbox"]:checked + span{
- background: url('./../../Assets/svg/ticked.svg');
+ background: url('./../../assets/svg/ticked.svg');
  background-position: center;
  background-size: contain;
 }

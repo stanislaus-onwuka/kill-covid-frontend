@@ -263,7 +263,8 @@ class EvalContent extends Component{
 				return <>
 				<em>Where do you stay ?</em>
 				<select id="countries">
-				<option value="" disabled selected hidden>Select the country</option>
+				<option value="" defaultValue
+				hidden >Select the country</option>
 							{countryOptions}
 							</select>
 				<input className='eval-state-input' type='text' name="state" placeholder="State" />

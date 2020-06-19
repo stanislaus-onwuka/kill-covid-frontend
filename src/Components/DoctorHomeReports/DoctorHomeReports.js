@@ -1,7 +1,7 @@
 import React from 'react'
 import "./DoctorHomeReports.css"
 // import arrow from "../../Assets/point-to.svg"
-import arrow from "../../Assets/right-arrow.svg"
+import arrow from "../../assets/right-arrow.svg"
 import {Link} from "react-router-dom"
 
 const DoctorHomeReport = (props) => (
