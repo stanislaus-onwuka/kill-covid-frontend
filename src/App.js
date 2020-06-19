@@ -19,11 +19,11 @@ function App() {
           <Route path="/Eval" component={Evaluation} />
           <Route path="/Patient" component={Patient} />
           <Route path="/Patient-details" component={PatientDetails} />
-          <Route path="/Doctor-Login" component={DoctorLandingPage}/>
-          <Route path="/Doctor-Home" component={DoctorHome} />
+          <Route path="/doctor/login" component={DoctorLandingPage}/>
+          <Route path="/doctor/home" component={DoctorHome} />
           <Route path="/add-prescription" component={AddPrescription}/>
           <Route path="/" component={Signup}/>
-          
+
         </Switch>
     </div>
   );
