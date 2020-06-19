@@ -1,0 +1,12 @@
+.loading-error {
+  position: absolute;
+  padding: 2rem;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  color: #224a68;
+}
+
+.loading-error_message {
+  margin-top: 2rem;
+}

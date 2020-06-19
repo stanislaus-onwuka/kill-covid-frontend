@@ -12,6 +12,7 @@ import PatientHome from '../../components/PatientHome/PatientHome';
 import PatientInfo from '../../components/PatientInfo/PatientInfo';
 import PatientProfile from '../../components/PatientProfile/PatientProfile';
 import PatientConsultation from '../../components/PatientConsultation/PatientConsultation';
+import LoadingError from '../../components/LoadingError/LoadingError';
 import './Patient.css';
 
 
@@ -19,9 +20,32 @@ class Patient extends Component{
   constructor(){
     super();
     this.state = {
-      page : 'home'
+      user: null,
+      page : 'home',
+      accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNTY2ODc3LCJleHAiOjE1OTI1OTE4ODQsInVpZCI6IjQzZTcwYmQ3LTg1ZTEtNGRmYi1hNjMzLWExMzVhNDJmYTYxZCIsImp0aSI6Ijg2NjJkYmRmLTI3Y2MtNDMxMy04MGZhLTc2NmI3OGMyN2E4YSJ9.JuWEDh9fk-cMW6EGW8qUNYaE1-B4ncDNK7fFFim5rF8'
     }
   }
+
+  componentDidMount() {
+    const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'access-token': this.state.accessToken
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => this.setState({ user: data }))
+      .catch(error => {
+        this.setState({ user: 'error' })
+        console.error('There has been a problem fetching user data', error)
+      });
+  };
 
   onLinkClick(page){
     this.setState({page});
@@ -29,11 +53,20 @@ class Patient extends Component{
   setContent(){
     switch(this.state.page){
       case 'home':
-        return <PatientHome />
+        return (
+          <PatientHome
+            firstName={this.state.user.first_name}
+          />
+        )
       case 'info':
         return <PatientInfo />
       case 'profile':
-        return <PatientProfile />
+        return (
+          <PatientProfile
+              firstName={this.state.user.first_name}
+              lastName={this.state.user.last_name}
+          />
+        )
       case 'consultation':
         return <PatientConsultation />
       default:
@@ -60,24 +93,31 @@ class Patient extends Component{
 
   render(){
     return(
-      <div className="patient-container">
-        {this.setContent()}
-        <div className="spacing"></div>
-        <div className="dashboard">
-          <div className="dashboard-control">
-            { this.setDashboard('home',activeHome,home) }
-          </div>
-          <div className="dashboard-control">
-            { this.setDashboard('info',activeInfo,info) }
-          </div>
-          <div className="dashboard-control">
-            { this.setDashboard('consultation',activeMessage,message) }
-          </div>
-          <div className="dashboard-control">
-            { this.setDashboard('profile',activeProfile,profile) }
-          </div>
+        <div className="patient-container">
+          {this.state.user === null
+            ? <h1 className="patient_loading-title">getting user data...</h1>
+            : this.state.user === 'error' // handle possible error when fetching user data
+              ? <LoadingError />
+              : <Fragment>
+                  {this.setContent()}
+                  <div className="spacing"></div>
+                  <div className="dashboard">
+                    <div className="dashboard-control">
+                      { this.setDashboard('home',activeHome,home) }
+                    </div>
+                    <div className="dashboard-control">
+                      { this.setDashboard('info',activeInfo,info) }
+                    </div>
+                    <div className="dashboard-control">
+                      { this.setDashboard('consultation',activeMessage,message) }
+                    </div>
+                    <div className="dashboard-control">
+                      { this.setDashboard('profile',activeProfile,profile) }
+                    </div>
+                  </div>
+                </Fragment>
+          }
         </div>
-      </div>
     );
   }
 }
