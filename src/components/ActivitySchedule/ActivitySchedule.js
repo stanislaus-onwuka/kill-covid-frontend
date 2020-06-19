@@ -1,6 +1,10 @@
 import React from 'react';
+import checked from './../../assets/svg/checked.svg';
+import bell from './../../assets/svg/bell.svg';
+=======
 import checked from './../../Assets/svg/checked.svg';
 import bell from './../../Assets/svg/bell.svg';
+>>>>>>> master
 import './ActivitySchedule.css';
 
 const ActivitySchedule = () => {

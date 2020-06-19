@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import userImage from './../../Assets/prof.png';
-import backIcon from './../../Assets/svg/arrow-left.svg';
+import userImage from './../../assets/prof.png';
+import backIcon from './../../assets/svg/arrow-left.svg';
 import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
 import './PatientProfile.css';
 
@@ -47,7 +47,6 @@ class PatientProfile extends Component {
       <img onClick={()=>{this.onButtonClick('home')}} src={backIcon} alt='back-icon'></img>
       <h1>Add Symptoms</h1>
       <div className="select-boxes">
-
         <div className='select-box'>
           <label  htmlFor="mild-cough">
             Mild Cough
@@ -84,9 +83,9 @@ class PatientProfile extends Component {
             <input type="checkbox" id="fever" name="fever" value="fever" />
             <span className="check"></span>
           </label>
-        </div>
+        </div>   
 
-        <div className="spacing"></div>
+        <div className="spacing"></div>         
 
         <div className='select-box'>
           <label  htmlFor="sore-throat">
@@ -94,7 +93,7 @@ class PatientProfile extends Component {
             <input type="checkbox" id="sore-throat" name="sore-throat" value="sore-throat" />
             <span className="check"></span>
           </label>
-        </div>
+        </div>  
 
         <div className="spacing"></div>
 
@@ -104,7 +103,7 @@ class PatientProfile extends Component {
             <input type="checkbox" id="difficulty-breathing" name="difficulty-breathing" value="difficulty-breathing" />
             <span className="check"></span>
           </label>
-        </div>
+        </div>  
 
         <button onClick={()=>{this.onButtonClick('home')}}> Submit </button>
 
