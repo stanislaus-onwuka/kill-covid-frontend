@@ -11,8 +11,8 @@ import './PatientHome.css';
 
 
 class PatientHome extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       page:'home',
       recordPage:'temp'
@@ -20,13 +20,13 @@ class PatientHome extends Component {
   }
 
   setDisplay(){
-    
+
     if(this.state.page==='home'){
       return(
         <>
           <div className='patient-home-container'>
           <div className="patient-home-profile">
-            <em> Welcome Paul,</em>
+            <em> Welcome {this.props.firstName},</em>
             <div>
               <img src={profilePic} alt="patient"></img>
             </div>
@@ -122,7 +122,7 @@ class PatientHome extends Component {
   </div>
     }
   }
-  
+
   onButtonClick(page){
     this.setState({page},()=>{
       console.log(this.state.page)
@@ -135,12 +135,12 @@ class PatientHome extends Component {
         document.querySelector('.active').classList.add('inactive');
         document.querySelector('.active').classList.remove('active');
 				event.target.classList.add('active');
-  }		
+  }
 
   render(){
     return this.setDisplay();
   }
-  
+
 }
 
 export default PatientHome;
