@@ -102,6 +102,11 @@ input:focus{
   width: 40%;
   padding: .7rem;
 }
+.eval-next-btn{
+  background-color:#234661;
+  margin-top:.7em;
+  border-radius:.7em;
+}
 .eval-content-container .radio-btns{
   margin: 1rem;
   display: inline;
@@ -126,4 +131,7 @@ input:focus{
   margin: 0;
 }
 
-
+.next-but{
+  background: none;
+  border: none;
+}
