@@ -1,11 +1,11 @@
 @font-face{
   font-family: 'SF Pro Text';
-  src: url('./assets/font/SFProText-Medium.eot');
-  src: url('./assets/font/SFProText-Medium.eot?#iefix') format('embedded-opentype'),
-  url('./assets/font/SFProText-Medium.woff') format('woff'),
-  url('./assets/font/SFProText-Medium.woff2') format('woff2'),
-  url('./assets/font/SFProText-Medium.ttf') format('truetype'),
-  url('./assets/font/SFProText-Medium.svg#SFProText-Medium') format('svg');
+  src: url('./Assets/font/SFProText-Medium.eot');
+  src: url('./Assets/font/SFProText-Medium.eot?#iefix') format('embedded-opentype'),
+  url('./Assets/font/SFProText-Medium.woff') format('woff'),
+  url('./Assets/font/SFProText-Medium.woff2') format('woff2'),
+  url('./Assets/font/SFProText-Medium.ttf') format('truetype'),
+  url('./Assets/font/SFProText-Medium.svg#SFProText-Medium') format('svg');
 }
 body{
   font-family: 'SF Pro Text',Verdana, Geneva, Tahoma, sans-serif;
