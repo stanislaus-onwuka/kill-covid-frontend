@@ -39,7 +39,7 @@ const signup = () => {
 
                         <div className="doctor-login">
                            <p>Doctor?</p>
-                           <Link to="/Doctor-Home">Click Here</Link> 
+                           <Link to="/Doctor-Login">Click Here</Link> 
                         </div>  
                   </div>   
             </section>                  
