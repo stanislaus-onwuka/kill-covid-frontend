@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import userImage from './../../assets/prof.png';
-import backIcon from './../../assets/svg/arrow-left.svg';
+import userImage from './../../Assets/prof.png';
+import backIcon from './../../Assets/svg/arrow-left.svg';
 import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
 import './PatientProfile.css';
 

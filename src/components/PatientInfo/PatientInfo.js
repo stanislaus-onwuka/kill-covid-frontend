@@ -1,7 +1,7 @@
 import React from 'react';
-import  virus from './../../assets/svg/virus.svg';
-import  symptom from './../../assets/svg/symptom1.svg';
-import  shield from './../../assets/svg/shield.svg';
+import  virus from './../../Assets/svg/virus.svg';
+import  symptom from './../../Assets/svg/symptom1.svg';
+import  shield from './../../Assets/svg/shield.svg';
 import './PatientInfo.css';
 
 const PatientInfo = () =>{

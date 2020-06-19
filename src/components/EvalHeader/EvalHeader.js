@@ -1,5 +1,5 @@
 import React from 'react';
-import evalIcon from '../../assets/svg/checklist.svg';
+import evalIcon from '../../Assets/svg/checklist.svg';
 import './EvalHeader.css';
 
 function EvalHeader(){
