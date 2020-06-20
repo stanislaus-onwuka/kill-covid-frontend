@@ -1,11 +1,11 @@
 import React,{ Component } from 'react';
-import profilePic from './../../Assets/prof.png';
-import temperature from './../../Assets/svg/temperature.svg';
-import pressure from './../../Assets/svg/pressure.svg';
-import happy from './../../Assets/svg/happy.svg';
-import { ReactComponent as CancelIcon } from './../../Assets/svg/cancel.svg';
-import backIcon from './../../Assets/svg/arrow-left.svg';
-import graph from './../../Assets/graph.png';
+import profilePic from './../../assets/prof.png';
+import temperature from './../../assets/svg/temperature.svg';
+import pressure from './../../assets/svg/pressure.svg';
+import happy from './../../assets/svg/happy.svg';
+import { ReactComponent as CancelIcon } from './../../assets/svg/cancel.svg';
+import backIcon from './../../assets/svg/arrow-left.svg';
+import graph from './../../assets/graph.png';
 import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
 import './PatientHome.css';
 
@@ -20,7 +20,6 @@ class PatientHome extends Component {
   }
 
   setDisplay(){
-
     if(this.state.page==='home'){
       return(
         <>
@@ -135,12 +134,12 @@ class PatientHome extends Component {
         document.querySelector('.active').classList.add('inactive');
         document.querySelector('.active').classList.remove('active');
 				event.target.classList.add('active');
-  }
+  }		
+
 
   render(){
     return this.setDisplay();
   }
-
 }
 
 export default PatientHome;

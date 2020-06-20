@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import home from '../../Assets/svg/home.svg';
-import activeHome from '../../Assets/svg/active-home.svg';
-import activeInfo from '../../Assets/svg/active-info.svg';
-import activeMessage from '../../Assets/svg/active-message.svg';
-import activeProfile from '../../Assets/svg/active-profile.svg';
-import circle from '../../Assets/svg/circle.svg';
-import info from '../../Assets/svg/info.svg';
-import message from '../../Assets/svg/message.svg';
-import profile from '../../Assets/svg/profile.svg';
+import React, { Component } from 'react';
+import home from '../../assets/svg/home.svg';
+import activeHome from '../../assets/svg/active-home.svg';
+import activeInfo from '../../assets/svg/active-info.svg';
+import activeMessage from '../../assets/svg/active-message.svg';
+import activeProfile from '../../assets/svg/active-profile.svg';
+import circle from '../../assets/svg/circle.svg';
+import info from '../../assets/svg/info.svg';
+import message from '../../assets/svg/message.svg';
+import profile from '../../assets/svg/profile.svg';
 import PatientHome from '../../components/PatientHome/PatientHome';
 import PatientInfo from '../../components/PatientInfo/PatientInfo';
 import PatientProfile from '../../components/PatientProfile/PatientProfile';
@@ -22,7 +22,7 @@ class Patient extends Component{
     this.state = {
       user: null,
       page : 'home',
-      accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNTY2ODc3LCJleHAiOjE1OTI1OTE4ODQsInVpZCI6IjQzZTcwYmQ3LTg1ZTEtNGRmYi1hNjMzLWExMzVhNDJmYTYxZCIsImp0aSI6Ijg2NjJkYmRmLTI3Y2MtNDMxMy04MGZhLTc2NmI3OGMyN2E4YSJ9.JuWEDh9fk-cMW6EGW8qUNYaE1-B4ncDNK7fFFim5rF8'
+      accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNTY2ODc3LCJ1aWQiOiJmNGY1ODhjNC02NTZjLTRhNTMtODY5Ny1kYjgyZmU2ZWNjNmEiLCJqdGkiOiJlYjA3YjBkZS01NjI5LTRiNDctYjM1ZC02M2VjZDhkYjBjZGYiLCJleHAiOjE1OTI2MTQxMTB9.OS80ooisbeI3CJwWCXAyND-xXGWSjJUOywSXmeYGm90'
     }
   }
 
@@ -98,7 +98,7 @@ class Patient extends Component{
             ? <h1 className="patient_loading-title">getting user data...</h1>
             : this.state.user === 'error' // handle possible error when fetching user data
               ? <LoadingError />
-              : <Fragment>
+              : <>
                   {this.setContent()}
                   <div className="spacing"></div>
                   <div className="dashboard">
@@ -115,7 +115,7 @@ class Patient extends Component{
                       { this.setDashboard('profile',activeProfile,profile) }
                     </div>
                   </div>
-                </Fragment>
+                </>
           }
         </div>
     );
