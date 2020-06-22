@@ -5,8 +5,8 @@ import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
 import './PatientProfile.css';
 
 class PatientProfile extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       page:'home'
     }
@@ -25,7 +25,7 @@ class PatientProfile extends Component {
           <h1>My Account</h1>
           <div className="patient-info">
             <img src={userImage} alt='patient'></img>
-            <em>Paul Okoye</em>
+            <em>{this.props.firstName + ' ' + this.props.lastName}</em>
           </div>
           <div className="quarantine">
             <div className="objective">
@@ -47,7 +47,6 @@ class PatientProfile extends Component {
       <img onClick={()=>{this.onButtonClick('home')}} src={backIcon} alt='back-icon'></img>
       <h1>Add Symptoms</h1>
       <div className="select-boxes">
-  
         <div className='select-box'>
           <label  htmlFor="mild-cough">
             Mild Cough
@@ -109,7 +108,7 @@ class PatientProfile extends Component {
         <button onClick={()=>{this.onButtonClick('home')}}> Submit </button>
 
       </div>
-      
+
     </div>
     }
   }
@@ -119,7 +118,7 @@ class PatientProfile extends Component {
         this.setDisplay()
     );
   }
-  
+
 }
 
 export default PatientProfile;

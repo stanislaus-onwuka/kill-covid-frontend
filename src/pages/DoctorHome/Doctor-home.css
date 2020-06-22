@@ -11,6 +11,7 @@
 }
 
 .dhomeHeader {
+    padding: 0.5rem;
     height: 30vh;
     width: 100%;
     background-color: #234661;
@@ -23,22 +24,23 @@
 }
 
 .dhomeHeader h1 {
-    font-size: 24px;
-    letter-spacing: 1.2px;
+    font-size: 1.4rem;
+    letter-spacing: 1.6px;
     margin-left:
         10px;
 }
 
 .dhomeHeader p {
-    color: #eee;
-    font-size: 16px;
+    color: #c9c4c4;
+    font-size: 0.8rem;
     margin: 15px 10px;
 }
 
 .search {
     padding: 15px;
     border: none;
-    border-radius: 300px;
+    border-radius: 70px;
+    box-shadow: 0 5px 5px -1px #ccc;
     margin: 0 auto;
     position: relative;
     top: -25px;
@@ -60,4 +62,11 @@
         text-align: center;
         margin: auto;
     }
+    .dhomeHeader p {
+        font-size: 1rem;
+    }
+    .dhomeHeader h1 {
+        font-size: 1.6rem;
+    }
+
 }
