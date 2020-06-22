@@ -123,9 +123,7 @@ class PatientHome extends Component {
   }
 
   onButtonClick(page){
-    this.setState({page},()=>{
-      console.log(this.state.page)
-    })
+    this.setState({page})
   }
 
   onSwitchBtnClick(recordPage,event){

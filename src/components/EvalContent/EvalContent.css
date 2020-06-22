@@ -15,7 +15,7 @@
   letter-spacing: .1rem;
   font-style: normal;
 }
-.eval-content-container a{
+.eval-content-container a,.eval-content-container .eval-next-btn{
   display: block;
   margin-top: 1.5rem;
   text-decoration: none;
@@ -27,9 +27,10 @@
   padding: .7rem .5rem;
   border-radius: .5rem;
   transition: 0.3s;
+  border: none;
 }
 
-.eval-content-container a:hover{
+.eval-content-container a:hover,.eval-content-container .eval-next-btn:hover{
   background-color: #296380;
 }
 
@@ -68,7 +69,7 @@
 
 .eval-content-container select{
   display: block;
-  margin: 1rem auto;
+  margin: 1rem 0;
   width: 100%;
   max-width: 600px;
   border: 1px solid #91bcd3;
@@ -78,7 +79,6 @@
 }
 
 .eval-content-container input{
-  margin: 0 auto;
   display: block;
   padding: 1rem;
   width: auto ;

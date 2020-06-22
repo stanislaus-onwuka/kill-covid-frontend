@@ -13,7 +13,7 @@ const DoctorLandingPage = () => {
     return(
         <div className="doc-landing-page">
             <h1 className="title">Doctors Sign in</h1>
-            <img alt="doc-icon" className="doc-icon" src={require("../../Assets/svg/doctor.svg")}/>
+            <img alt="doc-icon" className="doc-icon" src={require("../../assets/svg/doctor.svg")}/>
             <form onSubmit={handleSignInSubmit}>
                 <input placeholder="Doctor ID" type="text" name="doctor-id" className="doctor-id"/>
                 <input placeholder="Password" type="password" name="doc-password" className="doc-password"/>

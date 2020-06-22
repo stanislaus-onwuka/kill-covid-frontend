@@ -40,7 +40,7 @@
     margin: 0 auto;
 }
 
-form input{
+.sign-up-form input{
     padding: 10px;
     border: 2px solid #234661;
     border-radius: 10px;
