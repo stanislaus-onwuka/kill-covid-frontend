@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import nJwt from 'njwt';
 import home from '../../assets/svg/home.svg';
 import activeHome from '../../assets/svg/active-home.svg';
 import activeInfo from '../../assets/svg/active-info.svg';
@@ -22,28 +23,44 @@ class Patient extends Component{
     this.state = {
       user: null,
       page : 'home',
-      accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNTY2ODc3LCJ1aWQiOiJmNGY1ODhjNC02NTZjLTRhNTMtODY5Ny1kYjgyZmU2ZWNjNmEiLCJqdGkiOiJlYjA3YjBkZS01NjI5LTRiNDctYjM1ZC02M2VjZDhkYjBjZGYiLCJleHAiOjE1OTI2MTQxMTB9.OS80ooisbeI3CJwWCXAyND-xXGWSjJUOywSXmeYGm90'
+      uid: 'd1f6ce98-f80d-4848-bc8e-310020677f5b'
     }
   }
 
   componentDidMount() {
+    // monkey patch generation of access token
+    const generateAccessToken = uid => {
+      let claims = {
+       "sub": "1234567890",
+       "iat": 1592737638,
+       "exp": 1592741238,
+       "uid": uid
+     };
+     let jwt = nJwt.create(claims, "secret", "HS256");
+     let token = jwt.compact();
+     return token;
+    };
+
     const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-    fetch(url, {
+    const accessToken = generateAccessToken(this.state.uid);
+    const options = {
       method: 'GET',
       headers: {
-        'access-token': this.state.accessToken
+        'access-token': accessToken
       }
-    })
+    };
+
+    fetch(url, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+            throw new Error('Network response was not ok');
+          };
         return response.json();
       })
       .then(data => this.setState({ user: data }))
       .catch(error => {
-        this.setState({ user: 'error' })
-        console.error('There has been a problem fetching user data', error)
+        console.error('There has been a problem fetching user data', error);
+        this.setState({ user: 'error' });
       });
   };
 

@@ -624,39 +624,45 @@ class EvalContent extends Component {
 	postDetails = e => {
 		e.preventDefault();
 		const addname = {
-			firstName: this.state.firstName,
-			lastName: this.state.lastName
+			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
+			"firstName": this.state.firstName,
+			"lastName": this.state.lastName,
+			"signUpMethod":"Google-Account"
 		};
-		const add_symptoms = {
-			state: this.state.state,
-			address: this.state.address,
-			countryVisited: this.state.countryVisited,
-			ownCountry: this.state.ownCountry,
-			otherSymptoms: this.state.otherSymptoms,
-			otherRate: this.state.otherRate,
-			coughRate: this.state.coughRate,
-			feverRate: this.state.feverRate,
-			fatigueRate: this.state.fatigueRate,
-			respRate: this.state.respRate,
-			yesBtnActive: this.state.yesBtnActive,
-			isCoughChecked: this.state.isCoughChecked,
-			isFeverChecked: this.state.isFeverChecked,
-			isFatigueChecked: this.state.isFatigueChecked,
-			isRespiratoryChecked: this.state.isRespiratoryChecked,
-			isOthersChecked: this.state.isOthersChecked,
-			visitedCountry: this.state.visitedCountry
-		};
-		axios.post("localhost:3000/eval", { addname }).then(res => {
-			console.log(res);
-			console.log(res.data);
+		const add_profile={
+			"state": this.state.state,
+			"address": this.state.address,
+			"country": this.state.ownCountry
+		}
+		const add_symptoms = [
+			// 
+			{"countryVisited": this.state.countryVisited,
+			"cough": this.state.isCoughChecked,
+			"fever": this.state.isFeverChecked,
+			"fatigue": this.state.isFatigueChecked,
+			"resp": this.state.isRespiratoryChecked,
+			"other": this.state.otherSymptoms},
+			{"otherDegree": this.state.otherRate,
+			"coughDegree": this.state.coughRate,
+			"feverDegree": this.state.feverRate,
+			"fatigueDegree": this.state.fatigueRate,
+			"respDegree": this.state.respRate}
+		];
+		var cuid = null
+		axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname).then(res => {
+			cuid=res.data.uid
+			console.log(cuid);
 		});
-		axios.post("localhost:3000/eval", { add_symptoms }).then(res => {
-			console.log(res);
-			console.log(res.data);
-		});
+		console.log(add_profile)
+		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiNThmMmRmM2YtYWUxMi00M2FkLWJmOWItMTEyNDlkOGRjNGU4IiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI0ZTliNmU0ZC1lNzEwLTRmYjktOGIzMC1kMjRlNDcxYzAzYTUiLCJleHAiOjE1OTI2Mjk2OTZ9.NbWsJPD1NpI2PJFtW9RjXDLWaYnZXW7VTl90QT-FoGo'
+		// axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,{headers:{'access-token':token}}).then(res => {
+		// 	console.log(res);
+		// 	console.log(res.data)
+		// });
+		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,{headers:{'access-token':token}}).then(res=>{console.log(res)})
 		this.switchPage()
-		console.log(addname);
-		console.log(add_symptoms);
+		// console.log(addname);
+		// console.log(add_symptoms);
 	};
 
 	render() {
