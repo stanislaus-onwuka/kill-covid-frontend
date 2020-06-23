@@ -5,6 +5,7 @@ import Signup from "./pages/signup/sign-up.js";
 import Evaluation from './pages/Evaluation/Evaluation.js';
 import Patient from './pages/Patient/Patient.js';
 import DoctorLandingPage from "./pages/DoctorLandingPage/DoctorLandingPage";
+import DoctorSignUpPage from './pages/DoctorSignUp/DoctorSignUp';
 import DoctorHome from "./pages/DoctorHome/Doctor-home";
 import PatientDetails from "./pages/PatientDetails/PatientDetails"
 import AddPrescription from "./pages/AddPrescription/add-prescription";
@@ -20,6 +21,7 @@ function App() {
           <Route path="/Patient" component={Patient} />
           <Route path="/Patient-details" component={PatientDetails} />
           <Route path="/doctor/login" component={DoctorLandingPage}/>
+          <Route path="/doctor/signup" component={DoctorSignUpPage}/>
           <Route path="/doctor/home" component={DoctorHome} />
           <Route path="/add-prescription" component={AddPrescription}/>
           <Route path="/" component={Signup}/>
