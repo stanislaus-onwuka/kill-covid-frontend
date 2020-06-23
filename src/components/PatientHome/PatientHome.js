@@ -59,7 +59,7 @@ class PatientHome extends Component {
               </div>
             </div>
           </section>
-          <ActivitySchedule />
+          <ActivitySchedule guides={this.props.guides}/>
         </div>
           <div className='update-records'>
           <div className='bg'></div>
@@ -132,7 +132,7 @@ class PatientHome extends Component {
         document.querySelector('.active').classList.add('inactive');
         document.querySelector('.active').classList.remove('active');
 				event.target.classList.add('active');
-  }		
+  }
 
 
   render(){
