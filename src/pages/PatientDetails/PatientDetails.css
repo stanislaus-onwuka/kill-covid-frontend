@@ -12,7 +12,7 @@
     background-color: #fff;
     box-shadow: 0 .2rem .3rem rgba(0,0,0,.3);
 }
-.history,.prescriptions,.body-temp{
+.history,.prescriptions,.body-temp,.blood-pressure,.notes{
     margin-bottom: 1rem;
     padding-bottom: .5rem;
     background-color: #fff;
@@ -153,4 +153,107 @@
     border-bottom: solid 3px #234661;
     box-shadow: 0;
 }
+
+.blood-pressure .header{
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    padding: 0 1rem ;
+    color: #28abfa;
+}
+.blood-pressure .header h4{
+    font-weight: lighter;
+}
+.blood-pressure .slot{
+    background-color: #e4e1e1;
+    margin: 1rem;
+    padding: 1.5rem 1rem ;
+    display: flex;
+    justify-content: space-between;
+
+}
+.blood-pressure .slot:nth-child(2){
+    border-left: solid 3px #b53c3c;
+}
+.blood-pressure .slot:nth-child(2) span:nth-child(2){
+    color: #b53c3c;
+}
+.blood-pressure .slot:nth-child(3){
+    border-left: solid 3px #99e283;
+}
+.blood-pressure .slot:nth-child(3) span:nth-child(2){
+    color: #99e283;
+}
+.blood-pressure .slot span{
+    font-size: 1rem;
+}
+.blood-pressure .slot span:first-child{
+    font-size: 1.3rem;
+}
+.blood-pressure .slot span em{
+    font-style: normal;
+    font-size: 1rem;
+    color: #2191d6;
+    position: relative;
+    top: -.2rem;
+}
+.notes .patient, .notes .doctor{
+    padding: 0 1rem;
+}
+.notes .patient h4,.notes .doctor h4{
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    font-weight: lighter;
+    color: #28abfa;
+}
+.notes .patient p span{
+    display: block;
+}
+.notes .patient p{
+    line-height: 1.2rem;
+    font-size: 1.1rem;
+}
+.notes .doctor textarea{
+    border: solid 2px #2a4c66;
+    width: 100%;
+    margin: 1rem 0;
+}
+.notes .doctor button{
+    background-color: #3c8cb5;
+    color: #fff;
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    border: none;
+    font-size: 1.4rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 50%;
+}
+.progress-div{
+    padding-bottom: 2rem;
+}
+.progress-div > button{
+    background-color: #bc2727;
+    color: #fff;
+    display: block;
+    width: 60%;
+    margin: 2rem auto 0;
+    border: none;
+    font-size: 1.4rem;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
 

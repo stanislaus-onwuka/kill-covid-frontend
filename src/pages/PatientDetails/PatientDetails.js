@@ -5,7 +5,7 @@ import editIcon from './../../assets/svg/edit.svg';
 import docGraph from './../../assets/doc-graph.png';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
-import {Link, generatePath} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 class PatientDetails extends Component{
@@ -56,6 +56,37 @@ class PatientDetails extends Component{
                         </div>
                         <img src={docGraph} alt='graph' />
                     </div>
+                    <div className='blood-pressure'>
+                        <header className='header'>
+                            <h4>BLOOD PRESSURE</h4>
+                        </header>
+                        <div className='slot'>
+                            <span>150/190<em> mm/Hg</em></span>
+                            <span>High</span>
+                            <span>28/03/2020</span>
+                        </div>
+                        <div className='slot'>
+                            <span>150/190<em> mm/Hg</em></span>
+                            <span>Normal</span>
+                            <span>25/03/2020</span>
+                        </div>
+                    </div>
+                    <div className='notes'>
+                        <div className='patient'>
+                            <h4>PATIENT'S NOTE</h4>
+                            <p>
+                                <span>Hey Doc,</span>
+                                <span>I don't understand why I don't feel much better after 20 days in quarantine.</span>
+                                <span>I developed dry cough yesterday morning.</span>
+                            </p>
+                        </div>
+                        <div className='doctor'>
+                            <h4>DOCTOR'S NOTE</h4>
+                            <textarea rows='10'/>
+                            <button>Send</button>
+                        </div>
+                    </div>
+                    <button>Flag As Emergency</button>
                 </div>
                 
         }
