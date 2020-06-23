@@ -52,6 +52,9 @@
     justify-content: center;
     align-items: center;
 }
+.Pswitch div:hover {
+    cursor: pointer;
+}
 
 .underline{
     border-bottom: 7px solid #234661;
