@@ -3,7 +3,27 @@
     color: #234661;
 }
 
-.Pcontainer img {
+.Pcontainer{
+    background-color: #f0f2f6;
+}
+
+.patient-details-header{
+    margin-bottom: 1rem;
+    background-color: #fff;
+    box-shadow: 0 .2rem .3rem rgba(0,0,0,.3);
+}
+.history,.prescriptions,.body-temp{
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    background-color: #fff;
+    box-shadow: 0 .2rem .3rem rgba(0,0,0,.3);
+}
+.body-temp img{
+    height: 100%;
+    width: 100%;
+}
+
+.Pcontainer > img {
     height: 50px;
 }
 
@@ -27,11 +47,13 @@
 }
 
 .Pbanner h2 {
-    margin-bottom: 15px;
+    margin-bottom: 2rem;
 }
 
 .Pbanner img {
-    margin-bottom: 5px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    height: 4rem;
 }
 
 .Pswitch {
@@ -44,15 +66,18 @@
 
 }
 
-.Pswitch div {
+.Pswitch h4 {
     border-right: 1px solid lightgray;
     height: 70px;
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
+    background-color: transparent;
+    font-weight: lighter;
 }
-.Pswitch div:hover {
+.Pswitch h4:hover {
     cursor: pointer;
 }
 
@@ -60,18 +85,19 @@
     border-bottom: 7px solid #234661;
 }
 
-.Pswitch h4 {
-    font-weight: lighter;
-}
-
 .head-container{
-    width: 87%;
+    width: 100%;
     margin: auto;
     margin-top: 10px;
     height: 50px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border-bottom: 1px solid lightgray;
+    padding: 0 1rem ;
+}
+.head-container img{
+    padding: .5rem 0;
 }
 
 .head-container2 {
@@ -84,6 +110,7 @@
     border-bottom: 1px solid lightgray;
     display: flex;
     justify-content: space-between;
+    color: #2e628a;
 }
 
 .head-container2 h4 {
@@ -117,3 +144,13 @@
 .add-prescription-link img{
     width: 60px;
 }
+.Pprog, .Pinfo{
+    z-index: 2;
+    background-color: transparent;
+}
+
+.Pprog.active, .Pinfo.active{
+    border-bottom: solid 3px #234661;
+    box-shadow: 0;
+}
+
