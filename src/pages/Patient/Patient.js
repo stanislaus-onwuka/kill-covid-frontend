@@ -23,7 +23,7 @@ class Patient extends Component{
     this.state = {
       user: null,
       page : 'home',
-      uid: 'd1f6ce98-f80d-4848-bc8e-310020677f5b'
+      uid: 'd522c6d0-0c0d-4ece-bd34-0b1721bebeca'
     }
   }
 
@@ -73,6 +73,7 @@ class Patient extends Component{
         return (
           <PatientHome
             firstName={this.state.user.first_name}
+            guides={this.state.user.guides}
           />
         )
       case 'info':
