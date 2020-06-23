@@ -5,6 +5,7 @@
 
 .Pcontainer{
     background-color: #f0f2f6;
+    min-height: 100vh;
 }
 
 .patient-details-header{
@@ -12,7 +13,7 @@
     background-color: #fff;
     box-shadow: 0 .2rem .3rem rgba(0,0,0,.3);
 }
-.history,.prescriptions,.body-temp,.blood-pressure,.notes{
+.history,.prescriptions,.body-temp,.blood-pressure,.notes,.information-div{
     margin-bottom: 1rem;
     padding-bottom: .5rem;
     background-color: #fff;
@@ -96,7 +97,11 @@
     border-bottom: 1px solid lightgray;
     padding: 0 1rem ;
 }
-.head-container img{
+.head-container a{
+    display: block;
+}
+.head-container a img{
+    height: 3rem;
     padding: .5rem 0;
 }
 
