@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import "../DoctorLandingPage/DoctorLandingPage.css";
+import docIcon from './../../assets/svg/doctor.svg';
+import "./DoctorLandingPage.css";
 
 const DoctorLandingPage = () => {
     const history = useHistory();
@@ -13,7 +14,7 @@ const DoctorLandingPage = () => {
     return(
         <div className="doc-landing-page">
             <h1 className="title">Doctors Sign in</h1>
-            <img alt="doc-icon" className="doc-icon" src={require("../../assets/svg/doctor.svg")}/>
+            <img alt="doc-icon" className="doc-icon" src={docIcon}/>
             <form onSubmit={handleSignInSubmit}>
                 <input placeholder="Doctor ID" type="text" name="doctor-id" className="doctor-id"/>
                 <input placeholder="Password" type="password" name="doc-password" className="doc-password"/>

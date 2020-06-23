@@ -21,7 +21,7 @@ const signup = () => {
                            <input name="username" 
                            type="text"
                            placeholder="Create a username"/>
-                           <input type="submit" value="Sign Up" className="signup-submit"/>
+                           <Link to='/Eval' className="signup-submit">Sign Up</Link>
                         </form>
                         <em className="socials-text">Or Sign up with</em>
                         <div className="socials">
