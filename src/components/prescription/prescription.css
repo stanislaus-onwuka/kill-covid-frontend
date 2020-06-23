@@ -1,17 +1,14 @@
 .prescribe{
-    width: 70%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
     margin: 10px auto;
 }
 
 .prescribe h4{
+    width: 48%;
     font-weight: lighter;
 }
-
-
-@media only screen and (max-width: 500px){
-    .prescribe{
-        width: 85%;
-    }
+.prescribe h4:last-child{
+    text-align: right;
 }

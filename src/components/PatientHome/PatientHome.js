@@ -46,7 +46,7 @@ class PatientHome extends Component {
               {/* eslint-disable-next-line */}
               <a onClick={()=>{
                 document.querySelector('.update-records').classList.add('display');
-                document.querySelector('.patient-container').style.position = 'fixed';
+                document.querySelector('.patient-home-container').classList.add('fixed');
               }} href='#'>Update records</a>
               {/* eslint-disable-next-line */}
               <a onClick={()=>{this.onButtonClick('records')}} href='#'>View records</a>
@@ -65,7 +65,7 @@ class PatientHome extends Component {
           <div className='bg'></div>
           <CancelIcon onClick={()=>{
             document.querySelector('.update-records').classList.remove('display');
-            document.querySelector('.patient-container').style.position = 'static';
+            document.querySelector('.patient-home-container').classList.remove('fixed');
           }} />
           <div className='header'>
             <h1>Update your Records</h1>

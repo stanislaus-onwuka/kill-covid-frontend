@@ -29,64 +29,46 @@
     padding: 0.3rem 0;
 }
 
-.dosage-div{
+.dosage-div,.dates{
     display: flex;
-    flex-direction: row;
-    padding: 0.5rem;
+    width: 100%;
     color: #99999b;
+    justify-content: space-between;
+    padding: 0.5rem;
 }
 
 .dosage-div input{
+    width: 90%;
     border: none;
     border-bottom: 2px solid #1e405a;
     font-size: 20px;
     padding: 0.3rem 0;
 }
 
-.dosage{
-    align-self: flex-start;
-    padding: 0.2rem;
-    margin: 0 1rem;
+.dosage,.frequency{
+    width: 48%;
 }
 
-.frequency{
-    align-self: flex-end;
-    padding: 0.2rem;
-    margin: 0 1rem;
-}
-
-.dates{
-    display: flex;
-    flex-direction: row;
-    padding: 0.5rem;
-    color: #99999b;
-}
 
 .dates input{
+    width: 90%;
     border: none;
     border-bottom: 2px solid #1e405a;
     font-size: 20px;
     padding: 0.3rem 0;
 }
 
-.start-date-div{
-    align-self: flex-start;
-    padding: 0.2rem;
-    margin: 0 1.5rem;
+.start-date-div,.end-date-div{
+    width: 48%;
 }
 
-.end-date-div{
-    align-self: flex-end;
-    padding: 0.2rem;
-    margin: 0 1.5rem;
-}
 
 .save-btn{
+    display: block;
     margin: 1rem auto;
     padding: 0.5rem;
     border-radius: 5px;
     background-color: #3c8cb5;
-    border: 1px solid #3c8cb5;
     color: #fff;
     width: 90%;
     max-width: 450px;
