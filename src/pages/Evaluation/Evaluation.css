@@ -33,3 +33,11 @@ input[type="text"]::placeholder{
     width: 100%;
   }
 }
+@media screen and (max-width:468px) {
+  .scrollable{
+    height: 60vh;
+  }
+  .evaluation-container .footer-svg{
+    transform: none;
+  }
+}
