@@ -219,8 +219,11 @@ class EvalContent extends Component {
 		this.state = {
 			firstName: "",
 			lastName: "",
+			age:"",
 			state: "",
 			address: "",
+			tel:"0",
+			email:"",
 			countryVisited: null,
 			ownCountry: "",
 			otherSymptoms: "",
@@ -281,10 +284,38 @@ class EvalContent extends Component {
 							value={this.state.lastName}
 							onChange={this.onLastNameChange}
 						/>
+						<em> How old are you ? </em>
+						<input
+							className='eval-last-name-input'
+							type='number'
+							name='Age'
+							placeholder='Your Age'
+							value={this.state.age}
+							onChange={this.onAgeChange}
+						/>
 					</>
 				);
-
 			case 3:
+			return(<>
+				<em>Contact Info</em>
+				<input
+					className='eval-first-name-input'
+					type='text'
+					name='phone-number'
+					placeholder='Phone Number'
+					value={this.state.tel}
+					onChange={this.onTelChange}
+				/>
+				<input
+					className='eval-last-name-input'
+					type='text'
+					name='email'
+					placeholder='email'
+					value={this.state.email}
+					onChange={this.onEmailChange}
+				/>
+			</>)
+			case 4:
 				return (
 					<div>
 						<em> In the last 14 days, have you traveled to any country? </em>
@@ -314,7 +345,7 @@ class EvalContent extends Component {
 					</div>
 				);
 
-			case 4:
+			case 5:
 				return (
 					<>
 						<select
@@ -345,7 +376,7 @@ class EvalContent extends Component {
 						/>
 					</>
 				);
-			case 5:
+			case 6:
 				return (
 					<>
 						<em>What symptoms are you showing ? </em>
@@ -544,7 +575,7 @@ class EvalContent extends Component {
 		}
 	};
 	displayContinueBtn = () => {
-		if (this.state.pageNo > 1 && this.state.pageNo < 6) {
+		if (this.state.pageNo > 1 && this.state.pageNo < 7) {
 			return (
 				<>
 					{/* eslint-disable-next-line */}
@@ -559,7 +590,7 @@ class EvalContent extends Component {
 					</button>
 				</>
 			);
-		} else if(this.state.pageNo === 6){
+		} else if(this.state.pageNo === 7){
 			return(
 			<>
 			{/* eslint-disable-next-line */}
@@ -573,7 +604,7 @@ class EvalContent extends Component {
 			</button>
 		</>)
 		}
-		else if (this.state.pageNo === 7) {
+		else if (this.state.pageNo === 8) {
 			return (
 				<>
 					{/* eslint-disable-next-line */}
@@ -591,6 +622,18 @@ class EvalContent extends Component {
 	onLastNameChange = e => {
 		this.setState({ lastName: e.target.value });
 	};
+	onAgeChange = e =>{
+		this.setState({age:e.target.value})
+	}
+	onTelChange = e =>{
+		let num = null
+		num = e.target.value
+		!isNaN(parseInt(num[num.length -1])) ? this.setState({tel:e.target.value}):console.log()
+		// console.log(e.target.value)
+	}
+	onEmailChange = e =>{
+		this.setState({email:e.target.value})
+	}
 	handleSelectChange = e => {
 		this.setState({ visitedCountry: e.target.value });
 	};
@@ -630,9 +673,9 @@ class EvalContent extends Component {
 			"signUpMethod":"Google-Account"
 		};
 		const add_profile={
-			"email":"",
-			"tel" : "",
-			"age":21,
+			"email":this.state.email,
+			"tel" : this.state.tel.toString(),
+			"age":isNaN(this.state.age) ? 0 : this.state.age,
 			"state": this.state.state,
 			"address": this.state.address,
 			"country": this.state.ownCountry
@@ -657,7 +700,7 @@ class EvalContent extends Component {
 			console.log(cuid);
 		});
 		console.log(add_profile)
-		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiNWU2N2Q4NTktNTE0ZC00Nzk1LThlMjUtNGM4NmM5ZjExZjY2IiwiaWF0IjoxNTkyOTU5MTk5LCJqdGkiOiIwM2RlMjRkMi04NmJiLTQwM2QtOTEwYi0yZDRkMzJlNGI5ZDEiLCJleHAiOjE1OTI5NjI4NDl9.FVnn4dge_jDpM4CTA36C6Pyn7ELLcjfMwsrh5oaJsYo'
+		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiOGQ4Mjk2OGYtYjNkYy00Y2Y5LTk0NzUtNDJlYzQ0ZjVlZWJiIiwiaWF0IjoxNTkyOTU5MTk5LCJqdGkiOiI1N2E1ZjVhYi04NmMzLTRiNmMtOWRlNS00NGE2M2M3OTNhZWYiLCJleHAiOjE1OTI5NjgzMTh9.ONJqRT9RYMafxAjOkMv5GTmVbqHLgqcoKFhdRFUWIgg'
 		const heders = {headers:{'access-token':token}}
 		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,heders).then(res => {
 			console.log(res);
