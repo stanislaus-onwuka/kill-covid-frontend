@@ -1,4 +1,6 @@
 import React from 'react';
+import checked from './../../assets/svg/checked.svg';
+import bell from './../../assets/svg/bell.svg';
 import ScheduleItem from './../scheduleItem/scheduleItem';
 import './ActivitySchedule.css';
 

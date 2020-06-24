@@ -23,8 +23,11 @@ class EvalContent extends Component {
 		this.state = {
 			firstName: "",
 			lastName: "",
+			age:"",
 			state: "",
 			address: "",
+			tel:"0",
+			email:"",
 			countryVisited: "",
 			ownCountry: "",
 			otherSymptoms: "",
@@ -98,10 +101,38 @@ class EvalContent extends Component {
 							value={this.state.lastName}
 							onChange={this.handleChange}
 						/>
+						<em> How old are you ? </em>
+						<input
+							className='eval-last-name-input'
+							type='number'
+							name='Age'
+							placeholder='Your Age'
+							value={this.state.age}
+							onChange={this.onAgeChange}
+						/>
 					</>
 				);
-
 			case 3:
+			return(<>
+				<em>Contact Info</em>
+				<input
+					className='eval-first-name-input'
+					type='text'
+					name='phone-number'
+					placeholder='Phone Number'
+					value={this.state.tel}
+					onChange={this.onTelChange}
+				/>
+				<input
+					className='eval-last-name-input'
+					type='text'
+					name='email'
+					placeholder='email'
+					value={this.state.email}
+					onChange={this.onEmailChange}
+				/>
+			</>)
+			case 4:
 				return (
 					<div>
 						<em> In the last 14 days, have you traveled to any country? </em>
@@ -133,7 +164,7 @@ class EvalContent extends Component {
 					</div>
 				);
 
-			case 4:
+			case 5:
 				return (
 					<>
 						<select
@@ -165,7 +196,7 @@ class EvalContent extends Component {
 						/>
 					</>
 				);
-			case 5:
+			case 6:
 				return (
 					<>
 						<em>What symptoms are you showing ? </em>
@@ -339,7 +370,7 @@ class EvalContent extends Component {
 	};
 
 	displayContinueBtn = () => {
-		if (this.state.pageNo > 1 && this.state.pageNo < 5) {
+		if (this.state.pageNo > 1 && this.state.pageNo < 7) {
 			return (
 				<>
 					{/* eslint-disable-next-line */}
@@ -353,7 +384,8 @@ class EvalContent extends Component {
 					</button>
 				</>
 			);
-		} else if(this.state.pageNo === 5){
+
+		} else if(this.state.pageNo === 7){
 			return(
 			<>
 			{/* eslint-disable-next-line */}
@@ -366,6 +398,65 @@ class EvalContent extends Component {
 				</Link>
 		</>)
 		}
+		else if (this.state.pageNo === 8) {
+			return (
+				<>
+					{/* eslint-disable-next-line */}
+					<Link to='/Patient'className='eval-next-btn'>
+							{" "}
+							Finish{" "}
+					</Link>
+				</>
+			);
+		}
+	};
+	onFirstNameChange = e => {
+		this.setState({ firstName: e.target.value });
+	};
+	onLastNameChange = e => {
+		this.setState({ lastName: e.target.value });
+	};
+	onAgeChange = e =>{
+		this.setState({age:e.target.value})
+	}
+	onTelChange = e =>{
+		let num = null
+		num = e.target.value
+		!isNaN(parseInt(num[num.length -1])) ? this.setState({tel:e.target.value}):console.log()
+		// console.log(e.target.value)
+	}
+	onEmailChange = e =>{
+		this.setState({email:e.target.value})
+	}
+	handleSelectChange = e => {
+		this.setState({ visitedCountry: e.target.value });
+	};
+	handleOwnCountryChange = e => {
+		this.setState({ ownCountry: e.target.value });
+	};
+	handleStateChange = e => {
+		this.setState({ state: e.target.value });
+	};
+	handleAddressChange = e => {
+		this.setState({ address: e.target.value });
+	};
+	handlesymptomchange = e => {
+		this.setState({ otherSymptoms: e.target.value });
+	};
+	feverRate = e => {
+		this.setState({ feverRate: e.target.value });
+	};
+	coughRate = e => {
+		this.setState({ coughRate: e.target.value });
+	};
+	respRate = e => {
+		this.setState({ respRate: e.target.value });
+	};
+	fatigueRate = e => {
+		this.setState({ fatigueRate: e.target.value });
+	};
+	otherRate = e => {
+		this.setState({ otherRate: e.target.value });
 	};
 	
 	postDetails = e => {
@@ -376,6 +467,9 @@ class EvalContent extends Component {
 			"signUpMethod":"Google-Account"
 		};
 		const add_profile={
+			"email":this.state.email,
+			"tel" : this.state.tel.toString(),
+			"age":isNaN(this.state.age) ? 0 : this.state.age,
 			"state": this.state.state,
 			"address": this.state.address,
 			"country": this.state.ownCountry
@@ -400,12 +494,16 @@ class EvalContent extends Component {
 			console.log(cuid);
 		});
 		console.log(add_profile)
-		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiNThmMmRmM2YtYWUxMi00M2FkLWJmOWItMTEyNDlkOGRjNGU4IiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI0ZTliNmU0ZC1lNzEwLTRmYjktOGIzMC1kMjRlNDcxYzAzYTUiLCJleHAiOjE1OTI2Mjk2OTZ9.NbWsJPD1NpI2PJFtW9RjXDLWaYnZXW7VTl90QT-FoGo'
-		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,{headers:{'access-token':token}}).then(res => {
+		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiOGQ4Mjk2OGYtYjNkYy00Y2Y5LTk0NzUtNDJlYzQ0ZjVlZWJiIiwiaWF0IjoxNTkyOTU5MTk5LCJqdGkiOiI1N2E1ZjVhYi04NmMzLTRiNmMtOWRlNS00NGE2M2M3OTNhZWYiLCJleHAiOjE1OTI5NjgzMTh9.ONJqRT9RYMafxAjOkMv5GTmVbqHLgqcoKFhdRFUWIgg'
+		const heders = {headers:{'access-token':token}}
+		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,heders).then(res => {
 			console.log(res);
 			console.log(res.data)
 		});
-		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,{headers:{'access-token':token}}).then(res=>{console.log(res)})
+		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,heders).then(res=>{console.log(res)})
+		this.switchPage()
+		// console.log(addname);
+		// console.log(add_symptoms);
 	};
 
 	render() {
