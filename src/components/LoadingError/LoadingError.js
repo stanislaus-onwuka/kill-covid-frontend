@@ -1,6 +1,6 @@
 import React from 'react';
 import './LoadingError.css';
-import error from '../../Assets/error.svg';
+import error from '../../assets/svg/error.svg';
 
 const LoadingError = () => {
   return (

@@ -46,7 +46,7 @@ class PatientHome extends Component {
               {/* eslint-disable-next-line */}
               <a onClick={()=>{
                 document.querySelector('.update-records').classList.add('display');
-                document.querySelector('.patient-container').style.position = 'fixed';
+                document.querySelector('.patient-home-container').classList.add('fixed');
               }} href='#'>Update records</a>
               {/* eslint-disable-next-line */}
               <a onClick={()=>{this.onButtonClick('records')}} href='#'>View records</a>
@@ -59,13 +59,13 @@ class PatientHome extends Component {
               </div>
             </div>
           </section>
-          <ActivitySchedule />
+          <ActivitySchedule guides={this.props.guides}/>
         </div>
           <div className='update-records'>
           <div className='bg'></div>
           <CancelIcon onClick={()=>{
             document.querySelector('.update-records').classList.remove('display');
-            document.querySelector('.patient-container').style.position = 'static';
+            document.querySelector('.patient-home-container').classList.remove('fixed');
           }} />
           <div className='header'>
             <h1>Update your Records</h1>
@@ -123,9 +123,7 @@ class PatientHome extends Component {
   }
 
   onButtonClick(page){
-    this.setState({page},()=>{
-      console.log(this.state.page)
-    })
+    this.setState({page})
   }
 
   onSwitchBtnClick(recordPage,event){
@@ -134,7 +132,7 @@ class PatientHome extends Component {
         document.querySelector('.active').classList.add('inactive');
         document.querySelector('.active').classList.remove('active');
 				event.target.classList.add('active');
-  }		
+  }
 
 
   render(){

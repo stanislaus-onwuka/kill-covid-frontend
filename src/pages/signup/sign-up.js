@@ -14,7 +14,7 @@ const signup = () => {
                            <h2>Sign up</h2>
                            <em>Create an account</em>
                         </div>
-                        <form>
+                        <form className='sign-up-form'>
                            <input name="phone" 
                            type="text"
                            placeholder="Phone Number"/>
@@ -36,11 +36,6 @@ const signup = () => {
                          <div className="signup-login-btn">
                             <Link className="btn" to="/Login">Log In</Link>
                          </div>
-
-                        <div className="doctor-login">
-                           <p>Doctor?</p>
-                           <Link to="/doctor/login">Click Here</Link> 
-                        </div>  
                   </div>   
             </section>                  
        </div>

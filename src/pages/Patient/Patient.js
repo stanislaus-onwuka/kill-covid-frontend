@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import nJwt from 'njwt';
 import home from '../../assets/svg/home.svg';
 import activeHome from '../../assets/svg/active-home.svg';
 import activeInfo from '../../assets/svg/active-info.svg';
@@ -22,28 +23,44 @@ class Patient extends Component{
     this.state = {
       user: null,
       page : 'home',
-      accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNTY2ODc3LCJleHAiOjE1OTI1OTE4ODQsInVpZCI6IjQzZTcwYmQ3LTg1ZTEtNGRmYi1hNjMzLWExMzVhNDJmYTYxZCIsImp0aSI6Ijg2NjJkYmRmLTI3Y2MtNDMxMy04MGZhLTc2NmI3OGMyN2E4YSJ9.JuWEDh9fk-cMW6EGW8qUNYaE1-B4ncDNK7fFFim5rF8'
+      uid: 'd522c6d0-0c0d-4ece-bd34-0b1721bebeca'
     }
   }
 
   componentDidMount() {
+    // monkey patch generation of access token
+    const generateAccessToken = uid => {
+      let claims = {
+       "sub": "1234567890",
+       "iat": 1592737638,
+       "exp": 1592741238,
+       "uid": uid
+     };
+     let jwt = nJwt.create(claims, "secret", "HS256");
+     let token = jwt.compact();
+     return token;
+    };
+
     const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-    fetch(url, {
+    const accessToken = generateAccessToken(this.state.uid);
+    const options = {
       method: 'GET',
       headers: {
-        'access-token': this.state.accessToken
+        'access-token': accessToken
       }
-    })
+    };
+
+    fetch(url, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+            throw new Error('Network response was not ok');
+          };
         return response.json();
       })
       .then(data => this.setState({ user: data }))
       .catch(error => {
-        this.setState({ user: 'error' })
-        console.error('There has been a problem fetching user data', error)
+        console.error('There has been a problem fetching user data', error);
+        this.setState({ user: 'error' });
       });
   };
 
@@ -56,6 +73,7 @@ class Patient extends Component{
         return (
           <PatientHome
             firstName={this.state.user.first_name}
+            guides={this.state.user.guides}
           />
         )
       case 'info':

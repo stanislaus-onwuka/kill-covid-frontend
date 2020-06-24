@@ -3,6 +3,9 @@
   width: 90%;
   margin: 0 auto;
 }
+.patient-home-container.fixed{
+  position: fixed;
+}
 .patient-home-profile{
   display: flex;
   justify-content: space-between;

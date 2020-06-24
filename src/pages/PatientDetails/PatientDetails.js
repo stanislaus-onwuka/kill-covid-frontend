@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import './PatientDetails.css';
-import profilePic from "../../assets/avatar.svg";
+import profilePic from "../../assets/prof.png";
+import editIcon from './../../assets/svg/edit.svg';
+import docGraph from './../../assets/doc-graph.png';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
 import {Link} from "react-router-dom";
@@ -11,13 +13,14 @@ class PatientDetails extends Component{
         super()
         this.state={
             page:'progress'
-
         }
     }
 
-    setPage(page){
-        this.setState({page})
-
+    setPage(event,page){
+        this.setState({page});
+        document.querySelector('.active').classList.remove('active');
+        console.log(event.target)
+        event.target.classList.add('active')
     }
 
     setDisplay(){
@@ -35,6 +38,8 @@ class PatientDetails extends Component{
                     <div className="prescriptions">
                         <div className="head-container">
                             <h4>PRESCRIPTIONS</h4>
+                            <Link to="/add-prescription"><img src={editIcon} alt='edit icon' /></Link>
+                            
                         </div>
                         <div className="drugs">
                             <div className="head-container2">
@@ -49,7 +54,39 @@ class PatientDetails extends Component{
                         <div className="head-container">
                             <h4>BODY TEMPERATURE</h4>
                         </div>
+                        <img src={docGraph} alt='graph' />
                     </div>
+                    <div className='blood-pressure'>
+                        <header className='header'>
+                            <h4>BLOOD PRESSURE</h4>
+                        </header>
+                        <div className='slot'>
+                            <span>150/190<em> mm/Hg</em></span>
+                            <span>High</span>
+                            <span>28/03/2020</span>
+                        </div>
+                        <div className='slot'>
+                            <span>150/190<em> mm/Hg</em></span>
+                            <span>Normal</span>
+                            <span>25/03/2020</span>
+                        </div>
+                    </div>
+                    <div className='notes'>
+                        <div className='patient'>
+                            <h4>PATIENT'S NOTE</h4>
+                            <p>
+                                <span>Hey Doc,</span>
+                                <span>I don't understand why I don't feel much better after 20 days in quarantine.</span>
+                                <span>I developed dry cough yesterday morning.</span>
+                            </p>
+                        </div>
+                        <div className='doctor'>
+                            <h4>DOCTOR'S NOTE</h4>
+                            <textarea rows='10'/>
+                            <button>Send</button>
+                        </div>
+                    </div>
+                    <button>Flag As Emergency</button>
                 </div>
                 
         }
@@ -81,29 +118,25 @@ class PatientDetails extends Component{
         return (
             <div className="PatientDetails">
                 <div className="Pcontainer">
-                    <div className="Pbanner">
-                        <h2>Patient's Details</h2>
-                        <img src={profilePic} alt="img"/>
-                        <h3>Paul Okoye</h3>
-                    </div>
+                    <header className='patient-details-header'>
+                        <div className="Pbanner">
+                            <h2>Patient's Details</h2>
+                            <img src={profilePic} alt="img"/>
+                            <h3>Paul Okoye</h3>
+                        </div>
 
-                    <div className="Pswitch">
-                        <div onClick={()=>this.setPage('progress')} className="Pprog" >
-                            <h4>PROGRESS</h4>
+                        <div className="Pswitch">
+                            <h4 onClick={e=>this.setPage(e,'progress')} className="Pprog active">PROGRESS</h4>
+                            <h4 onClick={e=>this.setPage(e,'info')} className="Pinfo">INFORMATION</h4>
                         </div>
-                        <div onClick={()=>this.setPage('info')} className="Pinfo" >
-                            <h4>INFORMATION</h4>
-                        </div>
-                    </div>
+                    </header>
                     
                     <div className="Pdisplay">
                         {this.setDisplay()}
                     </div>
 
                     </div>
-            <Link to="/add-prescription" className="add-prescription-link">
-                <img src={require("./plus.svg")} alt="add prescription button"/>
-            </Link>
+            
         </div>
         );
     }

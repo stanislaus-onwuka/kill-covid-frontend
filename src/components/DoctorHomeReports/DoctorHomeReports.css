@@ -1,6 +1,6 @@
 .placard {
     height: 100px;
-    width: 60%;
+    width: 100%;
     margin: auto;
     display: flex;
     justify-content: space-around;

@@ -1,206 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import countries from './countries.js';
 import "./EvalContent.css";
 import axios from "axios";
 
-let countries = [
-	"select country",
-	"Afghanistan",
-	"Albania",
-	"Algeria",
-	"Andorra",
-	"Angola",
-	"Antigua",
-	"Argentina",
-	"Armenia",
-	"Australia",
-	"Austria",
-	"Azerbaijan",
-	"Bahamas",
-	"Bahrain",
-	"Bangladesh",
-	"Barbados",
-	"Belarus",
-	"Belgium",
-	"Belize",
-	"Benin",
-	"Bhutan",
-	"Bolivia",
-	"Bosnia Herzegovina",
-	"Botswana",
-	"Brazil",
-	"Brunei",
-	"Bulgaria",
-	"Burkina Faso",
-	"Burundi",
-	"Cabo Verde",
-	"Cambodia",
-	"Cameroon",
-	"Canada",
-	"Central African Republic",
-	"Chad",
-	"Chile",
-	"China",
-	"Colombia",
-	"Comoros",
-	"Congo(DR)",
-	"Congo",
-	"Costa Rica",
-	"Croatia",
-	"Cuba",
-	"Cyprus",
-	"Czech Republic",
-	"Côte d'Ivoire",
-	"Denmark",
-	"Djibouti",
-	"Dominica",
-	"Dominican Republic",
-	"Ecuador",
-	"Egypt",
-	"El Salvador",
-	"Equatorial Guinea",
-	"Estonia",
-	"Ethiopia",
-	"Fiji",
-	"Finland",
-	"France",
-	"Gabon",
-	"Gambia",
-	"Georgia",
-	"Germany",
-	"Ghana",
-	"Gibraltar",
-	"Greece",
-	"Grenada",
-	"Guatemala",
-	"Guinea",
-	"Guinea-Bissau",
-	"Guyana",
-	"Haiti",
-	"Honduras",
-	"Hong Kong",
-	"Hungary",
-	"Iceland",
-	"India",
-	"Indonesia",
-	"Iran",
-	"Iraq",
-	"Ireland",
-	"Israel",
-	"Italy",
-	"Jamaica",
-	"Japan",
-	"Jordan",
-	"Kazakhstan",
-	"Kenya",
-	"Kiribati",
-	"Korea North",
-	"Korea South",
-	"Kuwait",
-	"Kyrgyzstan",
-	"Latvia",
-	"Lebanon",
-	"Lesotho",
-	"Liberia",
-	"Libya",
-	"Liechtenstein",
-	"Lithuania",
-	"Luxembourg",
-	"Macedonia",
-	"Madagascar",
-	"Malawi",
-	"Malaysia",
-	"Maldives",
-	"Mali",
-	"Malta",
-	"Marshall Islands",
-	"Mauritania",
-	"Mauritius",
-	"Mexico",
-	"Micronesia",
-	"Moldova",
-	"Monaco",
-	"Mongolia",
-	"Montenegro",
-	"Morocco",
-	"Mozambique",
-	"Myanmar",
-	"Namibia",
-	"Nauru",
-	"Nepal",
-	"Netherlands",
-	"New Zealand",
-	"Nicaragua",
-	"Niger",
-	"Nigeria",
-	"Norway",
-	"Oman",
-	"Pakistan",
-	"Palau",
-	"Panama",
-	"Papua New Guinea",
-	"Paraguay",
-	"Peru",
-	"Philippines",
-	"Poland",
-	"Portugal",
-	"Puerto Rico",
-	"Qatar",
-	"Romania",
-	"Russian Federation",
-	"Rwanda",
-	"Saint Kitts and Nevis",
-	"Saint Lucia",
-	"Saint Vincent and the Grenadines",
-	"Samoa",
-	"San Marino",
-	"Sao Tome and Principe",
-	"Saudi Arabia",
-	"Senegal",
-	"Serbia",
-	"Seychelles",
-	"Sierra Leone",
-	"Singapore",
-	"Slovakia",
-	"Slovenia",
-	"Solomon Islands",
-	"Somalia",
-	"South Africa",
-	"South Sudan",
-	"Spain",
-	"Sri Lanka",
-	"Sudan",
-	"Suriname",
-	"Swaziland",
-	"Sweden",
-	"Switzerland",
-	"Syria",
-	"Taiwan",
-	"Tajikistan",
-	"Tanzania, United Republic of",
-	"Thailand",
-	"Togo",
-	"Trinidad and Tobago",
-	"Tunisia",
-	"Turkey",
-	"Turkmenistan",
-	"Tuvalu",
-	"Uganda",
-	"Ukraine",
-	"United Arab Emirates",
-	"United Kingdom",
-	"United States",
-	"Uruguay",
-	"Uzbekistan",
-	"Vanuatu",
-	"Vatican City",
-	"Venezuela",
-	"Vietnam",
-	"Yemen",
-	"Zambia",
-	"Zimbabwe",
-	"Åland Islands"
-];
+
 let ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let countryOptions = countries.map(country => (
 	<option key={country} value={country}>
@@ -224,7 +28,7 @@ class EvalContent extends Component {
 			address: "",
 			tel:"0",
 			email:"",
-			countryVisited: null,
+			countryVisited: "",
 			ownCountry: "",
 			otherSymptoms: "",
 			otherRate: "",
@@ -248,6 +52,19 @@ class EvalContent extends Component {
 			return { pageNo: prevState.pageNo + 1 };
 		});
 	};
+
+	handleChange = (event,type) => {
+		let name =  event.target.name;
+		let value;
+		if(type){
+			value =  event.target.checked;
+		}else{
+			event.preventDefault();
+			value = event.target.value;
+		}
+
+		this.setState({[name]: value})
+	}
 
 	renderComp = () => {
 		const { pageNo } = this.state;
@@ -274,7 +91,7 @@ class EvalContent extends Component {
 							name='firstName'
 							placeholder='First Name'
 							value={this.state.firstName}
-							onChange={this.onFirstNameChange}
+							onChange={this.handleChange}
 						/>
 						<input
 							className='eval-last-name-input'
@@ -282,7 +99,7 @@ class EvalContent extends Component {
 							name='lastName'
 							placeholder='Last Name'
 							value={this.state.lastName}
-							onChange={this.onLastNameChange}
+							onChange={this.handleChange}
 						/>
 						<em> How old are you ? </em>
 						<input
@@ -328,20 +145,22 @@ class EvalContent extends Component {
 							</button>
 						</div>
 
-						{this.state.yesBtnActive ? (
-							<select
-								id='countries'
-								value={this.state.visitedCountry}
-								onChange={this.handleSelectChange}
-							>
-								{/* <option value="select Country" disabled selected hidden>
-									Select the country
-								</option> */}
-								{countryOptions}
-							</select>
-						) : (
-							console.log()
-						)}
+						{this.state.yesBtnActive 
+						? (
+								<select
+									id='countries'
+									name='countryVisited'
+									value={this.state.countryVisited}
+									onChange={this.handleChange}
+								>
+									<option value="select country"  hidden defaultValue>
+										Select the country
+									</option>
+									{countryOptions}
+								</select>
+						  ) 
+						: null
+						}
 					</div>
 				);
 
@@ -350,12 +169,13 @@ class EvalContent extends Component {
 					<>
 						<select
 							id='countries'
+							name='ownCountry'
 							value={this.state.ownCountry}
-							onChange={this.handleOwnCountryChange}
+							onChange={this.handleChange}
 						>
-							{/* <option value="select Country" disabled selected hidden>
+							<option value="select Country"  defaultValue hidden>
 									Select the country
-								</option> */}
+								</option>
 							{countryOptions}
 						</select>
 						<input
@@ -364,7 +184,7 @@ class EvalContent extends Component {
 							name='state'
 							placeholder='State'
 							value={this.state.state}
-							onChange={this.handleStateChange}
+							onChange={this.handleChange}
 						/>
 						<input
 							className='eval-address-input'
@@ -372,7 +192,7 @@ class EvalContent extends Component {
 							name='address'
 							placeholder='Address'
 							value={this.state.address}
-							onChange={this.handleAddressChange}
+							onChange={this.handleChange}
 						/>
 					</>
 				);
@@ -384,35 +204,35 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onClick={() => this.inputSelectClick(1)}
-								id='cough'
-								name='symptom'
+								onChange={(e) => this.handleChange(e,'checkbox')}
+								name='isCoughChecked'
 								value='Cough'
 							/>
 							<label htmlFor='cough'>Cough</label>
-							{this.state.isCoughChecked ? (
-								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
-										value={this.state.coughRate}
-										onChange={this.coughRate}
-										id='rating'
-									>
-										{ratingOptions}
-									</select>
-								</div>
-							) : (
-								console.log()
-							)}
+							{this.state.isCoughChecked 
+								? (
+									<div className='rating'>
+										<em>On a scale of 1-10, how serious is it ?</em>
+										<select
+											name='coughRate'
+											value={this.state.coughRate}
+											onChange={this.handleChange}
+										>
+											{ratingOptions}
+										</select>
+									</div>
+									) 
+								: null
+								}
 						</div>
 
 						<div className='symptom-input'>
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onClick={() => this.inputSelectClick(2)}
+								onChange={(e) => this.handleChange(e,'checkbox')}
 								id='fever'
-								name='symptom'
+								name='isFeverChecked'
 								value='Fever'
 							/>
 							<label htmlFor='fever'>Fever</label>
@@ -420,8 +240,9 @@ class EvalContent extends Component {
 								<div className='rating'>
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
+										name='feverRate'
 										value={this.state.feverRate}
-										onChange={this.feverRate}
+										onChange={this.handleChange}
 										id='rating'
 									>
 										{ratingOptions}
@@ -436,9 +257,9 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onClick={() => this.inputSelectClick(3)}
+								onChange={(e) => this.handleChange(e,'checkbox')}
 								id='fatigue'
-								name='symptom'
+								name='isFatigueChecked'
 								value='Fatigue'
 							/>
 							<label htmlFor='fatigue'>Fatigue</label>
@@ -446,8 +267,9 @@ class EvalContent extends Component {
 								<div className='rating'>
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
+										name='fatigueRate'
 										value={this.state.fatigueRate}
-										onChange={this.fatigueRate}
+										onChange={this.handleChange}
 										id='rating'
 									>
 										{ratingOptions}
@@ -462,9 +284,9 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onClick={() => this.inputSelectClick(4)}
+								onChange={(e) => this.handleChange(e,'checkbox')}
 								id='respiratory'
-								name='symptom'
+								name='isRespiratoryChecked'
 								value='Respiratory'
 							/>
 							<label htmlFor='respiratory'>Respiratory Problems</label>
@@ -472,8 +294,9 @@ class EvalContent extends Component {
 								<div className='rating'>
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
+										name='respRate'
 										value={this.state.respRate}
-										onChange={this.respRate}
+										onChange={this.handleChange}
 										id='rating'
 									>
 										{ratingOptions}
@@ -488,9 +311,9 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onClick={() => this.inputSelectClick(5)}
+								onChange={(e) => this.handleChange(e,'checkbox')}
 								id='others'
-								name='symptom'
+								name='isOthersChecked'
 								value='Others'
 							/>
 							<label htmlFor='others'>Others</label>
@@ -498,16 +321,17 @@ class EvalContent extends Component {
 								<div className='rating'>
 									<input
 										value={this.state.otherSymptoms}
-										onChange={this.handlesymptomchange}
+										onChange={this.handleChange}
 										className='eval-others-input'
 										type='text'
-										name='others'
+										name='otherSymptoms'
 										placeholder='What symptom ?'
 									/>
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
-										value={this.state.othersRate}
-										onChange={this.otherRate}
+										name='otherRate'
+										value={this.state.otherRate}
+										onChange={this.handleChange}
 										id='rating'
 									>
 										{ratingOptions}
@@ -542,38 +366,9 @@ class EvalContent extends Component {
 		} catch (err) {}
 		event.target.classList.remove("inactive");
 		event.target.classList.add("active");
-		this.setState({ yesBtnActive: false });
+		this.setState({ yesBtnActive: false, visitedCountry: false });
 	};
-	inputSelectClick = number => {
-		switch (number) {
-			case 1:
-				this.state.isCoughChecked
-					? this.setState({ isCoughChecked: false })
-					: this.setState({ isCoughChecked: true });
-				break;
-			case 2:
-				this.state.isFeverChecked
-					? this.setState({ isFeverChecked: false })
-					: this.setState({ isFeverChecked: true });
-				break;
-			case 3:
-				this.state.isFatigueChecked
-					? this.setState({ isFatigueChecked: false })
-					: this.setState({ isFatigueChecked: true });
-				break;
-			case 4:
-				this.state.isRespiratoryChecked
-					? this.setState({ isRespiratoryChecked: false })
-					: this.setState({ isRespiratoryChecked: true });
-				break;
-			case 5:
-				this.state.isOthersChecked
-					? this.setState({ isOthersChecked: false })
-					: this.setState({ isOthersChecked: true });
-				break;
-			default:
-		}
-	};
+
 	displayContinueBtn = () => {
 		if (this.state.pageNo > 1 && this.state.pageNo < 7) {
 			return (
@@ -585,23 +380,22 @@ class EvalContent extends Component {
 						href='#'
 						onClick={this.switchPage}
 					>
-						{" "}
-						Next{" "}
+						Next
 					</button>
 				</>
 			);
+
 		} else if(this.state.pageNo === 7){
 			return(
 			<>
 			{/* eslint-disable-next-line */}
-			<button
-				type='Submit'
+				<Link 
+				to='/Patient'
 				className='eval-next-btn'
-				href='#'
-			>
-				{" "}
-				Submit{" "}
-			</button>
+				onClick={this.postDetails}
+				>
+					Submit
+				</Link>
 		</>)
 		}
 		else if (this.state.pageNo === 8) {
@@ -664,8 +458,8 @@ class EvalContent extends Component {
 	otherRate = e => {
 		this.setState({ otherRate: e.target.value });
 	};
+	
 	postDetails = e => {
-		e.preventDefault();
 		const addname = {
 			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
 			"firstName": this.state.firstName,
@@ -715,7 +509,7 @@ class EvalContent extends Component {
 	render() {
 		return (
 			<div className='eval-content-container'>
-				<form onSubmit={this.postDetails}>
+				<form>
 					{this.renderComp()}
 
 					{this.displayContinueBtn()}

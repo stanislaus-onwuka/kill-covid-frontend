@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Doctor-home.css"
 import Report from "../../components/DoctorHomeReports/DoctorHomeReports"
-import ProfilePic from "../../assets/avatar.svg"
+import ProfilePic from "../../assets/svg/avatar.svg"
 
 const doctorHome = () => {
         return (

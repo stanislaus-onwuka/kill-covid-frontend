@@ -40,7 +40,7 @@
     margin: 0 auto;
 }
 
-form input{
+.sign-up-form input{
     padding: 10px;
     border: 2px solid #234661;
     border-radius: 10px;
@@ -93,8 +93,15 @@ form input::placeholder{
 
 .signup-submit{
     background-color: #234661;
-    border: 0px;
+    margin: 0 auto;
+    display: block;
+    padding: 1rem;
+    width: 80% ;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
     color: #fff;
+    letter-spacing: .2rem;
     font-size: 1rem;
     font-family: 'SF Pro Text',Verdana, Geneva, Tahoma, sans-serif; 
     transition: 0.3s; 
