@@ -630,6 +630,9 @@ class EvalContent extends Component {
 			"signUpMethod":"Google-Account"
 		};
 		const add_profile={
+			"email":"",
+			"tel" : "",
+			"age":21,
 			"state": this.state.state,
 			"address": this.state.address,
 			"country": this.state.ownCountry
@@ -654,12 +657,13 @@ class EvalContent extends Component {
 			console.log(cuid);
 		});
 		console.log(add_profile)
-		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiNThmMmRmM2YtYWUxMi00M2FkLWJmOWItMTEyNDlkOGRjNGU4IiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI0ZTliNmU0ZC1lNzEwLTRmYjktOGIzMC1kMjRlNDcxYzAzYTUiLCJleHAiOjE1OTI2Mjk2OTZ9.NbWsJPD1NpI2PJFtW9RjXDLWaYnZXW7VTl90QT-FoGo'
-		// axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,{headers:{'access-token':token}}).then(res => {
-		// 	console.log(res);
-		// 	console.log(res.data)
-		// });
-		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,{headers:{'access-token':token}}).then(res=>{console.log(res)})
+		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiNWU2N2Q4NTktNTE0ZC00Nzk1LThlMjUtNGM4NmM5ZjExZjY2IiwiaWF0IjoxNTkyOTU5MTk5LCJqdGkiOiIwM2RlMjRkMi04NmJiLTQwM2QtOTEwYi0yZDRkMzJlNGI5ZDEiLCJleHAiOjE1OTI5NjI4NDl9.FVnn4dge_jDpM4CTA36C6Pyn7ELLcjfMwsrh5oaJsYo'
+		const heders = {headers:{'access-token':token}}
+		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,heders).then(res => {
+			console.log(res);
+			console.log(res.data)
+		});
+		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,heders).then(res=>{console.log(res)})
 		this.switchPage()
 		// console.log(addname);
 		// console.log(add_symptoms);

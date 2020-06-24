@@ -98,7 +98,7 @@ class Patient extends Component{
             ? <h1 className="patient_loading-title">getting user data...</h1>
             : this.state.user === 'error' // handle possible error when fetching user data
               ? <LoadingError />
-              : <Fragment>
+              : <>
                   {this.setContent()}
                   <div className="spacing"></div>
                   <div className="dashboard">
@@ -115,7 +115,7 @@ class Patient extends Component{
                       { this.setDashboard('profile',activeProfile,profile) }
                     </div>
                   </div>
-                </Fragment>
+                </>
           }
         </div>
     );
