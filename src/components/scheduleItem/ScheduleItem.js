@@ -3,11 +3,11 @@ import checked from '../../assets/svg/checked.svg';
 import bell from '../../assets/svg/bell.svg';
 import './scheduleItem.css';
 
-const scheduleItem = ({ done, info, index, handleClick }) => {
+const ScheduleItem = ({ done, info, index, handleClick, time }) => {
   const icon = done ? checked : bell;
   return (
     <div className="patient-home-activity-schedule">
-      <span>{`${9+index}:00`}</span>
+      <span>{time}</span>
       <span>Take 200mg of {info}</span>
       <div><img
         onClick={() => handleClick(index)}
@@ -18,4 +18,4 @@ const scheduleItem = ({ done, info, index, handleClick }) => {
   )
 };
 
-export default scheduleItem;
+export default ScheduleItem;

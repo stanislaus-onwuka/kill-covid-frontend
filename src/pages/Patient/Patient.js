@@ -28,40 +28,69 @@ class Patient extends Component{
   }
 
   componentDidMount() {
-    // monkey patch generation of access token
+    // monkey patch for generation of access token
     const generateAccessToken = uid => {
       let claims = {
        "sub": "1234567890",
        "iat": 1592737638,
        "exp": 1592741238,
        "uid": uid
-     };
-     let jwt = nJwt.create(claims, "secret", "HS256");
-     let token = jwt.compact();
-     return token;
+      };
+      let jwt = nJwt.create(claims, "secret", "HS256");
+      let token = jwt.compact();
+      return token;
     };
 
-    const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-    const accessToken = generateAccessToken(this.state.uid);
-    const options = {
-      method: 'GET',
-      headers: {
-        'access-token': accessToken
-      }
-    };
+    const getUserData = async () => {
+      let today = new Date();
+      let localGuides = JSON.parse(localStorage.getItem('guides'));
+      let currentDate = today.getUTCDay() + '-' + today.getUTCMonth() + '-' + today.getUTCFullYear();
+      let user = null;
+      let guides = null;
 
-    fetch(url, options)
-      .then(response => {
+      const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
+      const accessToken = generateAccessToken(this.state.uid);
+      const options = {
+        method: 'GET',
+        headers: {
+          'access-token': accessToken
+        }
+      };
+
+      try {
+        let response = await fetch(url, options);
         if (!response.ok) {
-            throw new Error('Network response was not ok');
-          };
-        return response.json();
-      })
-      .then(data => this.setState({ user: data }))
-      .catch(error => {
+          throw new Error('Network response was not ok');
+        };
+        user = await response.json();
+      }
+      catch(error) {
         console.error('There has been a problem fetching user data', error);
         this.setState({ user: 'error' });
-      });
+        return;
+      };
+
+      if (localGuides === null || localGuides[0].day !== currentDate) {
+        guides = user.guides.map(item => {
+          item.day = currentDate;
+          item.previousTime = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2);
+          item.nextTime = null;
+          return item;
+        });
+
+        user.guides = guides;
+        localStorage.setItem('guides', JSON.stringify(guides));
+        this.setState({ user: user });
+        return;
+      }
+      else {
+        guides = JSON.parse(localStorage.getItem('guides'));
+        user.guides = guides;
+        this.setState({ user: user });
+      };
+    };
+
+    getUserData();
   };
 
   onLinkClick(page){
