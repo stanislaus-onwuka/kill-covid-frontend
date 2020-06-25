@@ -1,14 +1,15 @@
 .add-prescription-page{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    margin: 3rem 0;
+    background-color: #f0f2f6;
+    min-height: 100vh;
+    padding: 0 0.5rem;
+    padding-top: 5rem;
 }
 
 .page-title{
     color:#234661;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .medicine-name-div{
@@ -17,16 +18,29 @@
     align-content: flex-start;
     width: 100%;
     max-width: 430px;
-    padding: 0.5rem;
-    margin: 1rem 0.5rem;
+    margin: 1rem 0;
     color: #99999b;
+    position: relative;
+    box-sizing: border-box;
+}
+.medicine-name-div img{
+    position: absolute;
+    left: .5rem;
+    height: 2rem;
+    width: 2rem;
+    top: 1.8rem;
 }
 
 .medicine-name-div input{
     border: none;
-    border-bottom: 2px solid #1e405a;
+    border-bottom: 1px solid #1e405a;
     font-size: 20px;
     padding: 0.3rem 0;
+    background-color: transparent;
+    padding-top: 1rem;
+    padding-left: 3rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .dosage-div,.dates{
@@ -34,43 +48,72 @@
     width: 100%;
     color: #99999b;
     justify-content: space-between;
-    padding: 0.5rem;
+    margin-bottom: 2rem;
 }
-
 .dosage-div input{
-    width: 90%;
-    border: none;
-    border-bottom: 2px solid #1e405a;
+    width: 100%;
+    border: 1px solid #1e405a;
+    border-radius: .5rem;
     font-size: 20px;
     padding: 0.3rem 0;
+    background-color: transparent;
 }
 
-.dosage,.frequency{
-    width: 48%;
+.dosage{
+    width: 35%;
+}
+.dosage label, .frequency label{
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+.frequency{
+    width: 50%;
+}
+.frequency .input{
+    width: 100%;
+    display: flex;
+}
+.frequency .input input{
+    width: 70%;
+    margin-right: .5rem;
+}
+.frequency .input span{
+    display: inline-block;
+    align-self: center;
+    font-size: 1.2rem;
 }
 
 
 .dates input{
-    width: 90%;
+    width: 100%;
     border: none;
-    border-bottom: 2px solid #1e405a;
-    font-size: 20px;
-    padding: 0.3rem 0;
+    border-bottom: 1px solid #1e405a;
+    background-color: transparent;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    font-size: 1.2rem;
 }
 
-.start-date-div,.end-date-div{
+.date-div{
     width: 48%;
+    position: relative;
+}
+.date-div img{
+    height: 1.5rem;
+    position: absolute;
+    left: 0;
+    bottom: .5rem;
 }
 
 
 .save-btn{
     display: block;
     margin: 1rem auto;
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: 5px;
     background-color: #3c8cb5;
     color: #fff;
-    width: 90%;
+    width: 100%;
     max-width: 450px;
     transition: 0.2s;
     text-align: center;
@@ -80,4 +123,7 @@
 .save-btn:hover{
     background-color: #1e405a;
     border: 1px solid #1e405a;
+}
+.add-prescription-page label{
+    font-size: 1.2rem;
 }

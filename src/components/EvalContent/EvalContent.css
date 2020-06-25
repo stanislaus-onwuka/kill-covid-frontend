@@ -59,10 +59,10 @@
   border-top-right-radius: .8rem;
   border-bottom-right-radius: .8rem;
 }
-.inactive{
+.yes.inactive,.no.inactive{
   color: #71889a;
 }
-.active{
+.yes.active,.no.active{
   background-color: #3c8cb5;
   color: rgba(0,0,0,.6);
 }

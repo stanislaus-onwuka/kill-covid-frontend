@@ -4,6 +4,7 @@
     justify-content: center;
     align-content: center;
     background-color: #3C8CB5;
+    padding:1.5rem 0;
 }
 
 .doc-landing-page .title{
@@ -15,15 +16,10 @@
 
 .doc-icon{
     padding: 2rem 0;
+    width: 8rem;
+    margin: 0 auto;
 }
 
-.doc-login{
-    background-color: #234661;
-    border: 3px solid #234661;
-    color: #fff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-}
 
 .patient-login-btn{
     text-decoration: none;
@@ -32,6 +28,41 @@
     padding: 0.7rem 0.5rem;
     border: 3px solid #234661;
     color: #fff;
-    border-radius: 36px;
+    border-radius: 1rem;
+    width: 90%;
+    max-width:200px;
 }
+.doc-sign-in{
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 0 auto;
+}
+.doc-sign-in input{
+    display: block;
+    width: 100%;
+    border-radius: 1rem;
+    padding: 1rem;
+    border: none;
+    margin: 1rem 0;
+    font-family: 'SF Pro Text';
+    box-sizing: border-box;
+}
+.doc-sign-in button{
+    background-color: #234661;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    font-family: 'SF Pro Text';
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
 
