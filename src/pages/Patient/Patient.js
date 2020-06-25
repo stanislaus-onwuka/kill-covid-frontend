@@ -42,9 +42,12 @@ class Patient extends Component{
     };
 
     const getUserData = async () => {
-      let today = new Date();
       let localGuides = JSON.parse(localStorage.getItem('guides'));
-      let currentDate = today.getUTCDay() + '-' + today.getUTCMonth() + '-' + today.getUTCFullYear();
+      let localGuideVersion = JSON.parse(localStorage.getItem('version'));
+
+      let today = new Date();
+      let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
+
       let user = null;
       let guides = null;
 
@@ -70,7 +73,7 @@ class Patient extends Component{
         return;
       };
 
-      if (localGuides === null || localGuides[0].day !== currentDate) {
+      if (localGuides === null || localGuideVersion !== 1) {
         guides = user.guides.map(item => {
           item.day = currentDate;
           item.previousTime = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2);
@@ -80,6 +83,7 @@ class Patient extends Component{
 
         user.guides = guides;
         localStorage.setItem('guides', JSON.stringify(guides));
+        localStorage.setItem('version', JSON.stringify(1)); // allows conditional updating of guides on user's local Storage
         this.setState({ user: user });
         return;
       }
