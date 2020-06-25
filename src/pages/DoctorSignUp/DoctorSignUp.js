@@ -50,7 +50,7 @@ class DoctorSignUp extends React.Component {
               <form onSubmit={this.handleSubmit} className='doc-sign-in'>
                   <input placeholder="First Name" onChange={this.handleChange} type="text" name="first_name" value={this.state.first_name} />
                   <input placeholder="Last Name" onChange={this.handleChange} type="text" name="last_name" value={this.state.last_name}  />
-                  <input placeholder="Qualifications" onChange={this.handleChange} type="text" name="qualifications" value={this.state.qualification} />
+                  <input placeholder="Qualifications" onChange={this.handleChange} type="text" name="qualification" value={this.state.qualification} />
                   <input placeholder="Docs URL" onChange={this.handleChange} type="url" name="docs" value={this.state.docs}/>
                   <button className="doc-login"> Sign Up </button> 
               </form>
