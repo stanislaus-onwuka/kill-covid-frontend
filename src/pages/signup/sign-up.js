@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
 
 import twitter from "../../assets/svg/twitter.svg";
 import facebook from "../../assets/svg/facebook.svg";
@@ -13,7 +13,7 @@ class signup extends React.Component {
       this.state = {
          phoneNumber: '',
          username: '',
-         signUpMethod: 'PhoneNumber'
+         signUpMethod: 'Google-Account'
       }
    }
 
@@ -24,6 +24,7 @@ class signup extends React.Component {
 
    render(){
       const { phoneNumber, username } = this.state
+      
       return(
          <div>
             <section className="signup">
@@ -33,9 +34,9 @@ class signup extends React.Component {
                      <em>Create an account</em>
                   </div>
                   <form className='sign-up-form'>
-                     <input name="phone" type="tel" onChange={this.handleChange} value={phoneNumber} placeholder="Phone Number"/>
+                     <input name="phoneNumber" type="tel" onChange={this.handleChange} value={phoneNumber} placeholder="Phone Number"/>
                      <input name="username" type="text" onChange={this.handleChange} value={username} placeholder="Create a username"/>
-                     <input type="submit" value="Sign Up" className="signup-submit"/>
+                     <input onClick={()=>this.props.history.push('/Eval')} type="submit" value="Sign Up" className="signup-submit"/>
                   </form>
                   <em className="socials-text">Or Sign up with</em>
                   <div className="socials">

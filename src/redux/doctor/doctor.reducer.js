@@ -6,10 +6,10 @@ const INITIAL_STATE = {
 
 const doctorReducer = (state = INITIAL_STATE, action) => {
   switch(action.type){
-    case doctorActionTypes.SET_CURRENT_DOCTOR:
+    case doctorActionTypes.SET_CURRENT_DOCTOR_ID:
       return {
         ...state,
-        currentDoctor: action.payload
+        currentDoctorId: action.payload
       }
     default: 
       return state;

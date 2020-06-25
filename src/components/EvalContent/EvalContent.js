@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import njwt from 'njwt';
+import axios from "axios";
+
 import countries from './countries.js';
 import "./EvalContent.css";
-import axios from "axios";
+
 
 
 let ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -458,6 +461,18 @@ class EvalContent extends Component {
 	otherRate = e => {
 		this.setState({ otherRate: e.target.value });
 	};
+
+	 generateAccessToken = uid => {
+    let claims = {
+     "sub": "1234567890",
+     "iat": 1592737638,
+     "exp": 1592741238,
+     "uid": uid
+    };
+    let jwt = njwt.create(claims, "secret", "HS256");
+    let token = jwt.compact();
+    return token;
+};
 	
 	postDetails = e => {
 		const addname = {
@@ -488,22 +503,20 @@ class EvalContent extends Component {
 			"fatigueDegree": this.state.fatigueRate,
 			"respDegree": this.state.respRate}
 		];
-		var cuid = null
+		let cuid;
 		axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname).then(res => {
 			cuid=res.data.uid
 			console.log(cuid);
 		});
 		console.log(add_profile)
-		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiOGQ4Mjk2OGYtYjNkYy00Y2Y5LTk0NzUtNDJlYzQ0ZjVlZWJiIiwiaWF0IjoxNTkyOTU5MTk5LCJqdGkiOiI1N2E1ZjVhYi04NmMzLTRiNmMtOWRlNS00NGE2M2M3OTNhZWYiLCJleHAiOjE1OTI5NjgzMTh9.ONJqRT9RYMafxAjOkMv5GTmVbqHLgqcoKFhdRFUWIgg'
-		const heders = {headers:{'access-token':token}}
-		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,heders).then(res => {
+		
+		const headers = {headers:{'access-token': this.generateAccessToken(cuid)}}
+		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers).then(res => {
 			console.log(res);
 			console.log(res.data)
 		});
-		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,heders).then(res=>{console.log(res)})
+		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,headers).then(res=>{console.log(res)})
 		this.switchPage()
-		// console.log(addname);
-		// console.log(add_symptoms);
 	};
 
 	render() {
