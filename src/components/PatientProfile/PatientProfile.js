@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import userImage from './../../assets/prof.png';
 import backIcon from './../../assets/svg/arrow-left.svg';
-import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
+// import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
 import './PatientProfile.css';
 
 class PatientProfile extends Component {
@@ -39,7 +39,7 @@ class PatientProfile extends Component {
           </div>
           <em className="date">Started April 1.</em>
           <button onClick={()=>{ this.onButtonClick('symptom')}}> + Add Symptoms </button>
-          <ActivitySchedule />
+          {/* <ActivitySchedule /> */}
         </div>
       );
     }else{
