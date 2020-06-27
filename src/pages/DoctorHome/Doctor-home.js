@@ -46,9 +46,12 @@ class doctorHome extends React.Component {
         (async () => {
                 //Hard Coding currentDoctorID for test purposes
                
-                let userID = 'c6f92663-c8c5-42b1-81af-0ce17ecbf84d'
+                //DON'T DELETE THE COMMENTS
+
+                // let userID = 'c6f92663-c8c5-42b1-81af-0ce17ecbf84d'
                 let hardCurrentDoctorId = 'd9783a65-93fe-44d7-84e9-5e122677c23e'
-                const { currentDoctorId } = this.props
+                // const { currentDoctorId } = this.props
+                
                 try{
     
                     //The code below is to promote a user so they show on the doctor's page
