@@ -29,7 +29,6 @@ class doctorHome extends React.Component {
 
     setSymptoms = symptoms => {
        let finalSymptoms = []
-       console.log(symptoms)
        if(symptoms[0]){
            symptoms = symptoms[0]
            if(symptoms.cough) finalSymptoms.push('Cough')
@@ -83,7 +82,8 @@ class doctorHome extends React.Component {
                         name={`${user.first_name} ${user.last_name}`} 
                         profileImg={ProfilePic}
                         symptom={this.setSymptoms(user.symptoms)}
-                        key={user.id}    
+                        key={user.id}
+                        patient={user}    
                         />));
 
                         this.setState({patients})
@@ -122,5 +122,6 @@ class doctorHome extends React.Component {
 const mapStateToProps = state => ({
     currentDoctorId: state.doctor.currentDoctorId
 })
+
 
 export default connect(mapStateToProps)(doctorHome);
