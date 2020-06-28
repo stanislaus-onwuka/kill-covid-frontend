@@ -58,3 +58,7 @@
 .patient-info-container .info-tab .text p{
   color: #b3b3b4;
 }
+.info-tab .text ul {
+  color: #b3b3b4;
+  list-style-position: inside;
+}

@@ -121,6 +121,7 @@ class Patient extends Component{
           <PatientProfile
               firstName={currentUser.first_name}
               lastName={currentUser.last_name}
+              guides={currentUser.guides}
           />
         )
       case 'consultation':
