@@ -152,7 +152,7 @@ class Patient extends Component{
     return(
         <div className="patient-container">
           {currentUser === null
-            ? <h1 className="patient_loading-title">getting user data...</h1>
+            ? <h1 className="patient_loading-title">loading...</h1>
             : currentUser === 'error' // handle possible error when fetching user data
               ? <LoadingError />
               : <>
