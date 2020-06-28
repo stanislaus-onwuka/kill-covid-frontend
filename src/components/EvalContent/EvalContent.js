@@ -494,7 +494,7 @@ class EvalContent extends Component {
 			console.log(cuid);
 		});
 		console.log(add_profile)
-		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiOGQ4Mjk2OGYtYjNkYy00Y2Y5LTk0NzUtNDJlYzQ0ZjVlZWJiIiwiaWF0IjoxNTkyOTU5MTk5LCJqdGkiOiI1N2E1ZjVhYi04NmMzLTRiNmMtOWRlNS00NGE2M2M3OTNhZWYiLCJleHAiOjE1OTI5NjgzMTh9.ONJqRT9RYMafxAjOkMv5GTmVbqHLgqcoKFhdRFUWIgg'
+		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiYzI4MTg4ZTgtMTMwMy00MjM2LWI1MDYtYzRjNmJlY2Y1ZDMyIiwiaWF0IjoxNTkzMzEzMTU2LCJleHAiOjE1OTMzMTY3ODEsImp0aSI6IjEwZGI1ZjIzLTJjZjktNDIxMy04ZmRmLThmOWZmY2MzMzNiMyJ9.ObJbGjv3fvfuh6YQIP97DV6BgJOBaxB_O1hPaAlwz8w'
 		const heders = {headers:{'access-token':token}}
 		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,heders).then(res => {
 			console.log(res);
