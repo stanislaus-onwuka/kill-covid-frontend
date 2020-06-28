@@ -25,7 +25,7 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: 'd522c6d0-0c0d-4ece-bd34-0b1721bebeca'
+      uid: '13c442d5-a926-45e4-bb4a-f219a8e913ce'
     }
   }
 
@@ -125,7 +125,7 @@ class Patient extends Component{
           />
         )
       case 'consultation':
-        return <PatientConsultation />
+        return <PatientConsultation remarks={currentUser.remarks} />
       default:
         return <>
           I have not been set yet
