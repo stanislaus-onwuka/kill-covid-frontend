@@ -6,6 +6,8 @@ import docGraph from './../../assets/doc-graph.png';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
 import {Link} from "react-router-dom";
+import { connect } from 'react-redux';
+import nJwt from 'njwt';
 
 
 class PatientDetails extends Component{
@@ -14,6 +16,7 @@ class PatientDetails extends Component{
         //The patient object is for testing purposes
         this.state={
             page:'progress',
+            comment : '',
             patient:{
                 address: "1, Boca Street",
                 age: 25,
@@ -68,6 +71,37 @@ class PatientDetails extends Component{
             }
         };
         
+    }
+
+    generateAccessToken = (uid) => {
+        let claims = {
+         "sub": "1234567890",
+         "iat": 1592737638,
+         "exp": 1592741238,
+         "uid": uid
+        };
+        let jwt = nJwt.create(claims, "secret", "HS256");
+        let token = jwt.compact();
+        return token;
+    };
+
+    submitRemark = () => {
+        fetch('https://fast-hamlet-28566.herokuapp.com/doctors/add_remark', {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json',
+                'doc-access-token' : this.generateAccessToken(this.props.currentDoctor)
+            },
+            body : JSON.stringify({
+                comment : this.state.comment,
+                user_id : this.props.location.patient.user_id
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.setState({ comment : '' });
+            alert('Remark sent');
+        })
     }
 
     setPage(event,page){
@@ -138,8 +172,8 @@ class PatientDetails extends Component{
                         </div>
                         <div className='doctor'>
                             <h4>DOCTOR'S NOTE</h4>
-                            <textarea rows='10'/>
-                            <button>Send</button>
+                            <textarea value={this.state.comment} onChange={e => this.setState({comment : e.target.value})} rows='10'/>
+                            <button onClick={this.submitRemark}>Send</button>
                         </div>
                     </div>
                     <button>Flag As Emergency</button>
@@ -223,4 +257,13 @@ class PatientDetails extends Component{
     }
 
 }
-export default PatientDetails;
+
+const mapStateToProps = state => ({
+    currentDoctor: state.doctor.currentDoctorId
+});
+
+
+export default connect(
+    mapStateToProps,
+    null
+)(PatientDetails);
