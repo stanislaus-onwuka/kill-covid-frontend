@@ -1,20 +1,23 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { setCurrentDoctor } from './../../redux/doctor/doctor.actions'
 import docIcon from './../../assets/svg/doctor.svg';
 import "./DoctorLandingPage.css";
 
 class DoctorLandingPage extends React.Component {
-    constructor({history: {push}}){
+    constructor(){
         super()
         this.state = {
             doc_pass: 'Big001'
         }
-        this.push = push
     }
 
     handleSubmit = async event => {
         event.preventDefault();
         let body = this.state;
+        const {history: { push }, setCurrentDoctor } = this.props
         let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkb2NfaWQiOiI4ODM4YmJjOC1jYThjLTQ4YzctYTZkZi03ZDc3NDY3ZWQ0NWUiLCJleHAiOjE1OTI0MzYwMDJ9.VMTxy1kPmYkV-lyItudkL_5s3RLY_dUaOHq4Kl5-lw0'
 
     try{
@@ -30,8 +33,8 @@ class DoctorLandingPage extends React.Component {
       let result = await response.json();
       
       if(result.uid){
-        console.log(result.uid)
-        this.push('/doctor/home')
+        setCurrentDoctor(result.uid);
+        push('/doctor/home')
       }
     }catch(err){
       console.log(err)
@@ -59,4 +62,11 @@ class DoctorLandingPage extends React.Component {
     }
 }
 
-export default DoctorLandingPage;
+const mapDispatchToProps = dispatch => ({
+  setCurrentDoctor:  doctor => dispatch(setCurrentDoctor(doctor))
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+  )(DoctorLandingPage);

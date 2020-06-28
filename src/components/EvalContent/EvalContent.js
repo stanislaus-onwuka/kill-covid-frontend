@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import njwt from 'njwt';
+import axios from "axios";
+import { connect } from 'react-redux';
+
+import { updateUserDetails } from './../../redux/user/user.actions';
 import countries from './countries.js';
 import "./EvalContent.css";
-import axios from "axios";
+
 
 
 let ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -370,7 +375,7 @@ class EvalContent extends Component {
 	};
 
 	displayContinueBtn = () => {
-		if (this.state.pageNo > 1 && this.state.pageNo < 7) {
+		if (this.state.pageNo > 1 && this.state.pageNo < 6) {
 			return (
 				<>
 					{/* eslint-disable-next-line */}
@@ -385,9 +390,8 @@ class EvalContent extends Component {
 				</>
 			);
 
-		} else if(this.state.pageNo === 7){
-			return(
-			<>
+		} else if(this.state.pageNo === 6){
+			return <>
 			{/* eslint-disable-next-line */}
 				<Link 
 				to='/Patient'
@@ -396,18 +400,7 @@ class EvalContent extends Component {
 				>
 					Submit
 				</Link>
-		</>)
-		}
-		else if (this.state.pageNo === 8) {
-			return (
-				<>
-					{/* eslint-disable-next-line */}
-					<Link to='/Patient'className='eval-next-btn'>
-							{" "}
-							Finish{" "}
-					</Link>
-				</>
-			);
+		</>
 		}
 	};
 	onFirstNameChange = e => {
@@ -458,8 +451,30 @@ class EvalContent extends Component {
 	otherRate = e => {
 		this.setState({ otherRate: e.target.value });
 	};
+
+	 generateAccessToken = uid => {
+    let claims = {
+     "sub": "1234567890",
+     "iat": 1592737638,
+     "exp": 1592741238,
+     "uid": uid
+    };
+		let jwt = njwt.create(claims, "secret", "HS256");
+		console.log(jwt)
+    let token = jwt.compact();
+    return token;
+};
+
+ setAge = () => {
+	if(this.state.age){
+		const age = parseInt(this.state.age)
+		if (age===0) return 1
+		return age
+	}
+	return 1
+}
 	
-	postDetails = e => {
+	postDetails = async e => {
 		const addname = {
 			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
 			"firstName": this.state.firstName,
@@ -468,8 +483,8 @@ class EvalContent extends Component {
 		};
 		const add_profile={
 			"email":this.state.email,
-			"tel" : this.state.tel.toString(),
-			"age":isNaN(this.state.age) ? 0 : this.state.age,
+			"tel" : this.state.tel,
+			"age": this.setAge(),
 			"state": this.state.state,
 			"address": this.state.address,
 			"country": this.state.ownCountry
@@ -488,22 +503,38 @@ class EvalContent extends Component {
 			"fatigueDegree": this.state.fatigueRate,
 			"respDegree": this.state.respRate}
 		];
-		var cuid = null
-		axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname).then(res => {
-			cuid=res.data.uid
-			console.log(cuid);
-		});
+
+		
+
+		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname)
+
+		let uid = signUpResult.data.uid
+
 		console.log(add_profile)
-		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiYzI4MTg4ZTgtMTMwMy00MjM2LWI1MDYtYzRjNmJlY2Y1ZDMyIiwiaWF0IjoxNTkzMzEzMTU2LCJleHAiOjE1OTMzMTY3ODEsImp0aSI6IjEwZGI1ZjIzLTJjZjktNDIxMy04ZmRmLThmOWZmY2MzMzNiMyJ9.ObJbGjv3fvfuh6YQIP97DV6BgJOBaxB_O1hPaAlwz8w'
-		const heders = {headers:{'access-token':token}}
-		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,heders).then(res => {
+
+		console.log(uid);
+
+		const headers = {headers:{'access-token': this.generateAccessToken(uid)}}
+
+		const updateReduxStore = {
+			...add_profile,
+			...add_symptoms[0],
+			...add_symptoms[1],
+		}
+		this.props.updateUserDetails(updateReduxStore);
+		console.log(add_profile.tel)
+
+		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,headers).then(res=>{
+			console.log(res)
+			console.log(res.data)
+		})
+
+		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers).then(res => {
+
 			console.log(res);
 			console.log(res.data)
 		});
-		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,heders).then(res=>{console.log(res)})
-		this.switchPage()
-		// console.log(addname);
-		// console.log(add_symptoms);
+		
 	};
 
 	render() {
@@ -519,4 +550,8 @@ class EvalContent extends Component {
 	}
 }
 
-export default EvalContent;
+const mapDispatchToProps = dispatch => ({
+	updateUserDetails: details => dispatch(updateUserDetails(details))
+})
+
+export default connect(null,mapDispatchToProps)(EvalContent);

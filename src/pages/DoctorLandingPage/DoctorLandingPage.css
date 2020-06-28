@@ -4,6 +4,7 @@
     justify-content: center;
     align-content: center;
     background-color: #3C8CB5;
+    padding:1.5rem 0;
 }
 
 .doc-landing-page .title{
@@ -29,6 +30,7 @@
     color: #fff;
     border-radius: 1rem;
     width: 90%;
+    max-width:200px;
 }
 .doc-sign-in{
     display: flex;

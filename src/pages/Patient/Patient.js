@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import nJwt from 'njwt';
+
+import { setCurrentUser } from './../../redux/user/user.actions';
 import home from '../../assets/svg/home.svg';
 import activeHome from '../../assets/svg/active-home.svg';
 import activeInfo from '../../assets/svg/active-info.svg';
@@ -21,59 +24,94 @@ class Patient extends Component{
   constructor(){
     super();
     this.state = {
-      user: null,
       page : 'home',
       uid: 'd522c6d0-0c0d-4ece-bd34-0b1721bebeca'
     }
   }
 
   componentDidMount() {
-    // monkey patch generation of access token
+    const { setCurrentUser } = this.props;
+    // monkey patch for generation of access token
     const generateAccessToken = uid => {
       let claims = {
        "sub": "1234567890",
        "iat": 1592737638,
        "exp": 1592741238,
        "uid": uid
-     };
-     let jwt = nJwt.create(claims, "secret", "HS256");
-     let token = jwt.compact();
-     return token;
+      };
+      let jwt = nJwt.create(claims, "secret", "HS256");
+      let token = jwt.compact();
+      return token;
     };
 
-    const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-    const accessToken = generateAccessToken(this.state.uid);
-    const options = {
-      method: 'GET',
-      headers: {
-        'access-token': accessToken
-      }
-    };
+    const getUserData = async () => {
 
-    fetch(url, options)
-      .then(response => {
+      let localGuides = JSON.parse(localStorage.getItem('guides'));
+      let localGuideVersion = JSON.parse(localStorage.getItem('version'));
+
+      let today = new Date();
+      let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
+
+      let user = null;
+      let guides = null;
+
+      const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
+      const accessToken = generateAccessToken(this.state.uid);
+      const options = {
+        method: 'GET',
+        headers: {
+          'access-token': accessToken
+        }
+      };
+
+      try {
+        let response = await fetch(url, options);
         if (!response.ok) {
-            throw new Error('Network response was not ok');
-          };
-        return response.json();
-      })
-      .then(data => this.setState({ user: data }))
-      .catch(error => {
+          throw new Error('Network response was not ok');
+        };
+        user = await response.json();
+      }
+      catch(error) {
         console.error('There has been a problem fetching user data', error);
         this.setState({ user: 'error' });
-      });
+        return;
+      };
+
+      if (localGuides === null || localGuideVersion !== 1) {
+        guides = user.guides.map(item => {
+          item.day = currentDate;
+          item.previousTime = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2);
+          item.nextTime = null;
+          return item;
+        });
+
+        user.guides = guides;
+        localStorage.setItem('guides', JSON.stringify(guides));
+        localStorage.setItem('version', JSON.stringify(1)); // allows conditional updating of guides on user's local Storage
+        setCurrentUser(user);
+        return;
+      }
+      else {
+        guides = JSON.parse(localStorage.getItem('guides'));
+        user.guides = guides;
+        setCurrentUser(user);
+      };
+    };
+
+    getUserData();
   };
 
   onLinkClick(page){
     this.setState({page});
   }
   setContent(){
+    const { currentUser } = this.props
     switch(this.state.page){
       case 'home':
         return (
           <PatientHome
-            firstName={this.state.user.first_name}
-            guides={this.state.user.guides}
+            firstName={currentUser.first_name}
+            guides={currentUser.guides}
           />
         )
       case 'info':
@@ -81,8 +119,8 @@ class Patient extends Component{
       case 'profile':
         return (
           <PatientProfile
-              firstName={this.state.user.first_name}
-              lastName={this.state.user.last_name}
+              firstName={currentUser.first_name}
+              lastName={currentUser.last_name}
           />
         )
       case 'consultation':
@@ -110,11 +148,12 @@ class Patient extends Component{
   }
 
   render(){
+    const { currentUser } = this.props
     return(
         <div className="patient-container">
-          {this.state.user === null
+          {currentUser === null
             ? <h1 className="patient_loading-title">getting user data...</h1>
-            : this.state.user === 'error' // handle possible error when fetching user data
+            : currentUser === 'error' // handle possible error when fetching user data
               ? <LoadingError />
               : <>
                   {this.setContent()}
@@ -140,4 +179,15 @@ class Patient extends Component{
   }
 }
 
-export default Patient;
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(Patient);

@@ -32,10 +32,13 @@
 }
 .doc-sign-in{
   display: flex;
-  flex-wrap: wrap;
+  flex-direction:column;
   width: 90%;
-  margin: 0 auto;
+  max-width:450px;
+  padding: 2rem 0;
+  margin: 1rem auto;
 }
+
 .doc-sign-in input{
   display: block;
   width: 100%;
@@ -61,6 +64,12 @@
   cursor: pointer;
   display: block;
   width: 100%;
+  transition:0.2s;
+}
+
+.doc-sign-in button:hover{
+  background-color:#122533;
+  box-shadow:none; 
 }
 
 

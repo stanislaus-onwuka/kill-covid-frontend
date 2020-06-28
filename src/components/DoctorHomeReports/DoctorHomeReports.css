@@ -1,5 +1,4 @@
 .placard {
-    height: 100px;
     width: 100%;
     margin: auto;
     display: flex;
@@ -14,35 +13,30 @@
 
 .placard img {
     height: 50px;
+    width: 10%;
 }
 
-
-.arr {
-    height: 30px !important;
+.placard-content{
+    width: 70%;
 }
-
-.placard-content h2 {
-    font-size: 20px;
-
 .arr-link {
     align-self: center;
+    width: 10%;
 }
 
-.arr {
-    height: 15px !important;
+.arr-link img{
+    width: 50%;
 }
 
 .placard-content h2 {
     font-size: 1.2rem;
     letter-spacing: 0.05em;
-
     color: #234661;
     margin-bottom: 5px;
 }
 
 .placard-content p {
-    font-size: 16px;
-    font-size: 0.7rem;
+    font-size: 1rem;
     text-transform: uppercase;
     color: #A0A0A2;
     margin: 5px 0;
@@ -52,6 +46,7 @@
     color: #74ACC9;
     text-transform: none;
     font-weight: bold;
+    font-size: .9rem;
 }
 
 @media only screen and (max-width: 700px) {
@@ -59,5 +54,5 @@
         width: 95%;
     }
 }
-}
+
 

@@ -176,11 +176,12 @@
 }
 .blood-pressure .slot{
     background-color: #e4e1e1;
-    margin: 1rem;
+    margin: 1rem auto;
     padding: 1.5rem 1rem ;
     display: flex;
     justify-content: space-between;
-
+    width: 95%;
+    box-sizing: border-box;
 }
 .blood-pressure .slot:nth-child(2){
     border-left: solid 3px #b53c3c;
@@ -196,6 +197,8 @@
 }
 .blood-pressure .slot span{
     font-size: 1rem;
+    width: 30%;
+    text-align: center;
 }
 .blood-pressure .slot span:first-child{
     font-size: 1.3rem;
