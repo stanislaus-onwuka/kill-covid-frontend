@@ -1,5 +1,4 @@
 .eval-content-container{
-  height: 200px;
   width: 80%;
   text-align: left;
   margin-left:auto;
@@ -136,4 +135,3 @@ input:focus{
   background: none;
   border: none;
 }
-
