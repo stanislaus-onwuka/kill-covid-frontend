@@ -1,5 +1,6 @@
 import React from 'react';
 import njwt from 'njwt';
+import Lockr from 'lockr';
 import { connect } from 'react-redux';
 
 import Report from "../../components/DoctorHomeReports/DoctorHomeReports"
@@ -40,6 +41,15 @@ class doctorHome extends React.Component {
        }
        return null
     }
+
+    getReportComponents = user =>
+    (<Report 
+    name={`${user.first_name} ${user.last_name}`} 
+    profileImg={ProfilePic}
+    symptom={this.setSymptoms(user.symptoms)}
+    key={user.id}
+    patient={user}    
+    />)
         
     componentDidMount(){
         (async () => {
@@ -66,28 +76,44 @@ class doctorHome extends React.Component {
                     
                     // let user = await userResponse.json()
                     // console.log(user)
-    
-                    let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
-                      method: 'GET',
-                      headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
-                        'doc-access-token': this.generateAccessToken(hardCurrentDoctorId)
-                      }
-                    })
-                    let result = await doctorResponse.json();
-                    if(result){
-                        console.log(result)
-                      let patients = result.map(user=>
-                        (<Report 
-                        name={`${user.first_name} ${user.last_name}`} 
-                        profileImg={ProfilePic}
-                        symptom={this.setSymptoms(user.symptoms)}
-                        key={user.id}
-                        patient={user}    
-                        />));
 
+                    const storedPatients = Lockr.get('patients')
+
+                    if(storedPatients){
+                        let patients = storedPatients.map(patient => this.getReportComponents(patient));
                         this.setState({patients})
+                        let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
+                          method: 'GET',
+                          headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'doc-access-token': this.generateAccessToken(hardCurrentDoctorId)
+                          }
+                        })
+                        let result = await doctorResponse.json();
+                        if(result.length !== storedPatients.length){
+                            let patients = result.map(patient => this.getReportComponents(patient));
+                            this.setState({patients})
+                        }
+
+                    }else{
+
+                        let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
+                          method: 'GET',
+                          headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'doc-access-token': this.generateAccessToken(hardCurrentDoctorId)
+                          }
+                        })
+                        let result = await doctorResponse.json();
+                        if(result){
+                            console.log(result)
+                          let patients = result.map(patient => this.getReportComponents(patient));
+    
+                            this.setState({patients})
+                            Lockr.set('patients',result)
+                        }
                     }
+    
                   }catch(err){
                     console.log(err)
                   }

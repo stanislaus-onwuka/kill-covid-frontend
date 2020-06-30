@@ -1,4 +1,6 @@
 import React from 'react';
+import Lockr from 'lockr';
+
 import ScheduleItem from './../scheduleItem/ScheduleItem';
 import './ActivitySchedule.css';
 
@@ -13,7 +15,7 @@ class ActivitySchedule extends React.Component{
 
   componentDidMount() {
     const checkActivities = () => {
-      let newLocalGuides = JSON.parse(localStorage.getItem('guides'));
+      let newLocalGuides = Lockr.get('guides');
       let updateLocalStorage = false;
       let updateState = false;
 

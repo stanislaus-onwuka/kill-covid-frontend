@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import nJwt from 'njwt';
+import Lockr from 'lockr';
 
 import { setCurrentUser } from './../../redux/user/user.actions';
 import home from '../../assets/svg/home.svg';
@@ -27,6 +28,7 @@ class Patient extends Component{
       page : 'home',
       uid: '13c442d5-a926-45e4-bb4a-f219a8e913ce'
     }
+    this.currentPage = Lockr.get('page');
   }
 
   componentDidMount() {
@@ -46,36 +48,48 @@ class Patient extends Component{
 
     const getUserData = async () => {
 
-      let localGuides = JSON.parse(localStorage.getItem('guides'));
-      let localGuideVersion = JSON.parse(localStorage.getItem('version'));
+        const storedUser = Lockr.get('user');
+        let user;
+        if(storedUser && storedUser.user_id === this.state.uid){
+            user = storedUser
+            setCurrentUser(storedUser)
+        }else{
+          
+          const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
+          const accessToken = generateAccessToken(this.state.uid);
+          const options = {
+            method: 'GET',
+            headers: {
+              'access-token': accessToken
+            }
+          };
+    
+          try {
+            let response = await fetch(url, options);
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            };
+            user = await response.json();
+          }
+          catch(error) {
+            console.error('There has been a problem fetching user data', error);
+            this.setState({ user: 'error' });
+            return;
+          };
+
+          setCurrentUser(user);
+          Lockr.set('user',user)
+        }
+        
+
+      let localGuides = Lockr.get('guides')
+      let localGuideVersion = Lockr.get('version')
 
       let today = new Date();
       let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
-
-      let user = null;
       let guides = null;
 
-      const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-      const accessToken = generateAccessToken(this.state.uid);
-      const options = {
-        method: 'GET',
-        headers: {
-          'access-token': accessToken
-        }
-      };
-
-      try {
-        let response = await fetch(url, options);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        };
-        user = await response.json();
-      }
-      catch(error) {
-        console.error('There has been a problem fetching user data', error);
-        this.setState({ user: 'error' });
-        return;
-      };
+      
 
       if (localGuides === null || localGuideVersion !== 1) {
         guides = user.guides.map(item => {
@@ -86,15 +100,14 @@ class Patient extends Component{
         });
 
         user.guides = guides;
-        localStorage.setItem('guides', JSON.stringify(guides));
-        localStorage.setItem('version', JSON.stringify(1)); // allows conditional updating of guides on user's local Storage
-        setCurrentUser(user);
+        Lockr.set('guides',guides);
+        Lockr.set('version', 1); 
+        
         return;
       }
       else {
-        guides = JSON.parse(localStorage.getItem('guides'));
+        guides = Lockr.get('guides');
         user.guides = guides;
-        setCurrentUser(user);
       };
     };
 
@@ -150,6 +163,16 @@ class Patient extends Component{
 
   render(){
     const { currentUser } = this.props
+    
+    
+    console.log(this.currentPage)
+    if(this.currentPage){
+       this.setState({page: this.currentPage})
+       this.currentPage = false
+    }else{
+      Lockr.set('page',this.state.page)
+    }
+
     return(
         <div className="patient-container">
           {currentUser === null
