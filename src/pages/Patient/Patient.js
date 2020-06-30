@@ -76,7 +76,6 @@ class Patient extends Component{
             this.setState({ user: 'error' });
             return;
           };
-
           setCurrentUser(user);
           Lockr.set('user',user)
         }
@@ -88,10 +87,9 @@ class Patient extends Component{
       let today = new Date();
       let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
       let guides = null;
-
       
 
-      if (localGuides === null || localGuideVersion !== 1) {
+      if ( !localGuides || localGuideVersion !== 1) {
         guides = user.guides.map(item => {
           item.day = currentDate;
           item.previousTime = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2);
@@ -108,9 +106,9 @@ class Patient extends Component{
       else {
         guides = Lockr.get('guides');
         user.guides = guides;
-      };
+      }
     };
-
+    
     getUserData();
   };
 

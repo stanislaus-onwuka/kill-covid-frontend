@@ -78,7 +78,7 @@ class doctorHome extends React.Component {
                     // console.log(user)
 
                     const storedPatients = Lockr.get('patients')
-
+                    console.log(storedPatients)
                     if(storedPatients){
                         let patients = storedPatients.map(patient => this.getReportComponents(patient));
                         this.setState({patients})
@@ -90,7 +90,9 @@ class doctorHome extends React.Component {
                           }
                         })
                         let result = await doctorResponse.json();
+                        
                         if(result.length !== storedPatients.length){
+                            console.log(storedPatients)
                             let patients = result.map(patient => this.getReportComponents(patient));
                             this.setState({patients})
                         }
@@ -108,7 +110,6 @@ class doctorHome extends React.Component {
                         if(result){
                             console.log(result)
                           let patients = result.map(patient => this.getReportComponents(patient));
-    
                             this.setState({patients})
                             Lockr.set('patients',result)
                         }

@@ -8,7 +8,7 @@ class ActivitySchedule extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      guides: this.props.guides,
+      guides: props.guides,
     };
     this.interval = null;
   }
@@ -39,7 +39,7 @@ class ActivitySchedule extends React.Component{
       });
 
       if (updateLocalStorage) {
-        localStorage.setItem('guides', JSON.stringify(newLocalGuides));
+        Lockr.set('guides',newLocalGuides);
         this.setState({ guides: newLocalGuides });
       };
       if (updateState && !updateLocalStorage) {
@@ -86,7 +86,7 @@ class ActivitySchedule extends React.Component{
       nextTime: nextTime
     };
 
-    localStorage.setItem('guides', JSON.stringify(newGuides));
+    Lockr.set('guides',newGuides);
     this.setState({ guides: newGuides });
   };
 
