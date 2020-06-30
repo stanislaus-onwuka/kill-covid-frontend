@@ -164,8 +164,6 @@ class Patient extends Component{
   render(){
     const { currentUser } = this.props
     
-    
-    console.log(this.currentPage)
     if(this.currentPage){
        this.setState({page: this.currentPage})
        this.currentPage = false
