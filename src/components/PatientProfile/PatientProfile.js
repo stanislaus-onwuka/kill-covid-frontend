@@ -141,6 +141,7 @@ class PatientProfile extends Component {
 							)}
 						</div>
 
+						<div className='spacing'></div>
 						<div className='select-box'>
 							<label htmlFor='fever'>
 								Fever
@@ -169,7 +170,6 @@ class PatientProfile extends Component {
 								console.log()
 							)}
 						</div>
-
 						<div className='select-box'>
 							<label htmlFor='fatigue'>
 								Fatigue

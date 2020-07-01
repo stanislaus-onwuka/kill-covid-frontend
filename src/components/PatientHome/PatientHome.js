@@ -30,13 +30,18 @@ class PatientHome extends Component {
           <section className="patient-home-records-container">
             <em>Here is our most recent record of you.</em>
             <div className="patient-home-records">
-                <div onClick={()=>{this.onButtonClick('records')}} className="patient-home-body-temp">
-                  <img src={temperature} alt="temperature-icon"></img>
-                  <span className='text'>Body Temperature</span>
-                  <span className='temp'>37.7&deg;</span>
-                </div>
-              
-              
+              <div className="patient-home-body-temp">
+              <img src={temperature} alt="temperature-icon"></img>
+              <span className='text'>Body Temperature</span>
+              <span className='temp'>37.7&deg;</span>
+              </div>
+              {/* eslint-disable-next-line */}
+              <a onClick={()=>{
+                document.querySelector('.update-records').classList.add('display');
+                document.querySelector('.patient-home-container').classList.add('fixed');
+              }} href='#'>Update records</a>
+              {/* eslint-disable-next-line */}
+              <a onClick={()=>{this.onButtonClick('records')}} href='#'>View records</a>
               <div className="patient-home-indication-box">
                 <img src={happy} alt="happy-face"></img>
                 <div className='text'>
