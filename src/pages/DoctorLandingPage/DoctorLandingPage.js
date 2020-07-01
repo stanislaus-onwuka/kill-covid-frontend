@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { setCurrentDoctor } from './../../redux/doctor/doctor.actions'
@@ -56,7 +55,6 @@ class DoctorLandingPage extends React.Component {
                     <input placeholder="Doctor ID" onChange={this.handleChange} type="text" name="doc_pass" value={this.state.doc_pass} />
                     <button className="doc-login"> Sign in </button> 
                 </form>
-                <Link to="/Login" className="patient-login-btn">Patient Login</Link>
             </div>
         );
     }

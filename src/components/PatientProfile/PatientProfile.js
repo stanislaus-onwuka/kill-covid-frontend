@@ -17,6 +17,7 @@ class PatientProfile extends Component {
 		super(props);
 		this.state = {
 			page: "home",
+			guides: this.props.guides,
 			mildcough: false,
 			mCoughRate: "",
 			fatigue: false,
@@ -52,7 +53,7 @@ class PatientProfile extends Component {
 		];
 		if (page === "home") {
       console.log(symptoms);
-      const token= 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiYzI4MTg4ZTgtMTMwMy00MjM2LWI1MDYtYzRjNmJlY2Y1ZDMyIiwiaWF0IjoxNTkzMzEzMTU2LCJleHAiOjE1OTMzMTY3ODEsImp0aSI6IjEwZGI1ZjIzLTJjZjktNDIxMy04ZmRmLThmOWZmY2MzMzNiMyJ9.ObJbGjv3fvfuh6YQIP97DV6BgJOBaxB_O1hPaAlwz8w'
+			const token= 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiYzI4MTg4ZTgtMTMwMy00MjM2LWI1MDYtYzRjNmJlY2Y1ZDMyIiwiaWF0IjoxNTkzMzEzMTU2LCJleHAiOjE1OTMzMTY3ODEsImp0aSI6IjEwZGI1ZjIzLTJjZjktNDIxMy04ZmRmLThmOWZmY2MzMzNiMyJ9.ObJbGjv3fvfuh6YQIP97DV6BgJOBaxB_O1hPaAlwz8w'
       axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',symptoms,{headers:{'access-token':token}}).then(res=>{console.log(res.data)})
 		}
 	}
@@ -99,7 +100,7 @@ class PatientProfile extends Component {
 						{" "}
 						+ Add Symptoms{" "}
 					</button>
-					<ActivitySchedule />
+          <ActivitySchedule guides={this.props.guides}/>
 				</div>
 			);
 		} else {

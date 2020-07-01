@@ -1,50 +1,48 @@
 import React from 'react';
+import Lockr from 'lockr';
+
 import ScheduleItem from './../scheduleItem/ScheduleItem';
 import './ActivitySchedule.css';
 
 class ActivitySchedule extends React.Component{
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
-      guides: this.props.guides,
+      guides: [],
     };
     this.interval = null;
   }
 
   componentDidMount() {
+    
     const checkActivities = () => {
-      let newLocalGuides = JSON.parse(localStorage.getItem('guides'));
-      let updateLocalStorage = false;
-      let updateState = false;
+      console.log('check')
+      let newLocalGuides = Lockr.get('guides');
+      let updateLocalStorage = false;    
 
       newLocalGuides = newLocalGuides.map((item, index) => {
-        if (this.state.guides[index].done !== item.done) {
-          // update state if guides on localStorage is different from current state
-          updateState = true;
-        };
-
+        
         let time = this.getCurrentTime();
         let currentTime = '' + time.year + time.month + time.day + time.hour + time.minute;
         if (Number(currentTime) < Number(item.nextTime)) {
           return item;
-        };
+        }
 
         if (item.done === true) { // avoid updating localStorage guides unnecessarily
           item.done = false;
           updateLocalStorage = true;
-        };
+        }
         return item;
       });
 
       if (updateLocalStorage) {
-        localStorage.setItem('guides', JSON.stringify(newLocalGuides));
+        Lockr.set('guides',newLocalGuides);
         this.setState({ guides: newLocalGuides });
-      };
-      if (updateState && !updateLocalStorage) {
+      }else {
         this.setState({ guides: newLocalGuides });
-      };
-    };
-
+      }
+    }
+    
     this.interval = setInterval(checkActivities, 1000);
   };
 
@@ -84,7 +82,8 @@ class ActivitySchedule extends React.Component{
       nextTime: nextTime
     };
 
-    localStorage.setItem('guides', JSON.stringify(newGuides));
+    console.log(newGuides)
+    Lockr.set('guides',newGuides);
     this.setState({ guides: newGuides });
   };
 

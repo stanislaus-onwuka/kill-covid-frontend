@@ -6,80 +6,61 @@ import docGraph from './../../assets/doc-graph.png';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
 import {Link} from "react-router-dom";
+import { connect } from 'react-redux';
+import nJwt from 'njwt';
+import Lockr from 'lockr';
 
 
 class PatientDetails extends Component{
     constructor(){
         super();
-        //The patient object is for testing purposes
         this.state={
             page:'progress',
-            patient:{
-                address: "1, Boca Street",
-                age: 25,
-                country: "Argentina",
-                days_left: 0,
-                email: "bruce@batman.com",
-                first_name: "Bruce",
-                guides: [{
-                    done: false,
-                    info: "Acetaminophen (Tylenol)",
-                    name: "Pain Medication",
-                    time_lapse: "hours=4"
-                }, 
-                {
-                    done: false,
-                    info: "Acetaminophen (Tylenol)",
-                    name: "Pain Medication",
-                    time_lapse: "hours=4"
-                }, 
-                {
-                    done: false,
-                    info: "Acetaminophen (Tylenol)",
-                    name: "Pain Medication",
-                    time_lapse: "hours=4"
-                } 
-                ],
-                id: 99,
-                last_name: "Wayne",
-                remarks: [],
-                sign_up_date: "2020-06-27T04:55:53.466096",
-                state: "Boca",
-                symptoms: [{
-                    cough: true,
-                    date_added: "2020-06-27T04:55:54.010533",
-                    fatigue: true,
-                    fever: false,
-                    id: 18,
-                    other: "",
-                    resp: false,
-                    specifics: {      
-                        cough_degree: "5",
-                        fatigue_degree: "6",
-                        fever_degree: "",
-                        id: 18,
-                        other_degree: "",
-                        symptom_id: 18
-                    },
-                    user_id: 99
-                }],
-                tel: "08045231990",
-                user_id: "13c442d5-a926-45e4-bb4a-f219a8e913ce"
-            }
+            comment : ''
         };
         
+    }
+
+    generateAccessToken = (uid) => {
+        let claims = {
+         "sub": "1234567890",
+         "iat": 1592737638,
+         "exp": 1592741238,
+         "uid": uid
+        };
+        let jwt = nJwt.create(claims, "secret", "HS256");
+        let token = jwt.compact();
+        return token;
+    };
+
+    submitRemark = () => {
+        fetch('https://fast-hamlet-28566.herokuapp.com/doctors/add_remark', {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json',
+                'doc-access-token' : this.generateAccessToken(this.props.currentDoctor)
+            },
+            body : JSON.stringify({
+                comment : this.state.comment,
+                user_id : this.props.location.patient.user_id
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.setState({ comment : '' });
+            alert('Remark sent');
+        })
     }
 
     setPage(event,page){
         this.setState({page});
         document.querySelector('.active').classList.remove('active');
-        console.log(event.target)
         event.target.classList.add('active')
     }
 
-    setDisplay(){
-        let {page} = this.state
-        let patient = this.props.location.patient;
+    setDisplay(patient){
+        let {page} = this.state;        
+        
         
         if(page==='progress'){
             return <div className="progress-div">
@@ -112,21 +93,7 @@ class PatientDetails extends Component{
                         </div>
                         <img src={docGraph} alt='graph' />
                     </div>
-                    <div className='blood-pressure'>
-                        <header className='header'>
-                            <h4>BLOOD PRESSURE</h4>
-                        </header>
-                        <div className='slot'>
-                            <span>150/190<em> mm/Hg</em></span>
-                            <span>High</span>
-                            <span>28/03/2020</span>
-                        </div>
-                        <div className='slot'>
-                            <span>150/190<em> mm/Hg</em></span>
-                            <span>Normal</span>
-                            <span>25/03/2020</span>
-                        </div>
-                    </div>
+                
                     <div className='notes'>
                         <div className='patient'>
                             <h4>PATIENT'S NOTE</h4>
@@ -138,8 +105,8 @@ class PatientDetails extends Component{
                         </div>
                         <div className='doctor'>
                             <h4>DOCTOR'S NOTE</h4>
-                            <textarea rows='10'/>
-                            <button>Send</button>
+                            <textarea value={this.state.comment} onChange={e => this.setState({comment : e.target.value})} rows='10'/>
+                            <button onClick={this.submitRemark}>Send</button>
                         </div>
                     </div>
                     <button>Flag As Emergency</button>
@@ -186,13 +153,22 @@ class PatientDetails extends Component{
             finalArray.push(<PatientHistory symptom={symptom.other} key={4} degree={symptom.specifics.other_degree} date={date} />)
         }
         if(symptom.resp){
-            finalArray.push(<PatientHistory symptom="Respiratory Problem" key={5} date={date} />)
+            finalArray.push(<PatientHistory resp symptom="Respiratory Problem" key={5} date={date} />)
         }
         return finalArray
     }
 
     render(){
-        let patient = this.props.location.patient;
+        
+        let patient = Lockr.get('patient');
+        if(!patient){
+         patient = this.props.location.patient;
+         Lockr.set('patient',patient)
+        }
+        if(this.props.location.patient){
+            patient = this.props.location.patient
+        }
+       
         return (
             <div className="PatientDetails">
                 <div className="Pcontainer">
@@ -213,7 +189,7 @@ class PatientDetails extends Component{
                     </header>
                     
                     <div className="Pdisplay">
-                        {this.setDisplay()}
+                        {this.setDisplay(patient)}
                     </div>
 
                     </div>
@@ -223,4 +199,13 @@ class PatientDetails extends Component{
     }
 
 }
-export default PatientDetails;
+
+const mapStateToProps = state => ({
+    currentDoctor: state.doctor.currentDoctorId
+});
+
+
+export default connect(
+    mapStateToProps,
+    null
+)(PatientDetails);
