@@ -258,10 +258,7 @@ class PatientProfile extends Component {
 							)}
 						</div>
 
-						<div className='temp'>
-							<label htmlFor='temp'> Body Temperature</label>
-							<input type='number' name='temp' value={this.state.temp} id='temp' onChange={this.handleRateChange} />
-						</div>
+						
 						<button
 							onClick={() => {
 								this.onButtonClick("home");
