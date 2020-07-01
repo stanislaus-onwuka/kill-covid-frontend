@@ -10,6 +10,10 @@
 body{
   font-family: 'SF Pro Text',Verdana, Geneva, Tahoma, sans-serif;
 }
-button{
+button,a{
   cursor: pointer;
+  font-family: 'SF Pro Text',Verdana, Geneva, Tahoma, sans-serif;
+}
+input::placeholder{
+  font-family: 'SF Pro Text',Verdana, Geneva, Tahoma, sans-serif;
 }

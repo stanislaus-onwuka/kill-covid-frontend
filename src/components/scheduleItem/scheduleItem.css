@@ -4,16 +4,28 @@
   padding: .5rem;
   border-bottom: solid 1px rgba(0,0,0,.2);
   color: #224a68;
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
+  grid-template-rows: auto;
+  grid-template-areas: 
+  "t . i i i i i i i i . p";
 }
 .patient-home-activity-schedule span:first-child{
   font-weight: 600;
   display: inline-block;
   width: 2.4rem;
   margin-right: .5rem;
+  grid-area: t;
+}
+.patient-home-activity-schedule span:nth-child(2){
+  grid-area: i;
 }
 .patient-home-activity-schedule img{
   width: 1.5rem;
   cursor: pointer;
+}
+.patient-home-activity-schedule div{
+  grid-area: p;
 }
 @media screen and (max-width:380px){
   .patient-home-activity-schedule{

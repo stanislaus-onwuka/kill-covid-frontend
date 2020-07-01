@@ -18,18 +18,17 @@ class PatientProfile extends Component {
 		this.state = {
 			page: "home",
 			guides: this.props.guides,
-			mildcough: false,
-			mCoughRate: "",
-			drycough: false,
-			dCoughRate: "",
-			fatigue: false,
-			fatigueRate: "",
+			cough: false,
+			coughRate: "",
 			fever: false,
 			feverRate: "",
-			soreThroat: false,
-			sThroatRate: "",
-			difficultyBreathing: false,
-			dBreathingRate: ""
+			fatigue: false,
+			fatigueRate: "",
+			resp: false,
+			respRate: "",
+			other: false,
+			otherRate: "",
+			temp: ''
 		};
 	}
 
@@ -39,18 +38,18 @@ class PatientProfile extends Component {
 		});
 		let symptoms = [
 			{
-				cough: this.state.mildcough,
+				cough: this.state.cough,
 				fever: this.state.fever,
 				fatigue: this.state.fatigue,
-				resp: this.state.difficultyBreathing,
-				other: "sore throat"
+				resp: this.state.resp,
+				other: this.state.other
 			},
 			{
-				otherDegree: this.state.sThroatRate,
-				coughDegree: this.state.mCoughRate,
+				otherDegree: this.state.otherRate,
+				coughDegree: this.state.coughRate,
 				feverDegree: this.state.feverRate,
 				fatigueDegree: this.state.fatigueRate,
-				respDegree: this.state.dBreathingRate
+				respDegree: this.state.respRate
 			}
 		];
 		if (page === "home") {
@@ -59,21 +58,17 @@ class PatientProfile extends Component {
       axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',symptoms,{headers:{'access-token':token}}).then(res=>{console.log(res.data)})
 		}
 	}
-	handleChange = (event, type) => {
-		let name = event.target.name;
-		let value;
-		if (type) {
-			value = event.target.checked;
-		} else {
-			event.preventDefault();
-			value = event.target.value;
-		}
 
+	handleRateChange = e => {
+		const { name,value } = e.target
 		this.setState({ [name]: value });
 	};
-	handleRateChange = e => {
-		this.setState({ [e.target.name]: e.target.value });
+
+	handleCheckboxChange = e => {
+		const { name,checked } = e.target
+		this.setState({ [name]: checked });
 	};
+
 	setDisplay() {
 		if (this.state.page === "home") {
 			return (
@@ -100,7 +95,7 @@ class PatientProfile extends Component {
 						}}
 					>
 						{" "}
-						+ Add Symptoms{" "}
+						+ Update Records{" "}
 					</button>
           <ActivitySchedule guides={this.props.guides}/>
 				</div>
@@ -114,29 +109,27 @@ class PatientProfile extends Component {
 						}}
 						src={backIcon}
 						alt='back-icon'
-					></img>
+					/>
 					<h1>Add Symptoms</h1>
 					<div className='select-boxes'>
 						<div className='select-box'>
-							<label htmlFor='mild-cough'>
-								Mild Cough
+							<label htmlFor='cough'>
+								Cough
 								<input
 									type='checkbox'
-									onClick={e => {
-										this.handleChange(e, "checkbox");
-									}}
-									id='mild-cough'
-									name='mildcough'
-									value='mild-cough'
+									onClick={this.handleCheckboxChange}
+									id='cough'
+									name='cough'
+									value={this.state.cough}
 								/>
 								<span className='check'></span>
 							</label>
-							{this.state.mildcough ? (
+							{this.state.cough ? (
 								<div className='rating'>
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
-										name='mCoughRate'
-										value={this.state.mCoughRate}
+										name='coughRate'
+										value={this.state.coughRate}
 										onChange={this.handleRateChange}
 										id='rating'
 									>
@@ -147,86 +140,16 @@ class PatientProfile extends Component {
 								console.log()
 							)}
 						</div>
-
-						<div className='spacing'></div>
-
-						<div className='select-box'>
-							<label htmlFor='dry-cough'>
-								Dry Cough
-								<input
-									type='checkbox'
-									onChange={e => {
-										this.handleChange(e, "checkbox");
-									}}
-									id='dry-cough'
-									name='drycough'
-									value='dry-cough'
-								/>
-								<span className='check'></span>
-							</label>
-							{this.state.drycough ? (
-								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
-										name='dCoughRate'
-										value={this.state.dCoughRate}
-										onChange={this.handleRateChange}
-										id='rating'
-									>
-										{ratingOptions}
-									</select>
-								</div>
-							) : (
-								console.log()
-							)}
-						</div>
-
-						<div className='spacing'></div>
-
-						<div className='select-box'>
-							<label htmlFor='fatigue'>
-								Fatigue
-								<input
-									type='checkbox'
-									onClick={e => {
-										this.handleChange(e, "checkbox");
-									}}
-									id='fatigue'
-									name='fatigue'
-									value='fatigue'
-								/>
-								<span className='check'></span>
-							</label>
-							{this.state.fatigue ? (
-								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
-										name='fatigueRate'
-										value={this.state.fatigueRate}
-										onChange={this.handleRateChange}
-										id='rating'
-									>
-										{ratingOptions}
-									</select>
-								</div>
-							) : (
-								console.log()
-							)}
-						</div>
-
-						<div className='spacing'></div>
 
 						<div className='select-box'>
 							<label htmlFor='fever'>
 								Fever
 								<input
 									type='checkbox'
-									onClick={e => {
-										this.handleChange(e, "checkbox");
-									}}
+									onChange={this.handleCheckboxChange}
 									id='fever'
 									name='fever'
-									value='fever'
+									value={this.state.fever}
 								/>
 								<span className='check'></span>
 							</label>
@@ -247,28 +170,24 @@ class PatientProfile extends Component {
 							)}
 						</div>
 
-						<div className='spacing'></div>
-
 						<div className='select-box'>
-							<label htmlFor='sore-throat'>
-								Sore Throat
+							<label htmlFor='fatigue'>
+								Fatigue
 								<input
 									type='checkbox'
-									onClick={e => {
-										this.handleChange(e, "checkbox");
-									}}
-									id='sore-throat'
-									name='soreThroat'
-									value='sore-throat'
+									name='fatigue'
+									value={this.state.fatigue}
+									onChange={this.handleCheckboxChange}
+									id='fatigue'
 								/>
 								<span className='check'></span>
 							</label>
-							{this.state.soreThroat ? (
+							{this.state.fatigue ? (
 								<div className='rating'>
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
-										name='sThroatRate'
-										value={this.state.sThroatRate}
+										name='fatigueRate'
+										value={this.state.fatigueRate}
 										onChange={this.handleRateChange}
 										id='rating'
 									>
@@ -280,28 +199,24 @@ class PatientProfile extends Component {
 							)}
 						</div>
 
-						<div className='spacing'></div>
-
 						<div className='select-box'>
-							<label htmlFor='difficulty-breathing'>
-								Difficulty Breathing
+							<label htmlFor='resp'>
+								Respiratory Problems
 								<input
 									type='checkbox'
-									onClick={e => {
-										this.handleChange(e, "checkbox");
-									}}
-									id='difficulty-breathing'
-									name='difficultyBreathing'
-									value='difficulty-breathing'
+									name='resp'
+									value={this.state.resp}
+									onChange={this.handleCheckboxChange}
+									id='resp'
 								/>
 								<span className='check'></span>
 							</label>
-							{this.state.difficultyBreathing ? (
+							{this.state.resp ? (
 								<div className='rating'>
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
-										name='dBreathingRate'
-										value={this.state.dBreathingRate}
+										name='respRate'
+										value={this.state.respRate}
 										onChange={this.handleRateChange}
 										id='rating'
 									>
@@ -313,6 +228,40 @@ class PatientProfile extends Component {
 							)}
 						</div>
 
+						<div className='select-box'>
+							<label htmlFor='other'>
+								Others
+								<input
+									type='checkbox'
+									onClick={this.handleCheckboxChange}
+									id='other'
+									name='other'
+									value={this.state.other}
+								/>
+								<span className='check'></span>
+							</label>
+							{this.state.other ? (
+								<div className='rating'>
+									<input type='text' placeholder='What symptoms are you showing' />
+									<em>On a scale of 1-10, how serious is it ?</em>
+									<select
+										name='otherRate'
+										value={this.state.otherRate}
+										onChange={this.handleRateChange}
+										id='rating'
+									>
+										{ratingOptions}
+									</select>
+								</div>
+							) : (
+								console.log()
+							)}
+						</div>
+
+						<div className='temp'>
+							<label htmlFor='temp'> Body Temperature</label>
+							<input type='number' name='temp' value={this.state.temp} id='temp' onChange={this.handleRateChange} />
+						</div>
 						<button
 							onClick={() => {
 								this.onButtonClick("home");

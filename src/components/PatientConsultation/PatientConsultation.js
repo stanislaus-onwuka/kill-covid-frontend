@@ -2,6 +2,7 @@ import React from 'react';
 import './PatientConsultation.css';
 import formatDateFromNow from '../../utils/formatDate';
 
+
 const PatientConsultation =({remarks})=>{
   return(
     <div className="patient-consultation-container">
