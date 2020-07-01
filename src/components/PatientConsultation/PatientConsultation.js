@@ -1,9 +1,53 @@
 import React from 'react';
-import './PatientConsultation.css';
+import nJwt from 'njwt';
+import { connect } from 'react-redux';
+
 import formatDateFromNow from '../../utils/formatDate';
 
+import './PatientConsultation.css';
 
-const PatientConsultation =({remarks})=>{
+
+
+
+const PatientConsultation =(props)=>{
+  const {remarks,userId} = props
+
+  const generateAccessToken = uid => {
+    let claims = {
+     "sub": "1234567890",
+     "iat": 1592737638,
+     "exp": 1592741238,
+     "uid": uid
+    };
+    let jwt = nJwt.create(claims, "secret", "HS256");
+    let token = jwt.compact();
+    return token;
+  };
+
+  
+
+  const handleClick = async e => {
+    e.preventDefault();
+
+    try{
+      const url = 'https://fast-hamlet-28566.herokuapp.com/api/contact_emergency';
+      const accessToken = generateAccessToken(userId);
+      const options = {
+        method: 'GET',
+        headers: {
+          'access-token': accessToken
+        }
+      };
+      let response = await fetch(url,options);
+      console.log(response)
+      let result = await response.json();
+      console.log(result)
+    }catch(err){
+      console.log(err)
+    }
+    
+  }
+
   return(
     <div className="patient-consultation-container">
       <h1>Consultations</h1>
@@ -29,11 +73,15 @@ const PatientConsultation =({remarks})=>{
       })}
       <section className='emergency'>
         <em> In the event of unexpected symptoms</em>
-        <button>CONTACT EMERGENCY</button>
+        <button onClick={handleClick}>CONTACT EMERGENCY</button>
       </section>
 
     </div>
   );
 }
 
-export default PatientConsultation;
+const mapStateToProps = state => ({
+  userId: state.user.currentUser.user_id
+})
+
+export default connect(mapStateToProps)(PatientConsultation);

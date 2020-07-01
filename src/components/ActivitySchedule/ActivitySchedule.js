@@ -16,7 +16,6 @@ class ActivitySchedule extends React.Component{
   componentDidMount() {
     
     const checkActivities = () => {
-      console.log('check')
       let newLocalGuides = Lockr.get('guides');
       let updateLocalStorage = false;    
 
@@ -82,7 +81,6 @@ class ActivitySchedule extends React.Component{
       nextTime: nextTime
     };
 
-    console.log(newGuides)
     Lockr.set('guides',newGuides);
     this.setState({ guides: newGuides });
   };
