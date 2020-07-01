@@ -1,9 +1,7 @@
 import React,{ Component } from 'react';
 import profilePic from './../../assets/prof.png';
 import temperature from './../../assets/svg/temperature.svg';
-// import pressure from './../../assets/svg/pressure.svg';
 import happy from './../../assets/svg/happy.svg';
-import { ReactComponent as CancelIcon } from './../../assets/svg/cancel.svg';
 import backIcon from './../../assets/svg/arrow-left.svg';
 import graph from './../../assets/graph.png';
 import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
@@ -14,8 +12,7 @@ class PatientHome extends Component {
   constructor(props){
     super(props);
     this.state={
-      page:'home',
-      recordPage:'temp'
+      page:'home'
     }
   }
 
@@ -56,62 +53,26 @@ class PatientHome extends Component {
           </section>
           <ActivitySchedule guides={this.props.guides}/>
         </div>
-          <div className='update-records'>
-          <div className='bg'></div>
-          <CancelIcon onClick={()=>{
-            document.querySelector('.update-records').classList.remove('display');
-            document.querySelector('.patient-home-container').classList.remove('fixed');
-          }} />
-          <div className='header'>
-            <h1>Update your Records</h1>
-            <em>We recommend using an efficient instrument to measure your vitals</em>
-          </div>
-          <form>
-            <label htmlFor='temp'>Body Temperature</label>
-            <input id='temp' type='text' />
-            <label>Blood Pressure</label>
-            <div className='inputs'>
-              <input className='pressure' type='text' />
-              <input className='temp' type='text' />
-            </div>
-            <button onClick={()=>{
-            document.querySelector('.update-records').classList.remove('display');
-            document.querySelector('.patient-container').style.position = 'static';
-          }}>SAVE</button>
-          </form>
-      </div>
         </>
       );
     } else if(this.state.page === 'records'){
       return <div className="patient-record-container">
       <img onClick={()=>{this.onButtonClick('home')}} src={backIcon} alt='back-icon'></img>
       <h1>Records</h1>
-      <div className='switch-btn'>
-        <button onClick={(e)=>{this.onSwitchBtnClick('temp',e)}} className='temp active'>Body Temperature</button>
-        <button onClick={(e)=>{this.onSwitchBtnClick('pressure',e)}} className='pressure inactive'>Body Pressure</button>
-      </div>
+      
       <div className='current-record'>
-      {
-        this.state.recordPage ==='temp'
-        ?<>
           <em>Today's Temperature </em>
           <em>37.7&deg;</em>
-        </>
-        : <>
-          <em>Today's Pressure</em>
-          <em>80/130 mmHg</em>
-        </>
-      }
       </div>
       <div className='graph-container'>
-      <img className='graph' src={graph} alt='graph'></img>
-          <ul className='days'>
-            <li>01/04</li>
-            <li>02/04</li>
-            <li>03/04</li>
-            <li>04/04</li>
-            <li>05/04</li>
-          </ul>
+        <img className='graph' src={graph} alt='graph'></img>
+        <ul className='days'>
+          <li>01/04</li>
+          <li>02/04</li>
+          <li>03/04</li>
+          <li>04/04</li>
+          <li>05/04</li>
+        </ul>
       </div>
   </div>
     }
