@@ -30,45 +30,36 @@
   display: flex;
   flex-wrap: wrap;
 }
-.patient-home-body-temp,.patient-home-body-pressure{
-  padding: .5rem;
-  width: 48%;
+
+.patient-home-body-temp{
+  padding: 1rem;
+  width: 100%;
   font-size: 1.5rem;
   border-radius: 1rem;
   color: #224a68;
   box-shadow: 0 .1rem .4rem rgba(0,0,0,.2);
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+  "i i t t t t"
+  "i i n n n n";
 }
 .patient-home-body-temp{
   background-color: #f3e8d4;
 }
-.patient-home-body-temp img,.patient-home-body-pressure img{
-  width: 1.5rem;
-  margin: .3rem 0 0 .3rem;
-  display: block;
+.patient-home-body-temp img{
+  grid-area: i;
+  width: 4rem;
+  height: 100%;
 }
-.patient-home-body-temp .text,.patient-home-body-pressure .text{
-  display: inline-block;
-  font-size: 1rem;
-  margin: 1rem 0 0 .3rem;
+.patient-home-body-temp .text{
+  grid-area: t;
+  margin-bottom: 1rem;
 }
-.patient-home-body-temp .temp,.patient-home-body-pressure .pressure{
-  display: block;
-  margin: .8rem 0 .3rem .3rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-.patient-home-body-pressure{
-  background-color: #f5dfdf;
-  margin-left: 4%;
-}
-
-.patient-home-records a{
-  margin: 1rem 0;
-  display: block;
-  width: 100vw;
-  text-align: right;
-  color: #2c72a8;
-  text-decoration: none;
+.patient-home-body-temp .temp{
+  grid-area: n;
 }
 .patient-home-indication-box{
   display: flex;

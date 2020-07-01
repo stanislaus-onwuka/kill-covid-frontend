@@ -29,7 +29,7 @@
   border: none;
 }
 
-.eval-content-container a:hover,.eval-content-container .eval-next-btn:hover{
+.eval-content-container a:hover{
   background-color: #296380;
 }
 
@@ -100,6 +100,8 @@ input:focus{
 .eval-content-container .eval-next-btn{
   width: 40%;
   padding: .7rem;
+  font-family: 'SF Pro Text';
+  font-size: 1rem;
 }
 .eval-next-btn{
   background-color:#234661;

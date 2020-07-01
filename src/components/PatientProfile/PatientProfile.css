@@ -118,13 +118,15 @@
 }
 .patient-symptom-container .select-boxes .select-box{
   position: relative;
+  margin-bottom: 2rem;
 }
 .patient-symptom-container .select-boxes .select-box label{
   font-size: 1.5rem;
-  padding-left: 4rem;
+  padding-left: 2.5rem;
   display: inline-block;
   color: #224a68;
   z-index: 2;
+  margin-bottom: .5rem;
 }
 .patient-symptom-container .select-boxes .select-box .check{
   position: absolute;
@@ -144,15 +146,57 @@
  background-size: contain;
 }
 .patient-symptom-container .select-boxes button{
-  margin-top: 3rem;
   padding: 1rem ;
   border: none;
   border-radius: 1rem;
   background-color: #4482b1;
   color: #fff;
-  width: 60%;
+  width: 100%;
+  margin: 1rem auto;
   font-size: 1rem;
   text-align: center;
+  display: block;
+}
+.patient-symptom-container .select-boxes .rating{
+  margin-left: 2.5rem;
+}
+.patient-symptom-container .select-boxes .rating em{
+  font-style: normal;
+  width: 100%;
+  color: #224a68;
+  display: inline-block;
+  margin-bottom: .2rem;
+  font-size: 1.3rem;
+}
+.patient-symptom-container .select-boxes .rating input{
+  font-style: normal;
+  width: 100%;
+  color: #224a68;
+  display: inline-block;
+  border-radius: 1rem;
+  border: solid 2px #224a68;
+  padding: 1rem ;
+  margin-bottom: .5rem;
+}
+.patient-symptom-container .select-boxes .temp{
+  text-align: center;
+  width: 100%;
+  color: #224a68;
+}
+.patient-symptom-container .select-boxes .temp label{
+  font-size: 1.5rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.patient-symptom-container .select-boxes .temp input{
+  font-style: normal;
+  width: 100%;
+  color: #224a68;
+  display: inline-block;
+  border-radius: 1rem;
+  border: solid 2px #224a68;
+  padding: 1rem ;
+  margin-bottom: .5rem;
 }
 
 

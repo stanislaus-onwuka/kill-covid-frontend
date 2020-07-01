@@ -108,7 +108,7 @@ class EvalContent extends Component {
 						/>
 						<em> How old are you ? </em>
 						<input
-							className='eval-last-name-input'
+							className='eval-first-name-input'
 							type='number'
 							name='Age'
 							placeholder='Your Age'
@@ -132,7 +132,7 @@ class EvalContent extends Component {
 					className='eval-last-name-input'
 					type='text'
 					name='email'
-					placeholder='email'
+					placeholder='Email'
 					value={this.state.email}
 					onChange={this.onEmailChange}
 				/>
@@ -212,6 +212,7 @@ class EvalContent extends Component {
 								onChange={(e) => this.handleChange(e,'checkbox')}
 								name='isCoughChecked'
 								value='Cough'
+								id='cough'
 							/>
 							<label htmlFor='cough'>Cough</label>
 							{this.state.isCoughChecked 

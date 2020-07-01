@@ -6,7 +6,7 @@ function InputBox() {
   return(
     <div className="login-input-box-container">
       <>
-      <input type='text' placeholder="Username / Phone No" />
+      <input type='text' placeholder="Phone No" />
       <Link to="/Patient">Log In</Link>
       </>
     </div>

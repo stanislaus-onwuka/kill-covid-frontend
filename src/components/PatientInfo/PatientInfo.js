@@ -89,19 +89,19 @@ class PatientInfo extends Component {
                 <>
                   <p>Common symptoms include:</p>
                   <ul>
-                    <li>fever</li>
-                    <li>dry cough</li>
-                    <li>tiredness</li>
-                    <li>aches and pains</li>
-                    <li>sore throat</li>
-                    <li>diarrhoea</li>
+                    <li>Fever</li>
+                    <li>Dry Cough</li>
+                    <li>Tiredness</li>
+                    <li>Aches and Pains</li>
+                    <li>Sore Throat</li>
+                    <li>Diarrhoea</li>
                   </ul>
                   <br />
                   <p>More serious symptoms include:</p>
                   <ul>
-                    <li>difficulty breathing or shortness of breath</li>
-                    <li>chest pain or pressure</li>
-                    <li>loss of speech or movement</li>
+                    <li>Difficulty breathing or Shortness of breath</li>
+                    <li>Chest pain or Pressure</li>
+                    <li>Loss of speech or movement</li>
                   </ul>
                 </>)
             }
