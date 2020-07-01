@@ -19,8 +19,6 @@ class PatientProfile extends Component {
 			page: "home",
 			mildcough: false,
 			mCoughRate: "",
-			drycough: false,
-			dCoughRate: "",
 			fatigue: false,
 			fatigueRate: "",
 			fever: false,
@@ -118,7 +116,7 @@ class PatientProfile extends Component {
 					<div className='select-boxes'>
 						<div className='select-box'>
 							<label htmlFor='mild-cough'>
-								Mild Cough
+								Cough
 								<input
 									type='checkbox'
 									onClick={e => {
@@ -149,36 +147,6 @@ class PatientProfile extends Component {
 
 						<div className='spacing'></div>
 
-						<div className='select-box'>
-							<label htmlFor='dry-cough'>
-								Dry Cough
-								<input
-									type='checkbox'
-									onChange={e => {
-										this.handleChange(e, "checkbox");
-									}}
-									id='dry-cough'
-									name='drycough'
-									value='dry-cough'
-								/>
-								<span className='check'></span>
-							</label>
-							{this.state.drycough ? (
-								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
-										name='dCoughRate'
-										value={this.state.dCoughRate}
-										onChange={this.handleRateChange}
-										id='rating'
-									>
-										{ratingOptions}
-									</select>
-								</div>
-							) : (
-								console.log()
-							)}
-						</div>
 
 						<div className='spacing'></div>
 

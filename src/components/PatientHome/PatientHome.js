@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import profilePic from './../../assets/prof.png';
 import temperature from './../../assets/svg/temperature.svg';
-import pressure from './../../assets/svg/pressure.svg';
+// import pressure from './../../assets/svg/pressure.svg';
 import happy from './../../assets/svg/happy.svg';
 import { ReactComponent as CancelIcon } from './../../assets/svg/cancel.svg';
 import backIcon from './../../assets/svg/arrow-left.svg';
@@ -37,11 +37,6 @@ class PatientHome extends Component {
               <img src={temperature} alt="temperature-icon"></img>
               <span className='text'>Body Temperature</span>
               <span className='temp'>37.7&deg;</span>
-              </div>
-              <div className="patient-home-body-pressure">
-              <img src={pressure} alt="temperature-icon"></img>
-              <span className='text'>Body Pressure</span>
-              <span className='pressure'>80/130mmHg</span>
               </div>
               {/* eslint-disable-next-line */}
               <a onClick={()=>{
