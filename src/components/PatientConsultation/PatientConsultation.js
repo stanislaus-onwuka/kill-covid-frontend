@@ -19,7 +19,7 @@ const PatientConsultation =({remarks})=>{
         return (
          <div key={remark.id} className='consult-box'>
           <div className='header'>
-            <em> Doctor's name </em>
+            <em> {remark.first_name + ' ' + remark.last_name} </em>
             <em> {formattedDate} ago</em>
           </div>
           <p>{remark.content}</p>
