@@ -16,7 +16,8 @@ class PatientDetails extends Component{
         super();
         this.state={
             page:'progress',
-            comment : ''
+            comment : '',
+            isExtraHistoryHidden: true
         };
         
     }
@@ -58,6 +59,11 @@ class PatientDetails extends Component{
         event.target.classList.add('active')
     }
 
+    toggleExtraHistory = e => {
+        e.preventDefault();
+        this.setState( prevState => ({isExtraHistoryHidden: !prevState.isExtraHistoryHidden}),()=> console.log(this.state.isExtraHistoryHidden))
+    }
+
     setDisplay(patient){
         let {page} = this.state;        
         
@@ -68,7 +74,17 @@ class PatientDetails extends Component{
                         <div className="head-container">
                             <h4>HISTORY</h4>
                         </div>
-                        { this.setHistory(patient.symptoms[0]) }
+                        {   this.state.isExtraHistoryHidden
+                        ?   <>
+                            { this.setHistory(patient.symptoms[patient.symptoms.length-1]) }
+                            <button onClick={this.toggleExtraHistory} > View All </button>
+                            </>
+                        :   <>
+                            { this.setFullHistory(patient.symptoms) }
+                            <button onClick={this.toggleExtraHistory} > View Latest </button>
+                            </>
+                         }
+                        
                     </div>
                     <div className="prescriptions">
                         <div className="head-container">
@@ -136,10 +152,10 @@ class PatientDetails extends Component{
         }
     }
 
-    setHistory = symptom => {
+    setHistory = (symptom,id) => {
         let finalArray = []
         let date = new Date(symptom.date_added)
-        date = `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`
+        date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
         if(symptom.cough){
             finalArray.push(<PatientHistory symptom="Cough" degree={symptom.specifics.cough_degree} key={1} date={date} />)
         }
@@ -155,7 +171,14 @@ class PatientDetails extends Component{
         if(symptom.resp){
             finalArray.push(<PatientHistory resp symptom="Respiratory Problem" key={5} date={date} />)
         }
-        return finalArray
+        return <div key={id} className='history-slot'>
+            <h1>{date}</h1>
+            { finalArray }
+        </div>   
+    }
+
+    setFullHistory = symptoms => {
+      return symptoms.reverse().map((symptom,index) => this.setHistory(symptom,index))
     }
 
     render(){
@@ -166,7 +189,8 @@ class PatientDetails extends Component{
          Lockr.set('patient',patient)
         }
         if(this.props.location.patient){
-            patient = this.props.location.patient
+        patient = this.props.location.patient
+        Lockr.set('patient',patient)
         }
        
         return (

@@ -57,7 +57,7 @@ class doctorHome extends React.Component {
                
                 //DON'T DELETE THE COMMENTS
 
-                // let userID = 'c6f92663-c8c5-42b1-81af-0ce17ecbf84d'
+                // let userID = '13c442d5-a926-45e4-bb4a-f219a8e913ce'
                 let hardCurrentDoctorId = 'd9783a65-93fe-44d7-84e9-5e122677c23e'
                 // const { currentDoctorId } = this.props
                 
@@ -78,43 +78,25 @@ class doctorHome extends React.Component {
                     // console.log(user)
 
                     const storedPatients = Lockr.get('patients')
-                    console.log(storedPatients)
                     if(storedPatients){
                         let patients = storedPatients.map(patient => this.getReportComponents(patient));
                         this.setState({patients})
-                        let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
-                          method: 'GET',
-                          headers: {
-                            'Content-Type': 'application/json;charset=utf-8',
-                            'doc-access-token': this.generateAccessToken(hardCurrentDoctorId)
-                          }
-                        })
-                        let result = await doctorResponse.json();
-                        
-                        if(result.length !== storedPatients.length){
-                            console.log(storedPatients)
-                            let patients = result.map(patient => this.getReportComponents(patient));
-                            this.setState({patients})
-                        }
-
-                    }else{
-
-                        let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
-                          method: 'GET',
-                          headers: {
-                            'Content-Type': 'application/json;charset=utf-8',
-                            'doc-access-token': this.generateAccessToken(hardCurrentDoctorId)
-                          }
-                        })
-                        let result = await doctorResponse.json();
-                        if(result){
-                            console.log(result)
-                          let patients = result.map(patient => this.getReportComponents(patient));
-                            this.setState({patients})
-                            Lockr.set('patients',result)
-                        }
                     }
-    
+
+                    let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
+                        method: 'GET',
+                        headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        'doc-access-token': this.generateAccessToken(hardCurrentDoctorId)
+                        }
+                    })
+                    let result = await doctorResponse.json();
+                    if(result){
+                        console.log(result)
+                        let patients = result.map(patient => this.getReportComponents(patient));
+                        this.setState({patients})
+                        Lockr.set('patients',result)
+                    }
                   }catch(err){
                     console.log(err)
                   }
