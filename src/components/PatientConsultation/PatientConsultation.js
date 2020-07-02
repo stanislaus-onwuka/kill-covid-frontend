@@ -54,11 +54,13 @@ class PatientConsultation extends React.Component{
   displayAgreement = e => {
     e.preventDefault();
     document.querySelector('.agreement').classList.add('display')
+    document.querySelector('.patient-consultation-container').classList.add('over')
   }
 
   hideAgreement = e => {
     e.preventDefault();
     document.querySelector('.agreement').classList.remove('display')
+    document.querySelector('.patient-consultation-container').classList.remove('over')
   }
 
   onCheckboxChange = e => {
@@ -98,15 +100,18 @@ class PatientConsultation extends React.Component{
   
         <section className='agreement'>
           <img onClick={this.hideAgreement} src={back} alt='previous page' />
-          <p> On ticking the checkbox below, All your info provided to us will be relayed to the NCDC and you will most likely be 
-          picked up from your home to be taken to an isolation center. </p>
-          <input name='agreed' value={this.state.agreed} onChange={this.onCheckboxChange} type='checkbox' id='agree' />
-          <label htmlFor='agree'> I agree</label>
-          {
+          <div className='main'>
+            <p> On ticking the checkbox below, All your info provided to us will be relayed to the NCDC and you will most likely be 
+            picked up from your home to be taken to an isolation center. </p>
+            <input name='agreed' value={this.state.agreed} onChange={this.onCheckboxChange} type='checkbox' id='agree' />
+            <label htmlFor='agree'> I agree</label>
+            {
             this.state.agreed
           ? <button onClick={this.handleClick} > Submit </button>
           : null
           }
+          </div>
+          
           
         </section>
   
