@@ -155,15 +155,14 @@ class PatientProfile extends Component {
 							</label>
 							{this.state.fever ? (
 								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
+									<em>Body Temperature</em>
+									<input
+										type='number'
 										name='feverRate'
 										value={this.state.feverRate}
 										onChange={this.handleRateChange}
 										id='rating'
-									>
-										{ratingOptions}
-									</select>
+									/>
 								</div>
 							) : (
 								console.log()

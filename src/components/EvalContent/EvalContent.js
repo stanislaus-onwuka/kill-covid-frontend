@@ -508,6 +508,7 @@ class EvalContent extends Component {
 		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname)
 
 		let uid = signUpResult.data.uid
+		console.log(uid)
 
 		const headers = {headers:{'access-token': this.generateAccessToken(uid)}}
 

@@ -73,6 +73,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  left: 0;
+  padding: 1rem;
 }
 .patient-consultation-container .agreement p{
   display: block;
@@ -91,6 +93,7 @@
   border-radius: 1rem;
   background-color: #406581;
   font-size: 1.4rem;
+  margin-left: 0;
 }
 .patient-consultation-container .agreement img{
   width: 2rem;

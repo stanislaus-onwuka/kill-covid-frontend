@@ -26,7 +26,7 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: '13c442d5-a926-45e4-bb4a-f219a8e913ce'
+      uid: '196e27a1-b34d-40d3-9f1f-485999dd6605'
     }
     this.currentPage = Lockr.get('page');
   }
@@ -127,6 +127,7 @@ class Patient extends Component{
           <PatientHome
             firstName={currentUser.first_name}
             guides={currentUser.guides}
+            med_state={currentUser.med_state}
           />
         )
       case 'info':

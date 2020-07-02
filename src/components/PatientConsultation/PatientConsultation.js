@@ -31,7 +31,9 @@ class PatientConsultation extends React.Component{
    handleClick = async e => {
     e.preventDefault();
     document.querySelector('.agreement').classList.remove('display')
+    document.querySelector('.patient-consultation-container').classList.remove('over')
     const { userId } = this.props 
+    console.log(userId)
     try{
       const url = 'https://fast-hamlet-28566.herokuapp.com/api/contact_emergency';
       const accessToken = this.generateAccessToken(userId);

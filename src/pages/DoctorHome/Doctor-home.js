@@ -57,7 +57,7 @@ class doctorHome extends React.Component {
                
                 //DON'T DELETE THE COMMENTS
 
-                // let userID = '13c442d5-a926-45e4-bb4a-f219a8e913ce'
+                let userID = '196e27a1-b34d-40d3-9f1f-485999dd6605'
                 let hardCurrentDoctorId = 'd9783a65-93fe-44d7-84e9-5e122677c23e'
                 // const { currentDoctorId } = this.props
                 
@@ -66,16 +66,16 @@ class doctorHome extends React.Component {
                     //The code below is to promote a user so they show on the doctor's page
                     //Just set the user ID above to add another user
     
-                    // let userResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{
-                    //   method: 'GET',
-                    //   headers: {
-                    //     'Content-Type': 'application/json;charset=utf-8',
-                    //     'access-token': this.generateAccessToken(userID)
-                    //   }
-                    // })
+                    let userResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        'access-token': this.generateAccessToken(userID)
+                      }
+                    })
                     
-                    // let user = await userResponse.json()
-                    // console.log(user)
+                    let user = await userResponse.json()
+                    console.log(user)
 
                     const storedPatients = Lockr.get('patients')
                     if(storedPatients){

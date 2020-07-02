@@ -35,6 +35,7 @@ class PatientDetails extends Component{
     };
 
     submitRemark = () => {
+        console.log(this.props.currentDoctor, this.props)
         fetch('https://fast-hamlet-28566.herokuapp.com/doctors/add_remark', {
             method : 'POST',
             headers : {
@@ -63,6 +64,38 @@ class PatientDetails extends Component{
         e.preventDefault();
         this.setState( prevState => ({isExtraHistoryHidden: !prevState.isExtraHistoryHidden}),()=> console.log(this.state.isExtraHistoryHidden))
     }
+
+    flagPatient = async e => {
+        e.preventDefault();
+        let patient = Lockr.get('patient');
+        if(!patient){
+         patient = this.props.location.patient;
+         Lockr.set('patient',patient)
+        }
+        if(this.props.location.patient){
+        patient = this.props.location.patient
+        Lockr.set('patient',patient)
+        }
+        console.log(patient)
+        try{
+        let response = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/flag', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'doc-access-token': this.generateAccessToken(this.props.currentDoctor)
+            },
+            body: JSON.stringify({
+                user_id: patient.user_id
+            })
+        })
+
+        let result = await response.json()
+        console.log(result)
+    }catch(err){
+        console.log(err)
+    }
+    }
+    
 
     setDisplay(patient){
         let {page} = this.state;        
@@ -125,7 +158,7 @@ class PatientDetails extends Component{
                             <button onClick={this.submitRemark}>Send</button>
                         </div>
                     </div>
-                    <button>Flag As Emergency</button>
+                    <button onClick={this.flagPatient}>Flag As Emergency</button>
                 </div>    
         }
         if(page==='info'){
