@@ -141,7 +141,6 @@ class PatientProfile extends Component {
 							)}
 						</div>
 
-						<div className='spacing'></div>
 						<div className='select-box'>
 							<label htmlFor='fever'>
 								Fever
