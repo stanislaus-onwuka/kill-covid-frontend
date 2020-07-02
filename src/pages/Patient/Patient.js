@@ -26,7 +26,7 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: '196e27a1-b34d-40d3-9f1f-485999dd6605'
+      uid: 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
     }
     this.currentPage = Lockr.get('page');
   }
@@ -54,7 +54,7 @@ class Patient extends Component{
             user = storedUser
             setCurrentUser(storedUser)
         }else{
-          
+
           const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
           const accessToken = generateAccessToken(this.state.uid);
           const options = {
@@ -63,7 +63,7 @@ class Patient extends Component{
               'access-token': accessToken
             }
           };
-    
+
           try {
             let response = await fetch(url, options);
             if (!response.ok) {
@@ -83,7 +83,7 @@ class Patient extends Component{
           setCurrentUser(user);
           Lockr.set('user',user)
         }
-        
+
 
       let localGuides = Lockr.get('guides')
       let localGuideVersion = Lockr.get('version')
@@ -91,7 +91,7 @@ class Patient extends Component{
       let today = new Date();
       let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
       let guides = null;
-      
+
 
       if ( !localGuides || localGuideVersion !== 1) {
         guides = user.guides.map(item => {
@@ -103,8 +103,8 @@ class Patient extends Component{
 
         user.guides = guides;
         Lockr.set('guides',guides);
-        Lockr.set('version', 1); 
-        
+        Lockr.set('version', 1);
+
         return;
       }
       else {
@@ -112,7 +112,7 @@ class Patient extends Component{
         user.guides = guides;
       }
     };
-    
+
     getUserData();
   };
 
@@ -166,7 +166,7 @@ class Patient extends Component{
 
   render(){
     const { currentUser } = this.props
-    
+
     if(this.currentPage){
        this.setState({page: this.currentPage})
        this.currentPage = false
