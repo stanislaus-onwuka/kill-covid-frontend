@@ -12,7 +12,7 @@ const DoctorHomeReport = ({ profileImg,name,symptom,patient }) => (
                 {/* <p>Quarantined on: <span>{props.grant}</span></p> */}
                 <p>Last Recorded Symptoms: <span>{symptom}</span></p>
             </div>
-            <Link className="arr-link" 
+            <Link className="arr-link"
             to={{
             pathname: '/patient-details',
             patient
@@ -23,4 +23,3 @@ const DoctorHomeReport = ({ profileImg,name,symptom,patient }) => (
 );
 
 export default DoctorHomeReport;
-

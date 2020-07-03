@@ -17,10 +17,10 @@ class ActivitySchedule extends React.Component{
     
     const checkActivities = () => {
       let newLocalGuides = Lockr.get('guides');
-      let updateLocalStorage = false;    
+      let updateLocalStorage = false;
 
       newLocalGuides = newLocalGuides.map((item, index) => {
-        
+
         let time = this.getCurrentTime();
         let currentTime = '' + time.year + time.month + time.day + time.hour + time.minute;
         if (Number(currentTime) < Number(item.nextTime)) {
@@ -41,7 +41,7 @@ class ActivitySchedule extends React.Component{
         this.setState({ guides: newLocalGuides });
       }
     }
-    
+
     this.interval = setInterval(checkActivities, 1000);
   };
 
@@ -64,6 +64,7 @@ class ActivitySchedule extends React.Component{
     let time = this.getCurrentTime();
     let nextTime = null;
 
+    // get string representation for next time to take clicked drug
     if (timeLapse[0] === 'days') {
       nextTime = '' + time.year + time.month + (time.day + Number(timeLapse[1])) + time.hour + time.minute;
     }
@@ -74,6 +75,7 @@ class ActivitySchedule extends React.Component{
       nextTime = '' + time.year + time.month + time.day + time.hour + (time.minute + Number(timeLapse[1]));
     };
 
+    // update current clicked activity schedule item
     newGuides[index] = {
       ...newGuides[index],
       done: !newGuides[index].done,
