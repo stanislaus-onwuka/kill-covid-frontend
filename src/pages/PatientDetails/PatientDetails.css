@@ -252,6 +252,15 @@
 .progress-div{
     padding-bottom: 2rem;
 }
+.progress-div .history button{
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    padding: 1rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: #28abfa;
+}
 .progress-div > button{
     background-color: #bc2727;
     color: #fff;
@@ -262,6 +271,13 @@
     font-size: 1.4rem;
     border-radius: 1rem;
     padding: 1rem;
+}
+.history-slot{
+    margin: 1rem 0 2rem;
+}
+.history-slot h1{
+    display: block;
+    text-align: center;
 }
 
 

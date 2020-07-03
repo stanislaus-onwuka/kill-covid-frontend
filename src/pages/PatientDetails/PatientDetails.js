@@ -1,14 +1,17 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
+import { connect } from 'react-redux';
+import nJwt from 'njwt';
+
+import { setCurrentPatient } from './../../redux/doctor/doctor.actions';
+
 import './PatientDetails.css';
 import profilePic from "../../assets/prof.png";
 import editIcon from './../../assets/svg/edit.svg';
 import docGraph from './../../assets/doc-graph.png';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
-import {Link} from "react-router-dom";
-import { connect } from 'react-redux';
-import nJwt from 'njwt';
-import Lockr from 'lockr';
+
 
 
 class PatientDetails extends Component{
@@ -16,7 +19,8 @@ class PatientDetails extends Component{
         super();
         this.state={
             page:'progress',
-            comment : ''
+            comment : '',
+            isExtraHistoryHidden: true
         };
         
     }
@@ -33,16 +37,19 @@ class PatientDetails extends Component{
         return token;
     };
 
-    submitRemark = () => {
+    submitRemark = (e,patientId) => {
+        e.preventDefault();
+        const { currentDoctorId } = this.props
+
         fetch('https://fast-hamlet-28566.herokuapp.com/doctors/add_remark', {
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json',
-                'doc-access-token' : this.generateAccessToken(this.props.currentDoctor)
+                'doc-access-token' : this.generateAccessToken(currentDoctorId)
             },
             body : JSON.stringify({
                 comment : this.state.comment,
-                user_id : this.props.location.patient.user_id
+                user_id : patientId
             })
         })
         .then(res => res.json())
@@ -58,17 +65,54 @@ class PatientDetails extends Component{
         event.target.classList.add('active')
     }
 
+    toggleExtraHistory = e => {
+        e.preventDefault();
+        this.setState( prevState => ({isExtraHistoryHidden: !prevState.isExtraHistoryHidden}),()=> console.log(this.state.isExtraHistoryHidden))
+    }
+
+    flagPatient = async (e,patientId) => {
+        e.preventDefault();
+        const { currentDoctorId } = this.props
+        
+        try{
+        let response = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/flag', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'doc-access-token': this.generateAccessToken(currentDoctorId)
+            },
+            body: JSON.stringify({
+                user_id: patientId
+            })
+        })
+
+        let result = await response.json()
+        console.log(result)
+    }catch(err){
+        console.log(err)
+    }
+    }
+    
+
     setDisplay(patient){
-        let {page} = this.state;        
-        
-        
+        let {page} = this.state;
         if(page==='progress'){
             return <div className="progress-div">
                     <div className="history">
                         <div className="head-container">
                             <h4>HISTORY</h4>
                         </div>
-                        { this.setHistory(patient.symptoms[0]) }
+                        {   this.state.isExtraHistoryHidden
+                        ?   <>
+                            { this.setHistory(patient.symptoms[patient.symptoms.length-1]) }
+                            <button onClick={this.toggleExtraHistory} > View All </button>
+                            </>
+                        :   <>
+                            { this.setFullHistory(patient.symptoms) }
+                            <button onClick={this.toggleExtraHistory} > View Latest </button>
+                            </>
+                         }
+                        
                     </div>
                     <div className="prescriptions">
                         <div className="head-container">
@@ -106,19 +150,16 @@ class PatientDetails extends Component{
                         <div className='doctor'>
                             <h4>DOCTOR'S NOTE</h4>
                             <textarea value={this.state.comment} onChange={e => this.setState({comment : e.target.value})} rows='10'/>
-                            <button onClick={this.submitRemark}>Send</button>
+                            <button onClick={e=>this.submitRemark(e,patient.user_id)}>Send</button>
                         </div>
                     </div>
-                    <button>Flag As Emergency</button>
+                    <button onClick={e=>this.flagPatient(e,patient.user_id)}>Flag As Emergency</button>
                 </div>    
         }
         if(page==='info'){
             return <div className="information-div">
             <div className="patient-info patient-name">
                 <h3 className="title">Name: {patient.first_name} {patient.last_name}</h3>
-            </div>
-            <div className="patient-info patient-gender">
-                <h3 className="title">Gender: </h3>
             </div>
             <div className="patient-info patient-home-address">
                 <h3 className="title">Home Address: {patient.address}</h3>
@@ -136,10 +177,10 @@ class PatientDetails extends Component{
         }
     }
 
-    setHistory = symptom => {
+    setHistory = (symptom,id) => {
         let finalArray = []
         let date = new Date(symptom.date_added)
-        date = `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`
+        date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
         if(symptom.cough){
             finalArray.push(<PatientHistory symptom="Cough" degree={symptom.specifics.cough_degree} key={1} date={date} />)
         }
@@ -155,18 +196,26 @@ class PatientDetails extends Component{
         if(symptom.resp){
             finalArray.push(<PatientHistory resp symptom="Respiratory Problem" key={5} date={date} />)
         }
-        return finalArray
+        return <div key={id} className='history-slot'>
+            <h1>{date}</h1>
+            { finalArray }
+        </div>   
+    }
+
+    setFullHistory = symptoms => {
+      return Array.from(symptoms).reverse().map((symptom,index) => this.setHistory(symptom,index))
     }
 
     render(){
         
-        let patient = Lockr.get('patient');
-        if(!patient){
-         patient = this.props.location.patient;
-         Lockr.set('patient',patient)
-        }
+        const { setCurrentPatient,currentPatient } = this.props
+        let patient;
+
         if(this.props.location.patient){
             patient = this.props.location.patient
+            setCurrentPatient(patient)
+        }else {
+            patient = currentPatient
         }
        
         return (
@@ -197,15 +246,18 @@ class PatientDetails extends Component{
         </div>
         );
     }
-
 }
 
 const mapStateToProps = state => ({
-    currentDoctor: state.doctor.currentDoctorId
+    currentDoctorId: state.doctor.currentDoctorId,
+    currentPatient: state.doctor.currentPatient
 });
 
+const mapDispatchToProps = dispatch => ({
+    setCurrentPatient:  patient => dispatch(setCurrentPatient(patient))
+})
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(PatientDetails);

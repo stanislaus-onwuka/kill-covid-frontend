@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import profilePic from './../../assets/prof.png';
 import temperature from './../../assets/svg/temperature.svg';
 import happy from './../../assets/svg/happy.svg';
+import alert from './../../assets/svg/alert.svg';
 import backIcon from './../../assets/svg/arrow-left.svg';
 import graph from './../../assets/graph.png';
 import ActivitySchedule from '../ActivitySchedule/ActivitySchedule';
@@ -17,6 +18,7 @@ class PatientHome extends Component {
   }
 
   setDisplay(){
+    const { med_state } = this.props
     if(this.state.page==='home'){
       return(
         <>
@@ -35,20 +37,23 @@ class PatientHome extends Component {
               <span className='text'>Body Temperature</span>
               <span className='temp'>37.7&deg;</span>
               </div>
-              {/* eslint-disable-next-line */}
-              <a onClick={()=>{
-                document.querySelector('.update-records').classList.add('display');
-                document.querySelector('.patient-home-container').classList.add('fixed');
-              }} href='#'>Update records</a>
-              {/* eslint-disable-next-line */}
-              <a onClick={()=>{this.onButtonClick('records')}} href='#'>View records</a>
-              <div className="patient-home-indication-box">
-                <img src={happy} alt="happy-face"></img>
-                <div className='text'>
-                  <em>Okay</em>
-                  <p>So far your records indicate you're in a mild condition.<span> Please stay calm and follow your routine.</span> </p>
+              {
+                med_state === 'Mild'
+              ? <div className="patient-home-indication-box">
+                  <img src={happy} alt="happy-face"></img>
+                  <div className='text'>
+                    <em>Okay</em>
+                    <p>So far your records indicate you're in a mild condition.<span> Please stay calm and follow your routine.</span> </p>
+                  </div>
                 </div>
-              </div>
+              : <div className="patient-home-indication-box critical">
+                  <img src={alert} alt="happy-face"></img>
+                  <div className='text'>
+                    <em>Critical</em>
+                    <p>The state of things are getting too bad.<span> The doctor advises you to use the emergency button.</span> </p>
+                  </div>
+                </div>
+              }
             </div>
           </section>
           <ActivitySchedule guides={this.props.guides}/>

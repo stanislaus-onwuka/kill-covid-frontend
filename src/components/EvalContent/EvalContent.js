@@ -417,7 +417,6 @@ class EvalContent extends Component {
 		let num = null
 		num = e.target.value
 		!isNaN(parseInt(num[num.length -1])) ? this.setState({tel:e.target.value}):console.log()
-		// console.log(e.target.value)
 	}
 	onEmailChange = e =>{
 		this.setState({email:e.target.value})
@@ -461,7 +460,6 @@ class EvalContent extends Component {
      "uid": uid
     };
 		let jwt = njwt.create(claims, "secret", "HS256");
-		console.log(jwt)
     let token = jwt.compact();
     return token;
 };
@@ -510,10 +508,7 @@ class EvalContent extends Component {
 		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname)
 
 		let uid = signUpResult.data.uid
-
-		console.log(add_profile)
-
-		console.log(uid);
+		console.log(uid)
 
 		const headers = {headers:{'access-token': this.generateAccessToken(uid)}}
 
@@ -523,7 +518,6 @@ class EvalContent extends Component {
 			...add_symptoms[1],
 		}
 		this.props.updateUserDetails(updateReduxStore);
-		console.log(add_profile.tel)
 
 		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,headers).then(res=>{
 			console.log(res)
@@ -531,7 +525,6 @@ class EvalContent extends Component {
 		})
 
 		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers).then(res => {
-
 			console.log(res);
 			console.log(res.data)
 		});

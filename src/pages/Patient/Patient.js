@@ -26,7 +26,7 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: '13c442d5-a926-45e4-bb4a-f219a8e913ce'
+      uid: 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
     }
     this.currentPage = Lockr.get('page');
   }
@@ -46,7 +46,7 @@ class Patient extends Component{
       return token;
     };
 
-    const getUserData = async () => {
+     (async () => {
 
         const storedUser = Lockr.get('user');
         let user;
@@ -54,7 +54,7 @@ class Patient extends Component{
             user = storedUser
             setCurrentUser(storedUser)
         }else{
-          
+
           const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
           const accessToken = generateAccessToken(this.state.uid);
           const options = {
@@ -63,7 +63,7 @@ class Patient extends Component{
               'access-token': accessToken
             }
           };
-    
+
           try {
             let response = await fetch(url, options);
             if (!response.ok) {
@@ -74,16 +74,18 @@ class Patient extends Component{
             let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
             remarks = await remarks.json()
             user.remarks = remarks
+            console.log(remarks)
           }
           catch(error) {
             console.error('There has been a problem fetching user data', error);
             this.setState({ user: 'error' });
             return;
           };
+          console.log(user)
           setCurrentUser(user);
           Lockr.set('user',user)
         }
-        
+
 
       let localGuides = Lockr.get('guides')
       let localGuideVersion = Lockr.get('version')
@@ -91,7 +93,7 @@ class Patient extends Component{
       let today = new Date();
       let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
       let guides = null;
-      
+
 
       if ( !localGuides || localGuideVersion !== 1) {
         guides = user.guides.map(item => {
@@ -103,17 +105,15 @@ class Patient extends Component{
 
         user.guides = guides;
         Lockr.set('guides',guides);
-        Lockr.set('version', 1); 
-        
+        Lockr.set('version', 1);
+
         return;
       }
       else {
         guides = Lockr.get('guides');
         user.guides = guides;
       }
-    };
-    
-    getUserData();
+    })();
   };
 
   onLinkClick(page){
@@ -127,6 +127,7 @@ class Patient extends Component{
           <PatientHome
             firstName={currentUser.first_name}
             guides={currentUser.guides}
+            med_state={currentUser.med_state}
           />
         )
       case 'info':
@@ -165,7 +166,7 @@ class Patient extends Component{
 
   render(){
     const { currentUser } = this.props
-    
+
     if(this.currentPage){
        this.setState({page: this.currentPage})
        this.currentPage = false

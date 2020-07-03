@@ -9,7 +9,7 @@ class DoctorLandingPage extends React.Component {
     constructor(){
         super()
         this.state = {
-            doc_pass: 'Big001'
+            doc_pass: 'Joh001'
         }
     }
 

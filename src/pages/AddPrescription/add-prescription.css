@@ -12,6 +12,12 @@
     margin-bottom: 2rem;
 }
 
+.prescription-error {
+  padding: 1rem;
+  color: white;
+  background: #f15e5e;
+}
+
 .medicine-name-div{
     display: flex;
     flex-direction: column;

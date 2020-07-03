@@ -2,6 +2,11 @@
   width: 100%;
   padding: 2rem;
   color: #224a68;
+  position: relative;
+  overflow: hidden;
+}
+.patient-consultation-container.over{
+  position: fixed;
 }
 .patient-consultation-container h1{
   text-align: center;
@@ -44,4 +49,56 @@
   background-color: #ef4747;
   border: none;
   font-size: 1.1rem;
+}
+.patient-consultation-container .agreement{
+  position: fixed;
+  bottom: -20rem;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  background-color: #86a4bb;
+  padding: 1rem;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  transition: all .3s;
+  min-height: 100vh;
+}
+.patient-consultation-container .agreement.display{
+  opacity: 1;
+  visibility: visible;
+  bottom: 0;
+}
+.patient-consultation-container .agreement .main{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  padding: 1rem;
+}
+.patient-consultation-container .agreement p{
+  display: block;
+  margin-bottom: 1rem;
+ 
+}
+.patient-consultation-container .agreement input{
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.patient-consultation-container .agreement button{
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: #406581;
+  font-size: 1.4rem;
+  margin-left: 0;
+}
+.patient-consultation-container .agreement img{
+  width: 2rem;
+  display: block;
+  position: absolute;
+  right: 2rem;
+  top: 6rem;
 }
