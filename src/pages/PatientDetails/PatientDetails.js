@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import nJwt from 'njwt';
+import Lockr from 'lockr';
 
 import { setCurrentPatient } from './../../redux/doctor/doctor.actions';
 
@@ -22,7 +23,7 @@ class PatientDetails extends Component{
             comment : '',
             isExtraHistoryHidden: true
         };
-        
+
     }
 
     generateAccessToken = (uid) => {
@@ -73,7 +74,7 @@ class PatientDetails extends Component{
     flagPatient = async (e,patientId) => {
         e.preventDefault();
         const { currentDoctorId } = this.props
-        
+
         try{
         let response = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/flag', {
             method: 'POST',
@@ -92,7 +93,7 @@ class PatientDetails extends Component{
         console.log(err)
     }
     }
-    
+
 
     setDisplay(patient){
         let {page} = this.state;
@@ -102,7 +103,8 @@ class PatientDetails extends Component{
                         <div className="head-container">
                             <h4>HISTORY</h4>
                         </div>
-                        {   this.state.isExtraHistoryHidden
+
+                        {   (this.state.isExtraHistoryHidden && patient.symptoms.length > 0)
                         ?   <>
                             { this.setHistory(patient.symptoms[patient.symptoms.length-1]) }
                             <button onClick={this.toggleExtraHistory} > View All </button>
@@ -112,13 +114,18 @@ class PatientDetails extends Component{
                             <button onClick={this.toggleExtraHistory} > View Latest </button>
                             </>
                          }
-                        
+
                     </div>
                     <div className="prescriptions">
                         <div className="head-container">
                             <h4>PRESCRIPTIONS</h4>
-                            <Link to="/add-prescription"><img src={editIcon} alt='edit icon' /></Link>
-                            
+                            <Link to={{
+                               pathname: "/add-prescription",
+                               user_id: patient.user_id,
+                               doctor_id: this.props.currentDoctorId
+                             }}>
+                               <img src={editIcon} alt='edit icon' />
+                             </Link>
                         </div>
                         <div className="drugs">
                             <div className="head-container2">
@@ -128,7 +135,7 @@ class PatientDetails extends Component{
                             {
                                 patient.guides.map((guide,index) => ( <Prescription key={index} name={guide.info} time={guide.time_lapse}/> ))
                             }
-                            
+
                         </div>
                     </div>
                     <div className="body-temp">
@@ -137,7 +144,7 @@ class PatientDetails extends Component{
                         </div>
                         <img src={docGraph} alt='graph' />
                     </div>
-                
+
                     <div className='notes'>
                         <div className='patient'>
                             <h4>PATIENT'S NOTE</h4>
@@ -154,7 +161,7 @@ class PatientDetails extends Component{
                         </div>
                     </div>
                     <button onClick={e=>this.flagPatient(e,patient.user_id)}>Flag As Emergency</button>
-                </div>    
+                </div>
         }
         if(page==='info'){
             return <div className="information-div">
@@ -199,7 +206,7 @@ class PatientDetails extends Component{
         return <div key={id} className='history-slot'>
             <h1>{date}</h1>
             { finalArray }
-        </div>   
+        </div>
     }
 
     setFullHistory = symptoms => {
@@ -207,7 +214,7 @@ class PatientDetails extends Component{
     }
 
     render(){
-        
+
         const { setCurrentPatient,currentPatient } = this.props
         let patient;
 
@@ -217,7 +224,8 @@ class PatientDetails extends Component{
         }else {
             patient = currentPatient
         }
-       
+        console.log(Lockr.get('patient'))
+
         return (
             <div className="PatientDetails">
                 <div className="Pcontainer">
@@ -225,7 +233,7 @@ class PatientDetails extends Component{
                         <div className="Pbanner">
                             <h2>Patient's Details</h2>
                             <img src={profilePic} alt="img"/>
-                            <h3>{ `${patient.first_name} 
+                            <h3>{ `${patient.first_name}
                                   ${patient.last_name}`
                                 }
                             </h3>
@@ -236,13 +244,13 @@ class PatientDetails extends Component{
                             <h4 onClick={e=>this.setPage(e,'info')} className="Pinfo">INFORMATION</h4>
                         </div>
                     </header>
-                    
+
                     <div className="Pdisplay">
                         {this.setDisplay(patient)}
                     </div>
 
                     </div>
-            
+
         </div>
         );
     }

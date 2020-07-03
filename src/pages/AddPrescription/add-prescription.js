@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import nJwt from 'njwt';
 
 import firstAid from './../../assets/svg/first-aid.svg';
 import calendar from './../../assets/svg/calendar.svg';
@@ -15,25 +16,41 @@ class AddPrescription extends Component {
         frequency: '',
         startDate: '',
         endDate: '',
-        requestError: false
+        addPrescriptionError: false,
+        addPrescriptionSuccess: false
       };
-    }
+    };
+
+    generateAccessToken = uid => {
+      let claims = {
+       "sub": "1234567890",
+       "iat": 1592737638,
+       "exp": 1592741238,
+       "uid": uid
+      };
+      let jwt = nJwt.create(claims, "secret", "HS256");
+      let token = jwt.compact();
+      return token;
+    };
 
     onInputChange = (stateKey, event) => {
-      if (this.state.error) {
-        this.setState({ error: false })
+      if (this.state.addPrescriptionError) {
+        this.setState({ addPrescriptionError: false })
       };
 
       this.setState({ [stateKey]: event.target.value });
     };
 
-    handlePrescriptionSave = () => {
-      if (this.state.error) {
-        this.setState({ error: false })
+    handlePrescriptionAdd = () => {
+      if (this.state.addPrescriptionError) {
+        this.setState({ addPrescriptionError: false })
       };
 
-      const timegap = "hours=" + Math.round(24 / this.state.frequency);
-      const prescriptionInfo = JSON.stringify({
+      const timegap = this.state.frequency === '1'
+      ? "days=1"
+      : "hours=" + Math.round(24 / this.state.frequency);
+      const prescriptionInfo = {
+        user_id: this.props.location.user_id,
         name: this.state.medicineName,
         info: [
           [
@@ -43,27 +60,34 @@ class AddPrescription extends Component {
           ],
           timegap
         ]
-      });
+      };
 
-      const url = '';
+      const url = 'https://fast-hamlet-28566.herokuapp.com/doctors/add_prescription';
       const requestOptions = {
-        body: {
-          prescriptionInfo
-        }
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'doc-access-token': this.generateAccessToken(this.props.location.doctor_id)
+        },
+        body: JSON.stringify(prescriptionInfo)
       };
 
       fetch(url, requestOptions)
         .then(response => {
-          if (true) {
-          // if (!response.ok) {
+          if (!response.ok) {
             throw new Error('Network response was not ok');
           };
 
-          // this.props.history.push('/Patient-details');
+          this.setState({ addPrescriptionSuccess: true });
+
+          // wait a bit before redirecting the doctor
+          setTimeout(() => {
+            this.props.history.push('/Patient-details')
+          }, 1000);
         })
         .catch(error => {
           console.error('There has been a problem fetching user data', error);
-          this.setState({ error: true });
+          this.setState({ addPrescriptionError: true });
           return;
         });
     };
@@ -75,10 +99,17 @@ class AddPrescription extends Component {
               <h2 className="page-title">Add Prescription</h2>
 
               {
-                this.state.error &&
-                <p className="prescription-error">
+                this.state.addPrescriptionError &&
+                <p className="add-perscription_msg add-perscription_error">
                   Sorry, we encountered an error while trying to submit the new prescription.
                   Please try again later.
+                </p>
+              }
+
+              {
+                this.state.addPrescriptionSuccess &&
+                <p className="add-perscription_msg add-perscription_success">
+                  Prescription added successfully
                 </p>
               }
 
@@ -147,7 +178,7 @@ class AddPrescription extends Component {
                       </input>
                   </div>
               </div>
-              <div onClick={this.handlePrescriptionSave} className="btn save-btn" >Save</div>
+              <div onClick={this.handlePrescriptionAdd} className="btn save-btn" >Save</div>
           </div>
       )
     }

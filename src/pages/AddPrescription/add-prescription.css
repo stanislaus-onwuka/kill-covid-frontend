@@ -12,10 +12,17 @@
     margin-bottom: 2rem;
 }
 
-.prescription-error {
+.add-perscription_msg {
   padding: 1rem;
   color: white;
+}
+
+.add-perscription_error {
   background: #f15e5e;
+}
+
+.add-perscription_success {
+  background: #4ad04a;
 }
 
 .medicine-name-div{
