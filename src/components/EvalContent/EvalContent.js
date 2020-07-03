@@ -535,7 +535,6 @@ class EvalContent extends Component {
 			console.log(res);
 			console.log(res.data)
 		});
-		axios.post('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{...addname},headers)
 		
 	};
 
