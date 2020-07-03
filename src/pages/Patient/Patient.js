@@ -37,8 +37,8 @@ class Patient extends Component{
     const generateAccessToken = uid => {
       let claims = {
        "sub": "1234567890",
-       "iat": 1592737638,
-       "exp": 1592741238,
+       "iat": 1593746649,
+       "exp": 1593750249,
        "uid": uid
       };
       let jwt = nJwt.create(claims, "secret", "HS256");
