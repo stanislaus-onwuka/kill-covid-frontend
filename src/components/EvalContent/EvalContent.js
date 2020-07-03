@@ -525,7 +525,6 @@ class EvalContent extends Component {
 		})
 
 		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers).then(res => {
-
 			console.log(res);
 			console.log(res.data)
 		});

@@ -26,7 +26,7 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: '196e27a1-b34d-40d3-9f1f-485999dd6605'
+      uid: 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
     }
     this.currentPage = Lockr.get('page');
   }
@@ -46,7 +46,7 @@ class Patient extends Component{
       return token;
     };
 
-    const getUserData = async () => {
+     (async () => {
 
         const storedUser = Lockr.get('user');
         let user;
@@ -74,12 +74,14 @@ class Patient extends Component{
             let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
             remarks = await remarks.json()
             user.remarks = remarks
+            console.log(remarks)
           }
           catch(error) {
             console.error('There has been a problem fetching user data', error);
             this.setState({ user: 'error' });
             return;
           };
+          console.log(user)
           setCurrentUser(user);
           Lockr.set('user',user)
         }
@@ -111,9 +113,7 @@ class Patient extends Component{
         guides = Lockr.get('guides');
         user.guides = guides;
       }
-    };
-    
-    getUserData();
+    })();
   };
 
   onLinkClick(page){
