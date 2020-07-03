@@ -1,12 +1,12 @@
-import React from 'react';
-import njwt from 'njwt';
-import { connect } from 'react-redux';
+import React from "react";
+import njwt from "njwt";
+import Lockr from "lockr";
+import { connect } from "react-redux";
 import { setDoctorPatients } from './../../redux/doctor/doctor.actions';
 
-import Report from "../../components/DoctorHomeReports/DoctorHomeReports"
-import ProfilePic from "../../assets/svg/avatar.svg"
+import Report from "../../components/DoctorHomeReports/DoctorHomeReports";
+import ProfilePic from "../../assets/svg/avatar.svg";
 import "./Doctor-home.css";
-
 
 class doctorHome extends React.Component {
     constructor(){
@@ -127,7 +127,98 @@ class doctorHome extends React.Component {
                 </>
         )
     }
+			try {
+				//The code below is to promote a user so they show on the doctor's page
+				//Just set the user ID above to add another user
 
+				// let userResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{
+				//   method: 'GET',
+				//   headers: {
+				//     'Content-Type': 'application/json;charset=utf-8',
+				//     'access-token': this.generateAccessToken(userID)
+				//   }
+				// })
+
+				// let user = await userResponse.json()
+				// console.log(user)
+
+				const storedPatients = Lockr.get("patients");
+				console.log(storedPatients);
+				if (storedPatients) {
+					let patients = storedPatients.map(patient =>
+						this.getReportComponents(patient)
+					);
+					this.setState({ patients });
+					let doctorResponse = await fetch(
+						"https://fast-hamlet-28566.herokuapp.com/doctors/getpatients",
+						{
+							method: "GET",
+							headers: {
+								"Content-Type": "application/json;charset=utf-8",
+								"doc-access-token": this.generateAccessToken(
+									hardCurrentDoctorId
+								)
+							}
+						}
+					);
+					let result = await doctorResponse.json();
+
+					if (result.length !== storedPatients.length) {
+						console.log(storedPatients);
+						let patients = result.map(patient =>
+							this.getReportComponents(patient)
+						);
+						this.setState({ patients });
+					}
+				} else {
+					let doctorResponse = await fetch(
+						"https://fast-hamlet-28566.herokuapp.com/doctors/getpatients",
+						{
+							method: "GET",
+							headers: {
+								"Content-Type": "application/json;charset=utf-8",
+								"doc-access-token": this.generateAccessToken(
+									hardCurrentDoctorId
+								)
+							}
+						}
+					);
+					let result = await doctorResponse.json();
+					if (result) {
+						console.log(result);
+						let patients = result.map(patient =>
+							this.getReportComponents(patient)
+						);
+						this.setState({ patients });
+						Lockr.set("patients", result);
+					}
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		})();
+	}
+
+	render() {
+		return (
+			<>
+				<div className='dhomeContainer'>
+					<div className='dhomeHeader'>
+						<div className='dh-container'>
+							<h1>Welcome Dr Emmanuel</h1>
+							<p>
+								We appreciate your efforts in fighting covid-19
+								<br />
+								Please check for recently sent reports
+							</p>
+						</div>
+					</div>
+					<input name='search-home' className='search' />
+					<div className='reports'>{this.state.patients}</div>
+				</div>
+			</>
+		);
+	}
 }
 
 const mapStateToProps = state => ({
@@ -141,3 +232,4 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps,mapDispatchToProps)(doctorHome);
+
