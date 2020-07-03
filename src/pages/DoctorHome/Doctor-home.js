@@ -1,6 +1,6 @@
 import React from "react";
 import njwt from "njwt";
-import Lockr from "lockr";
+// import Lockr from "lockr";
 import { connect } from "react-redux";
 import { setDoctorPatients } from './../../redux/doctor/doctor.actions';
 
