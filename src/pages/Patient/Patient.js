@@ -31,77 +31,85 @@ class Patient extends Component{
     this.currentPage = Lockr.get('page');
   }
 
+  generateAccessToken = uid => {
+    // monkey patch for generation of access token
+    let claims = {
+     "sub": "1234567890",
+     "iat": 1592737638,
+     "exp": 1592741238,
+     "uid": uid
+    };
+    let jwt = nJwt.create(claims, "secret", "HS256");
+    let token = jwt.compact();
+    return token;
+  };
+
   componentDidMount() {
     const { setCurrentUser } = this.props;
-    // monkey patch for generation of access token
-    const generateAccessToken = uid => {
-      let claims = {
-       "sub": "1234567890",
-       "iat": 1592737638,
-       "exp": 1592741238,
-       "uid": uid
-      };
-      let jwt = nJwt.create(claims, "secret", "HS256");
-      let token = jwt.compact();
-      return token;
-    };
 
     const getUserData = async () => {
+      let user = null;
+      let remoteGuides = null;
 
-        const storedUser = Lockr.get('user');
-        let user;
-        if(storedUser && storedUser.user_id === this.state.uid){
-            user = storedUser
-            setCurrentUser(storedUser)
-        }else{
-
-          const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-          const accessToken = generateAccessToken(this.state.uid);
-          const options = {
-            method: 'GET',
-            headers: {
-              'access-token': accessToken
-            }
-          };
-
-          try {
-            let response = await fetch(url, options);
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            };
-            user = await response.json();
-            //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
-            let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
-            remarks = await remarks.json()
-            user.remarks = remarks
-          }
-          catch(error) {
-            console.error('There has been a problem fetching user data', error);
-            this.setState({ user: 'error' });
-            return;
-          };
-          setCurrentUser(user);
-          Lockr.set('user',user)
+      const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
+      const options = {
+        method: 'GET',
+        headers: {
+          'access-token': this.generateAccessToken(this.state.uid)
         }
+      };
+
+      try {
+        let response = await fetch(url, options);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        };
+        user = await response.json();
+        remoteGuides = user.guides;
+        //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
+        let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
+        remarks = await remarks.json()
+        user.remarks = remarks
+      }
+      catch(error) {
+        console.error('There has been a problem fetching user data', error);
+        this.setState({ user: 'error' });
+        return;
+      };
+
+      // compare remote user info to local user info
+      const storedUser = Lockr.get('user');
+      if (storedUser && storedUser.user_id === this.state.uid){
+        user = storedUser
+        setCurrentUser(storedUser)
+      }
+      else {
+        console.log(user);
+        setCurrentUser(user);
+        Lockr.set('user',user);
+      };
 
 
-      let localGuides = Lockr.get('guides')
-      let localGuideVersion = Lockr.get('version')
+      // get latest user medication guides
+      let localGuides = Lockr.get('guides');
+      let localGuideVersion = Lockr.get('version');
 
       let today = new Date();
       let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
       let guides = null;
 
-
-      if ( !localGuides || localGuideVersion !== 1) {
-        guides = user.guides.map(item => {
+      // replace localguides required
+      if (!localGuides
+        || localGuideVersion !== 1
+        || remoteGuides.length !== localGuides.length) {
+        guides = remoteGuides.map(item => {
           item.day = currentDate;
           item.previousTime = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2);
           item.nextTime = null;
           return item;
         });
 
-        user.guides = guides;
+        // user.guides = guides;
         Lockr.set('guides',guides);
         Lockr.set('version', 1);
 

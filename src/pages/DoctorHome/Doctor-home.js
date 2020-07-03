@@ -43,29 +43,29 @@ class doctorHome extends React.Component {
     }
 
     getReportComponents = user =>
-    (<Report 
-    name={`${user.first_name} ${user.last_name}`} 
+    (<Report
+    name={`${user.first_name} ${user.last_name}`}
     profileImg={ProfilePic}
     symptom={this.setSymptoms(user.symptoms)}
     key={user.id}
-    patient={user}    
+    patient={user}
     />)
-        
+
     componentDidMount(){
         (async () => {
                 //Hard Coding currentDoctorID for test purposes
-               
+
                 //DON'T DELETE THE COMMENTS
 
-                let userID = '196e27a1-b34d-40d3-9f1f-485999dd6605'
-                let hardCurrentDoctorId = 'd9783a65-93fe-44d7-84e9-5e122677c23e'
+                let userID = 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
+                let hardCurrentDoctorId = '3f2d19de-4a90-4a85-8de7-9716f321a8fd'
                 // const { currentDoctorId } = this.props
-                
+
                 try{
-    
+
                     //The code below is to promote a user so they show on the doctor's page
                     //Just set the user ID above to add another user
-    
+
                     let userResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{
                       method: 'GET',
                       headers: {
@@ -73,7 +73,7 @@ class doctorHome extends React.Component {
                         'access-token': this.generateAccessToken(userID)
                       }
                     })
-                    
+
                     let user = await userResponse.json()
                     console.log(user)
 
@@ -101,7 +101,7 @@ class doctorHome extends React.Component {
                     console.log(err)
                   }
             })();
-    }   
+    }
 
     render(){
         return (
