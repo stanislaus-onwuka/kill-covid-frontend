@@ -9,6 +9,7 @@ import DoctorSignUpPage from './pages/DoctorSignUp/DoctorSignUp';
 import DoctorHome from "./pages/DoctorHome/Doctor-home";
 import PatientDetails from "./pages/PatientDetails/PatientDetails"
 import AddPrescription from "./pages/AddPrescription/add-prescription";
+import DoctorComments from "./pages/doctorComments/doctorComments"
 import './App.css';
 
 
@@ -25,7 +26,7 @@ function App() {
           <Route path="/doctor/home" component={DoctorHome} />
           <Route path="/add-prescription" component={AddPrescription}/>
           <Route path="/" component={Signup}/>
-
+          <Route path="/doctor/comments" component={DoctorComments} />
         </Switch>
     </div>
   );

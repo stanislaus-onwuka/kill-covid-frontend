@@ -1,0 +1,29 @@
+.comment{
+    height: 120px;
+    width: 90%;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    -webkit-box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.35);
+    -moz-box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.35);
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.35);
+    margin-bottom: 20px;
+}
+
+
+.comment img{
+    height: 30px;
+    padding: 5px;
+}
+
+.sub-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin-bottom: 10px;
+}

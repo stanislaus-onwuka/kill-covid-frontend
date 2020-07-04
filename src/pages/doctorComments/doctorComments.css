@@ -1,0 +1,9 @@
+.comment-section{
+    height: 100vh;
+    width: 100%;
+}
+
+.comment-section h2{
+    text-align: center;
+    margin: 30px;
+}
