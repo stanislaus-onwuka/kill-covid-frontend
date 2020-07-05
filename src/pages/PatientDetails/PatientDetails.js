@@ -12,6 +12,7 @@ import editIcon from './../../assets/svg/edit.svg';
 import docGraph from './../../assets/doc-graph.png';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
+import DoctorComments from "../doctorComments/doctorComments"
 
 
 
@@ -154,6 +155,7 @@ class PatientDetails extends Component{
                                 <span>I developed dry cough yesterday morning.</span>
                             </p>
                         </div>
+                        <DoctorComments />
                         <div className='doctor'>
                             <h4>DOCTOR'S NOTE</h4>
                             <textarea value={this.state.comment} onChange={e => this.setState({comment : e.target.value})} rows='10'/>

@@ -1,9 +1,24 @@
 .comment-section{
-    height: 100vh;
+    height: auto;
     width: 100%;
 }
 
-.comment-section h2{
-    text-align: center;
+.comment-section h4{
     margin: 30px;
+    padding: 10px;
+    color: #28ABFA;
+    text-transform: uppercase;
+    font-weight: lighter;
+    border-bottom: 1px solid lightgray;
+}
+
+.comment-section a{
+    background-color: #28ABFA;
+    padding: 15px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 15px;
+    display: flex;
+    width: fit-content;
+    margin: auto;
 }

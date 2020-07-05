@@ -9,7 +9,6 @@ import DoctorSignUpPage from './pages/DoctorSignUp/DoctorSignUp';
 import DoctorHome from "./pages/DoctorHome/Doctor-home";
 import PatientDetails from "./pages/PatientDetails/PatientDetails";
 import AddPrescription from "./pages/AddPrescription/add-prescription";
-import DoctorComments from "./pages/doctorComments/doctorComments";
 import './App.css';
 
 
@@ -17,7 +16,6 @@ function App() {
   return (
     <div>
         <Switch>
-          <Route path="/doctor/comments" component={DoctorComments} />
           <Route path="/Login" component={Login} />
           <Route path="/Eval" component={Evaluation} />
           <Route path="/Patient" component={Patient} />
