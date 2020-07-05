@@ -1,0 +1,10 @@
+.patient_graph-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.patient_graph-item {
+  width: 100%;
+  max-width: 45rem;
+}

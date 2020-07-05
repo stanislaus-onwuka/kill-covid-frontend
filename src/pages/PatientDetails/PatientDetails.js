@@ -3,13 +3,12 @@ import {Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import nJwt from 'njwt';
 import Lockr from 'lockr';
-
+import PatientDetailsGraph from '../../components/PatientDetailsGraph/PatientDetailsGraph';
 import { setCurrentPatient } from './../../redux/doctor/doctor.actions';
 
 import './PatientDetails.css';
 import profilePic from "../../assets/prof.png";
 import editIcon from './../../assets/svg/edit.svg';
-import docGraph from './../../assets/doc-graph.png';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
 import DoctorComments from "../doctorComments/doctorComments"
@@ -143,7 +142,7 @@ class PatientDetails extends Component{
                         <div className="head-container">
                             <h4>BODY TEMPERATURE</h4>
                         </div>
-                        <img src={docGraph} alt='graph' />
+                        <PatientDetailsGraph />
                     </div>
 
                     <div className='notes'>
