@@ -27,7 +27,9 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
+      uid: 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e',
+      isLoading: true,
+      loadFail: false
     }
     this.currentPage = Lockr.get('page');
   }
@@ -45,39 +47,38 @@ class Patient extends Component{
     return token;
   };
 
-  componentDidMount() {
+  loadUser = async () => {
     const { setCurrentUser, currentUser, setUserGuides } = this.props;
 
-    (async () => {
-      let user = null;
-      let remoteGuides = null;
+    let user = null;
+    let remoteGuides = null;
 
-      const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-      const options = {
-        method: 'GET',
-        headers: {
-          'access-token': this.generateAccessToken(this.state.uid)
-        }
-      };
-
-      try {
-        let response = await fetch(url, options);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        };
-        user = await response.json();
-        remoteGuides = user.guides;
-        //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
-        let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
-        remarks = await remarks.json()
-        user.remarks = remarks
+    const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
+    const options = {
+      method: 'GET',
+      headers: {
+        'access-token': this.generateAccessToken(this.state.uid)
       }
-      catch(error) {
-        console.error('There has been a problem fetching user data', error);
-        this.setState({ user: 'error' });
-        return;
+    };
+
+    try {
+      let response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       };
 
+      user = await response.json();
+      remoteGuides = user.guides;
+      //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
+      let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
+      remarks = await remarks.json()
+      user.remarks = remarks
+    }
+    catch(error) {
+      console.error('There has been a problem fetching user data', error);
+      return;
+    }
+    finally{
       let localGuides = currentUser === null
         ? null
         : currentUser.guides;
@@ -86,15 +87,14 @@ class Patient extends Component{
       let newGuides = null;
 
       // replace persisted guides if required
-      if (!localGuides) {
+      if (user && !localGuides) {
         updateGuides = true;
         newGuides = remoteGuides.map(item => {
           item.previousTime = format(new Date(), "hh:mm");
           return item;
         });
-;
       }
-      else if (localGuides.length !== remoteGuides.length) {
+      else if (user && (localGuides.length !== remoteGuides.length)) {
         updateGuides = true;
         newGuides = remoteGuides.map(remoteGuideItem => {
           // initialize values for new user guides
@@ -106,18 +106,31 @@ class Patient extends Component{
           };
           return match;
         });
-
       };
 
-      if (currentUser === null) {
+      if (currentUser === null && user) {
         user.guides = newGuides;
         setCurrentUser(user);
-      }
-      else if (updateGuides) {
+      } else if (updateGuides) {
         setUserGuides(newGuides)
       };
 
-    }) ();
+      if (!user && currentUser === null) {
+        this.setState({ loadFail: true })
+      };
+
+      this.setState({ isLoading: false });
+    };
+  };
+
+  componentDidMount() {
+    const { currentUser } = this.props;
+
+    if (currentUser !== null) {
+      this.setState({ isLoading: false });
+    };
+
+    this.loadUser();
   };
 
   onLinkClick(page){
@@ -171,7 +184,7 @@ class Patient extends Component{
   }
 
   render(){
-    const { currentUser } = this.props
+    // const { currentUser } = this.props
 
     if(this.currentPage){
        this.setState({page: this.currentPage})
@@ -182,9 +195,9 @@ class Patient extends Component{
 
     return(
         <div className="patient-container">
-          {currentUser === null
+          { this.state.isLoading
             ? <h1 className="patient_loading-title">loading...</h1>
-            : currentUser === 'error' // handle possible error when fetching user data
+            : this.state.loadFail // handle possible error when fetching user data
               ? <LoadingError />
               : <>
                   {this.setContent()}
