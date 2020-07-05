@@ -16,6 +16,14 @@ const userReducer = (state = INITIAL_STATE,action) => {
         ...state,
         userUpdate: action.payload
       }
+    case userActionTypes.SET_USER_GUIDES:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          guides: action.payload
+        }
+      }
     default:
       return state;
   }

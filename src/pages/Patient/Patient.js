@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import format from 'date-fns/format';
 import nJwt from 'njwt';
 import Lockr from 'lockr';
 
-import { setCurrentUser } from './../../redux/user/user.actions';
+import { setCurrentUser, setUserGuides } from './../../redux/user/user.actions';
 import home from '../../assets/svg/home.svg';
 import activeHome from '../../assets/svg/active-home.svg';
 import activeInfo from '../../assets/svg/active-info.svg';
@@ -45,7 +46,7 @@ class Patient extends Component{
   };
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, currentUser, setUserGuides } = this.props;
 
     (async () => {
       let user = null;
@@ -77,48 +78,45 @@ class Patient extends Component{
         return;
       };
 
-      // compare remote user info to local user info
-      const storedUser = Lockr.get('user');
-      if (storedUser && storedUser.user_id === this.state.uid){
-        user = storedUser
-        setCurrentUser(storedUser)
-      }
-      else {
-        console.log(user);
-        setCurrentUser(user);
-        Lockr.set('user',user);
-      };
+      let localGuides = currentUser === null
+        ? null
+        : currentUser.guides;
 
+      let updateGuides = false;
+      let newGuides = null;
 
-      // get latest user medication guides
-      let localGuides = Lockr.get('guides');
-      let localGuideVersion = Lockr.get('version');
-
-      let today = new Date();
-      let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
-      let guides = null;
-
-      // replace localguides required
-      if (!localGuides
-        || localGuideVersion !== 1
-        || remoteGuides.length !== localGuides.length) {
-        guides = remoteGuides.map(item => {
-          item.day = currentDate;
-          item.previousTime = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2);
-          item.nextTime = null;
+      // replace persisted guides if required
+      if (!localGuides) {
+        updateGuides = true;
+        newGuides = remoteGuides.map(item => {
+          item.previousTime = format(new Date(), "hh:mm");
           return item;
         });
-
-        // user.guides = guides;
-        Lockr.set('guides',guides);
-        Lockr.set('version', 1);
-
-        return;
+;
       }
-      else {
-        guides = Lockr.get('guides');
-        user.guides = guides;
+      else if (localGuides.length !== remoteGuides.length) {
+        updateGuides = true;
+        newGuides = remoteGuides.map(remoteGuideItem => {
+          // initialize values for new user guides
+          let match = localGuides.find(localGuideItem => localGuideItem.name === remoteGuideItem.name);
+
+          if (match === undefined) {
+            remoteGuideItem.previousTime = format(new Date(), "hh:mm");
+            return remoteGuideItem;
+          };
+          return match;
+        });
+
+      };
+
+      if (currentUser === null) {
+        user.guides = newGuides;
+        setCurrentUser(user);
       }
+      else if (updateGuides) {
+        setUserGuides(newGuides)
+      };
+
     }) ();
   };
 
@@ -134,6 +132,7 @@ class Patient extends Component{
             firstName={currentUser.first_name}
             guides={currentUser.guides}
             med_state={currentUser.med_state}
+            setUserGuides={this.props.setUserGuides}
           />
         )
       case 'info':
@@ -144,6 +143,7 @@ class Patient extends Component{
               firstName={currentUser.first_name}
               lastName={currentUser.last_name}
               guides={currentUser.guides}
+              setUserGuides={this.props.setUserGuides}
           />
         )
       case 'consultation':
@@ -215,7 +215,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setUserGuides: guides => dispatch(setUserGuides(guides))
 })
 
 export default connect(
