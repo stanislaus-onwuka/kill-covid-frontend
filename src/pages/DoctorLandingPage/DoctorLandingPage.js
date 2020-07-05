@@ -24,7 +24,6 @@ class DoctorLandingPage extends React.Component {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
-              // 'doc-access-token': token
             },
             body: JSON.stringify(body)
           })

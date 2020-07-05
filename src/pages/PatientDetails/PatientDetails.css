@@ -225,6 +225,9 @@
     font-weight: lighter;
     color: #28abfa;
 }
+.notes .doctor h4{
+    margin-bottom: 2rem;
+}
 .notes .patient p span{
     display: block;
 }

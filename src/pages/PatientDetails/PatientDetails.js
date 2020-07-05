@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import nJwt from 'njwt';
-import Lockr from 'lockr';
+
 import PatientDetailsGraph from '../../components/PatientDetailsGraph/PatientDetailsGraph';
 import { setCurrentPatient } from './../../redux/doctor/doctor.actions';
 
@@ -11,7 +11,7 @@ import profilePic from "../../assets/prof.png";
 import editIcon from './../../assets/svg/edit.svg';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
-import DoctorComments from "../doctorComments/doctorComments"
+import DoctorComment from "./../../components/doctorComment/doctorComment"
 
 
 
@@ -21,7 +21,8 @@ class PatientDetails extends Component{
         this.state={
             page:'progress',
             comment : '',
-            isExtraHistoryHidden: true
+            isExtraHistoryHidden: true,
+            remarks: []
         };
 
     }
@@ -37,6 +38,40 @@ class PatientDetails extends Component{
         let token = jwt.compact();
         return token;
     };
+
+    setRemarks = () => (
+        this.state.remarks.map((remark) => 
+            {
+                let date = new Date(remark.date_created)
+                date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+                return  <DoctorComment 
+                name={remark.first_name + ' ' + remark.last_name} 
+                content={remark.content}
+                date={date}
+                key={remark.id}
+                />
+            }
+        )
+    )
+
+    componentDidMount(){
+        const { currentPatient } = this.props
+        console.log(currentPatient.user_id)
+
+        fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', {
+            method : 'GET',
+            headers : {
+                'Content-Type' : 'application/json',
+                'access-token' : this.generateAccessToken(currentPatient.user_id)
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            this.setState({ remarks: data });
+        })
+        .catch(err=>console.log(err))
+    }
 
     submitRemark = (e,patientId) => {
         e.preventDefault();
@@ -154,11 +189,14 @@ class PatientDetails extends Component{
                                 <span>I developed dry cough yesterday morning.</span>
                             </p>
                         </div>
-                        <DoctorComments />
+
                         <div className='doctor'>
                             <h4>DOCTOR'S NOTE</h4>
+                            {
+                                this.setRemarks()
+                            }
                             <textarea value={this.state.comment} onChange={e => this.setState({comment : e.target.value})} rows='10'/>
-                            <button onClick={e=>this.submitRemark(e,patient.user_id)}>Send</button>
+                            <button onClick={e=>this.submitRemark(e,patient.user_id)}>Add Remark</button>
                         </div>
                     </div>
                     <button onClick={e=>this.flagPatient(e,patient.user_id)}>Flag As Emergency</button>
@@ -225,7 +263,6 @@ class PatientDetails extends Component{
         }else {
             patient = currentPatient
         }
-        console.log(Lockr.get('patient'))
 
         return (
             <div className="PatientDetails">

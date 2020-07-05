@@ -1,23 +1,17 @@
-/* eslint-disable react/react-in-jsx-scope */
+
 import React from "react";
 import "./doctorComment.css";
-import Edit from "../../assets/pencil.png";
-import Delete from "../../assets/trash.png";
 
 
 
-const DoctorComment = () =>{
+const DoctorComment = ({ name,content,date }) =>{
+    console.log(name)
     return(
         <>
             <div className="comment">
-                <div className="sub-section">
-                        <h3>Dr Mina</h3>
-                    <div>
-                        <img src={Edit} alt="edit button"/>
-                        <img src={Delete} alt="delete button"/>
-                    </div>
-                </div>
-                <p>Hi Mike, Your vitals are looking pretty okay to me. Keep it up</p>
+                <h3>{name}</h3>
+                <p>{content}</p>
+                <em>{date}</em>
             </div>
         </>
     );

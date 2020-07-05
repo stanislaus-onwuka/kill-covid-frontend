@@ -51,8 +51,8 @@ const PatientDetailsGraph = () => {
   };
 
   return (
-    <div class="patient_graph-container">
-      <div class="patient_graph-item">
+    <div className="patient_graph-container">
+      <div className="patient_graph-item">
         <VictoryChart domainPadding={[30, 0]}>
           <VictoryAxis tickValues={days}/>
           <VictoryAxis

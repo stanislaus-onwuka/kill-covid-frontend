@@ -8,7 +8,7 @@ import { store, persistor } from './redux/store';
 
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './defaultServiceWorker';
 
 
 const app = (
