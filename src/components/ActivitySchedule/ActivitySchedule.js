@@ -1,5 +1,7 @@
 import React from 'react';
-import Lockr from 'lockr';
+import format from 'date-fns/format';
+import isBefore from 'date-fns/isBefore';
+import add from 'date-fns/add';
 
 import ScheduleItem from './../scheduleItem/ScheduleItem';
 import './ActivitySchedule.css';
@@ -7,84 +9,60 @@ import './ActivitySchedule.css';
 class ActivitySchedule extends React.Component{
   constructor(){
     super();
-    this.state = {
-      guides: [],
-    };
     this.interval = null;
   }
 
-  componentDidMount() {
-    
-    const checkActivities = () => {
-      let newLocalGuides = Lockr.get('guides');
-      let updateLocalStorage = false;
+  checkActivities = () => {
+    let updateGuides = false;
 
-      newLocalGuides = newLocalGuides.map((item, index) => {
-
-        let time = this.getCurrentTime();
-        let currentTime = '' + time.year + time.month + time.day + time.hour + time.minute;
-        if (Number(currentTime) < Number(item.nextTime)) {
-          return item;
-        }
-
-        if (item.done === true) { // avoid updating localStorage guides unnecessarily
+    let newLocalGuides = this.props.guides.map((item, index) => {
+      // update status of items on activity schedule
+      let currentTime = new Date();
+      if (!isBefore(currentTime, item.nextTime)) {
+        // avoid updating guides unnecessarily
+        if (item.done === true) {
           item.done = false;
-          updateLocalStorage = true;
-        }
-        return item;
-      });
+          updateGuides = true;
+        };
+      };
 
-      if (updateLocalStorage) {
-        Lockr.set('guides',newLocalGuides);
-        this.setState({ guides: newLocalGuides });
-      }else {
-        this.setState({ guides: newLocalGuides });
-      }
+      return item;
+    });
+
+    if (updateGuides) {
+      this.props.setUserGuides(newLocalGuides);
     }
-
-    this.interval = setInterval(checkActivities, 1000);
-  };
-
-  getCurrentTime = () => {
-    let time = new Date();
-    let result = {
-      year: time.getFullYear(),
-      month: time.getMonth(),
-      day: time.getDate(),
-      hour: time.getHours(),
-      minute: time.getMinutes()
-    };
-    return result;
-  };
+  }
 
   handleClick = (index) => {
-    let newGuides = [...this.state.guides];
+    let newGuides = [...this.props.guides];
     let timeLapse = newGuides[index].time_lapse.split('=');
-
-    let time = this.getCurrentTime();
     let nextTime = null;
 
-    // get string representation for next time to take clicked drug
+    // set next time for medication
     if (timeLapse[0] === 'days') {
-      nextTime = '' + time.year + time.month + (time.day + Number(timeLapse[1])) + time.hour + time.minute;
+      nextTime = add(new Date(), { days: timeLapse[1] });
     }
     else if (timeLapse[0] === 'hours') {
-      nextTime = '' + time.year + time.month + time.day + (time.hour + Number(timeLapse[1])) + time.minute;
+      nextTime = add(new Date(), { hours: timeLapse[1] });
     }
     else if (timeLapse[0] === 'minutes') {
-      nextTime = '' + time.year + time.month + time.day + time.hour + (time.minute + Number(timeLapse[1]));
+      nextTime = add(new Date(), { minutes: timeLapse[1] });
     };
 
     // update current clicked activity schedule item
     newGuides[index] = {
       ...newGuides[index],
       done: !newGuides[index].done,
-      previousTime: ('0' + time.hour).slice(-2) + ':' + ('0' + time.minute).slice(-2),
+      previousTime: format(new Date(), "hh:mm"),
       nextTime: nextTime
     };
 
-    Lockr.set('guides',newGuides);
-    this.setState({ guides: newGuides });
+    this.props.setUserGuides(newGuides);
+  };
+
+  componentDidMount() {
+    this.interval = setInterval(this.checkActivities, 1000);
   };
 
   render(){
@@ -94,7 +72,7 @@ class ActivitySchedule extends React.Component{
       <div className="patient-home-activity-schedule-container">
         <em>WAT</em>
         {
-          this.state.guides.map((item, index) => (
+          this.props.guides.map((item, index) => (
             <ScheduleItem {...item}
               key={index}
               index={index}
