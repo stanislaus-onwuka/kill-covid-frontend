@@ -1,7 +1,7 @@
 import doctorActionTypes from "./doctor.types";
 
 const INITIAL_STATE = {
-  currentDoctor: null
+  currentDoctorId: null
 }
 
 const doctorReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +10,16 @@ const doctorReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentDoctorId: action.payload
+      }
+    case doctorActionTypes.SET_DOCTOR_PATIENTS:
+      return {
+        ...state,
+        doctorPatients: action.payload
+      }
+    case doctorActionTypes.SET_CURRENT_PATIENT:
+      return {
+        ...state,
+        currentPatient: action.payload
       }
     default: 
       return state;

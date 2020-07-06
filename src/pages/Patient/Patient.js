@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import format from 'date-fns/format';
 import nJwt from 'njwt';
 import Lockr from 'lockr';
 
-import { setCurrentUser } from './../../redux/user/user.actions';
+import { setCurrentUser, setUserGuides } from './../../redux/user/user.actions';
 import home from '../../assets/svg/home.svg';
 import activeHome from '../../assets/svg/active-home.svg';
 import activeInfo from '../../assets/svg/active-info.svg';
@@ -26,94 +27,110 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
+      uid: 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e',
+      isLoading: true,
+      loadFail: false
     }
     this.currentPage = Lockr.get('page');
   }
 
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
+  generateAccessToken = uid => {
     // monkey patch for generation of access token
-    const generateAccessToken = uid => {
-      let claims = {
-       "sub": "1234567890",
-       "iat": 1592737638,
-       "exp": 1592741238,
-       "uid": uid
-      };
-      let jwt = nJwt.create(claims, "secret", "HS256");
-      let token = jwt.compact();
-      return token;
+    let claims = {
+     "sub": "1234567890",
+     "iat": 1592737638,
+     "exp": 1592741238,
+     "uid": uid
+    };
+    let jwt = nJwt.create(claims, "secret", "HS256");
+    let token = jwt.compact();
+    return token;
+  };
+
+  loadUser = async () => {
+    const { setCurrentUser, currentUser, setUserGuides } = this.props;
+
+    let user = null;
+    let remoteGuides = null;
+
+    const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
+    const options = {
+      method: 'GET',
+      headers: {
+        'access-token': this.generateAccessToken(this.state.uid)
+      }
     };
 
-    const getUserData = async () => {
+    try {
+      let response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      };
 
-        const storedUser = Lockr.get('user');
-        let user;
-        if(storedUser && storedUser.user_id === this.state.uid){
-            user = storedUser
-            setCurrentUser(storedUser)
-        }else{
+      user = await response.json();
+      remoteGuides = user.guides;
+      //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
+      let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
+      remarks = await remarks.json()
+      user.remarks = remarks
+    }
+    catch(error) {
+      console.error('There has been a problem fetching user data', error);
+      return;
+    }
+    finally{
+      let localGuides = currentUser === null
+        ? null
+        : currentUser.guides;
 
-          const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-          const accessToken = generateAccessToken(this.state.uid);
-          const options = {
-            method: 'GET',
-            headers: {
-              'access-token': accessToken
-            }
-          };
+      let updateGuides = false;
+      let newGuides = null;
 
-          try {
-            let response = await fetch(url, options);
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            };
-            user = await response.json();
-            //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
-            let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
-            remarks = await remarks.json()
-            user.remarks = remarks
-          }
-          catch(error) {
-            console.error('There has been a problem fetching user data', error);
-            this.setState({ user: 'error' });
-            return;
-          };
-          setCurrentUser(user);
-          Lockr.set('user',user)
-        }
-
-
-      let localGuides = Lockr.get('guides')
-      let localGuideVersion = Lockr.get('version')
-
-      let today = new Date();
-      let currentDate = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear();
-      let guides = null;
-
-
-      if ( !localGuides || localGuideVersion !== 1) {
-        guides = user.guides.map(item => {
-          item.day = currentDate;
-          item.previousTime = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2);
-          item.nextTime = null;
+      // replace persisted guides if required
+      if (user && !localGuides) {
+        updateGuides = true;
+        newGuides = remoteGuides.map(item => {
+          item.previousTime = format(new Date(), "hh:mm");
           return item;
         });
-
-        user.guides = guides;
-        Lockr.set('guides',guides);
-        Lockr.set('version', 1);
-
-        return;
       }
-      else {
-        guides = Lockr.get('guides');
-        user.guides = guides;
-      }
+      else if (user && (localGuides.length !== remoteGuides.length)) {
+        updateGuides = true;
+        newGuides = remoteGuides.map(remoteGuideItem => {
+          // initialize values for new user guides
+          let match = localGuides.find(localGuideItem => localGuideItem.name === remoteGuideItem.name);
+
+          if (match === undefined) {
+            remoteGuideItem.previousTime = format(new Date(), "hh:mm");
+            return remoteGuideItem;
+          };
+          return match;
+        });
+      };
+
+      if (currentUser === null && user) {
+        user.guides = newGuides;
+        setCurrentUser(user);
+      } else if (updateGuides) {
+        setUserGuides(newGuides)
+      };
+
+      if (!user && currentUser === null) {
+        this.setState({ loadFail: true })
+      };
+
+      this.setState({ isLoading: false });
+    };
+  };
+
+  componentDidMount() {
+    const { currentUser } = this.props;
+
+    if (currentUser !== null) {
+      this.setState({ isLoading: false });
     };
 
-    getUserData();
+    this.loadUser();
   };
 
   onLinkClick(page){
@@ -128,6 +145,7 @@ class Patient extends Component{
             firstName={currentUser.first_name}
             guides={currentUser.guides}
             med_state={currentUser.med_state}
+            setUserGuides={this.props.setUserGuides}
           />
         )
       case 'info':
@@ -138,6 +156,7 @@ class Patient extends Component{
               firstName={currentUser.first_name}
               lastName={currentUser.last_name}
               guides={currentUser.guides}
+              setUserGuides={this.props.setUserGuides}
           />
         )
       case 'consultation':
@@ -165,7 +184,7 @@ class Patient extends Component{
   }
 
   render(){
-    const { currentUser } = this.props
+    // const { currentUser } = this.props
 
     if(this.currentPage){
        this.setState({page: this.currentPage})
@@ -176,9 +195,9 @@ class Patient extends Component{
 
     return(
         <div className="patient-container">
-          {currentUser === null
+          { this.state.isLoading
             ? <h1 className="patient_loading-title">loading...</h1>
-            : currentUser === 'error' // handle possible error when fetching user data
+            : this.state.loadFail // handle possible error when fetching user data
               ? <LoadingError />
               : <>
                   {this.setContent()}
@@ -209,7 +228,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setUserGuides: guides => dispatch(setUserGuides(guides))
 })
 
 export default connect(

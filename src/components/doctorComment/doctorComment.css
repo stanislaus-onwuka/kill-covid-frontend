@@ -1,0 +1,25 @@
+.comment{
+    width: 90%;
+    border-radius: 2rem;
+    padding: 1.5rem;
+    margin: auto;
+    -webkit-box-shadow: 2px .1rem .4rem  rgba(0,0,0,0.35);
+    -moz-box-shadow: 2px .1rem .4rem  rgba(0,0,0,0.35);
+    box-shadow: 2px .1rem .4rem rgba(0,0,0,0.35);
+    margin-bottom: 2rem;
+}
+.comment h3{
+    display: inline-block;
+    padding: .5rem;
+    border-bottom: solid 1px rgb(194, 194, 194);
+    margin-bottom: 1rem;
+}
+.comment p{
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+.comment em{
+    display: block;
+    font-style: normal;
+    text-align: right;
+}

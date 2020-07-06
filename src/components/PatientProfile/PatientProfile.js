@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import njwt from 'njwt';
+import { connect } from 'react-redux';
 import userImage from "./../../assets/prof.png";
 import backIcon from "./../../assets/svg/arrow-left.svg";
 import ActivitySchedule from "../ActivitySchedule/ActivitySchedule";
@@ -27,6 +29,7 @@ class PatientProfile extends Component {
 			resp: false,
 			respRate: "",
 			other: false,
+			otherName: '',
 			otherRate: "",
 			temp: ''
 		};
@@ -36,13 +39,16 @@ class PatientProfile extends Component {
 		this.setState({ page }, () => {
 			console.log(this.state.page);
 		});
+		
+		const {userId} = this.props
+		console.log(userId)
 		let symptoms = [
 			{
 				cough: this.state.cough,
 				fever: this.state.fever,
 				fatigue: this.state.fatigue,
 				resp: this.state.resp,
-				other: this.state.other
+				other: this.state.otherName
 			},
 			{
 				otherDegree: this.state.otherRate,
@@ -52,12 +58,28 @@ class PatientProfile extends Component {
 				respDegree: this.state.respRate
 			}
 		];
+		console.log(symptoms)
 		if (page === "home") {
-      console.log(symptoms);
-			const token= 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidWlkIjoiYzI4MTg4ZTgtMTMwMy00MjM2LWI1MDYtYzRjNmJlY2Y1ZDMyIiwiaWF0IjoxNTkzMzEzMTU2LCJleHAiOjE1OTMzMTY3ODEsImp0aSI6IjEwZGI1ZjIzLTJjZjktNDIxMy04ZmRmLThmOWZmY2MzMzNiMyJ9.ObJbGjv3fvfuh6YQIP97DV6BgJOBaxB_O1hPaAlwz8w'
-      axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',symptoms,{headers:{'access-token':token}}).then(res=>{console.log(res.data)})
+			console.log(symptoms);
+			const token= this.generateAccessToken(userId)
+			axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',
+			symptoms,{headers:{'access-token':token}})
+			.then(res=>{console.log(res.data)})
+			.catch(err=>console.log(err))
 		}
 	}
+
+	generateAccessToken = uid => {
+		let claims = {
+		 "sub": "1234567890",
+		 "iat": 1592737638,
+		 "exp": 1592741238,
+		 "uid": uid
+		};
+			let jwt = njwt.create(claims, "secret", "HS256");
+		let token = jwt.compact();
+		return token;
+	};
 
 	handleRateChange = e => {
 		const { name,value } = e.target
@@ -97,7 +119,7 @@ class PatientProfile extends Component {
 						{" "}
 						+ Update Records{" "}
 					</button>
-          <ActivitySchedule guides={this.props.guides}/>
+          <ActivitySchedule guides={this.props.guides} setUserGuides={this.props.setUserGuides}/>
 				</div>
 			);
 		} else {
@@ -240,7 +262,11 @@ class PatientProfile extends Component {
 							</label>
 							{this.state.other ? (
 								<div className='rating'>
-									<input type='text' placeholder='What symptoms are you showing' />
+									<input type='text' 
+									name='otherName' 
+									value={this.state.otherName}
+									onChange={this.handleRateChange} 
+									placeholder='What symptoms are you showing' />
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
 										name='otherRate'
@@ -276,4 +302,8 @@ class PatientProfile extends Component {
 	}
 }
 
-export default PatientProfile;
+const mapStateToProps = state => ({
+	userId: state.user.currentUser.user_id
+})
+
+export default connect(mapStateToProps)(PatientProfile);

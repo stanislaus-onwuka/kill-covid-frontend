@@ -42,7 +42,8 @@ class App extends React.Component {
     return (
       <div>
         <Switch>
-          <Route to="Login" component={Login} />
+          <Route path="/Login" component={Login} />
+          <Route path="/signup" component={Signup} />
           <ProtectedRoute
             auth={this.props.user}
             path="/Eval"
@@ -78,7 +79,7 @@ class App extends React.Component {
             path="/add-prescription"
             component={AddPrescription}
           />
-          <Route path="/signup" component={Signup} />
+          <Route path="/" component={Signup} />
         </Switch>
       </div>
     );

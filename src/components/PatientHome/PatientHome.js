@@ -56,7 +56,7 @@ class PatientHome extends Component {
               }
             </div>
           </section>
-          <ActivitySchedule guides={this.props.guides}/>
+          <ActivitySchedule guides={this.props.guides} setUserGuides={this.props.setUserGuides}/>
         </div>
         </>
       );
@@ -64,7 +64,7 @@ class PatientHome extends Component {
       return <div className="patient-record-container">
       <img onClick={()=>{this.onButtonClick('home')}} src={backIcon} alt='back-icon'></img>
       <h1>Records</h1>
-      
+
       <div className='current-record'>
           <em>Today's Temperature </em>
           <em>37.7&deg;</em>
