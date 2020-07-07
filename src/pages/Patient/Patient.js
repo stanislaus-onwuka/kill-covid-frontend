@@ -27,7 +27,7 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e',
+      uid: '1bcb6b20-6fb8-4126-a8df-26d8349fd187',
       isLoading: true,
       loadFail: false
     }

@@ -255,14 +255,16 @@
 .progress-div{
     padding-bottom: 2rem;
 }
-.progress-div .history button{
+.progress-div .history button,.notes .doctor button.add{
     display: block;
     margin: 0 auto;
-    width: 90%;
+    width: 60%;
     padding: 1rem;
     border: none;
     border-radius: 1rem;
     background-color: #28abfa;
+    font-size: 1.2rem;
+    color: #fff;
 }
 .progress-div > button{
     background-color: #bc2727;

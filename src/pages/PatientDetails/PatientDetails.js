@@ -22,6 +22,7 @@ class PatientDetails extends Component{
             page:'progress',
             comment : '',
             isExtraHistoryHidden: true,
+            isExtraRemarkHidden: true,
             remarks: []
         };
 
@@ -39,8 +40,11 @@ class PatientDetails extends Component{
         return token;
     };
 
-    setRemarks = () => (
-        this.state.remarks.map((remark) => 
+    setRemarks = (limit) => (
+        limit
+    ?   this.state.remarks
+        .filter((remark,index) => index < limit)
+        .map((remark) => 
             {
                 let date = new Date(remark.date_created)
                 date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
@@ -52,17 +56,27 @@ class PatientDetails extends Component{
                 />
             }
         )
+    :  this.state.remarks.map((remark) => 
+        {
+            let date = new Date(remark.date_created)
+            date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+            return  <DoctorComment 
+            name={remark.first_name + ' ' + remark.last_name} 
+            content={remark.content}
+            date={date}
+            key={remark.id}
+            />
+        }
+    )
     )
 
     componentDidMount(){
-        const { currentPatient } = this.props
-        console.log(currentPatient.user_id)
 
         fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', {
             method : 'GET',
             headers : {
                 'Content-Type' : 'application/json',
-                'access-token' : this.generateAccessToken(currentPatient.user_id)
+                'access-token' : this.generateAccessToken(this.patient.user_id)
             }
         })
         .then(res => res.json())
@@ -99,6 +113,12 @@ class PatientDetails extends Component{
         this.setState({page});
         document.querySelector('.active').classList.remove('active');
         event.target.classList.add('active')
+    }
+
+    handleRemarkClick = () => {
+        this.setState( prevState => ({
+            isExtraRemarkHidden: !prevState.isExtraRemarkHidden
+        }))
     }
 
     toggleExtraHistory = e => {
@@ -193,8 +213,19 @@ class PatientDetails extends Component{
                         <div className='doctor'>
                             <h4>DOCTOR'S NOTE</h4>
                             {
-                                this.setRemarks()
+                                this.state.isExtraRemarkHidden
+                            ?   this.setRemarks(5)
+                            :   this.setRemarks()
                             }
+                            <button
+                            onClick={this.handleRemarkClick} 
+                            className='add'>
+                            {
+                                this.state.isExtraRemarkHidden
+                            ?   'View All Remarks'
+                            :   'View Latest Remarks'
+                            }
+                            </button>
                             <textarea value={this.state.comment} onChange={e => this.setState({comment : e.target.value})} rows='10'/>
                             <button onClick={e=>this.submitRemark(e,patient.user_id)}>Add Remark</button>
                         </div>
@@ -255,14 +286,15 @@ class PatientDetails extends Component{
     render(){
 
         const { setCurrentPatient,currentPatient } = this.props
-        let patient;
 
         if(this.props.location.patient){
-            patient = this.props.location.patient
-            setCurrentPatient(patient)
+            this.patient = this.props.location.patient
+            setCurrentPatient(this.patient)
         }else {
-            patient = currentPatient
+            this.patient = currentPatient
         }
+        let patient = this.patient
+        
 
         return (
             <div className="PatientDetails">

@@ -11,7 +11,8 @@ class PatientConsultation extends React.Component{
   constructor(){
     super()
     this.state = {
-      agreed: false
+      agreed: false,
+      isExtraRemarksHidden: true
     }
   }
   
@@ -27,6 +28,12 @@ class PatientConsultation extends React.Component{
     let token = jwt.compact();
     return token;
   };
+
+  handleRemarkClick = () => {
+    this.setState( prevState => ({
+      isExtraRemarksHidden: !prevState.isExtraRemarksHidden
+    }))
+  }
 
    handleClick = async e => {
     e.preventDefault();
@@ -81,7 +88,25 @@ class PatientConsultation extends React.Component{
             <p>No Remarks yet</p>
           </div>
         }
-        {remarks.map(remark => {
+        {
+          this.state.isExtraRemarksHidden
+        ? remarks
+          .filter((remark,index) => index < 5)
+          .map(remark => {
+          let formattedDate = formatDateFromNow(remark.date_created);
+          console.log(formattedDate)
+          formattedDate = +formattedDate.split(' ')[0] === 1 ? formattedDate : formattedDate + 's';
+          return (
+           <div key={remark.id} className='consult-box'>
+            <div className='header'>
+              <em> {remark.first_name + ' ' + remark.last_name} </em>
+              <em> {formattedDate} ago</em>
+            </div>
+            <p>{remark.content}</p>
+          </div> 
+          )
+        })
+        : remarks.map(remark => {
           let formattedDate = formatDateFromNow(remark.date_created);
           console.log(formattedDate)
           formattedDate = +formattedDate.split(' ')[0] === 1 ? formattedDate : formattedDate + 's';
@@ -95,6 +120,15 @@ class PatientConsultation extends React.Component{
           </div> 
           )
         })}
+
+        <button onClick={this.handleRemarkClick}>
+        {
+            this.state.isExtraRemarksHidden
+          ? 'View All Comments'
+          : 'View Latest Comments'
+        }
+        </button>
+
         <section className='emergency'>
           <em> In the event of unexpected symptoms</em>
           <button onClick={this.displayAgreement} >CONTACT EMERGENCY</button>
