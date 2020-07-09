@@ -12,6 +12,7 @@ import PatientDetails from "./pages/PatientDetails/PatientDetails";
 import AddPrescription from "./pages/AddPrescription/add-prescription";
 import "./App.css";
 
+
 const ProtectedRoute = ({
   path,
   setRedirectUrl,
@@ -25,7 +26,7 @@ const ProtectedRoute = ({
   if (auth) {
     return (
       <Route
-        component={({ otherProps }) => <Comp {...props} {...otherProps} />}
+        component={(otherProps) => <Comp {...props} {...otherProps} />}
         path={path}
         exact={!!exact}
       >
@@ -36,6 +37,7 @@ const ProtectedRoute = ({
   if (setRedirectUrl) setRedirectUrl(window.location.pathname);
   return <Redirect to={to || "/"} />;
 };
+
 
 class App extends React.Component {
   render() {
