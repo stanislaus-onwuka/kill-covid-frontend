@@ -14,7 +14,12 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
+let auth = null;
+try {
+  auth = firebase.auth();
+} catch (error) {
+  console.error("Error at firebase.auth()", error);
+};
 
 const providerGoogle = new firebase.auth.GoogleAuthProvider();
 const providerFacebook = new firebase.auth.FacebookAuthProvider();
