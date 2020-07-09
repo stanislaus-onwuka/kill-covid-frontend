@@ -53,15 +53,15 @@ class doctorHome extends React.Component {
     )
         
     componentDidMount(){
-        (async () => {
+        return (async () => {
                 //Hard Coding currentDoctorID for test purposes
                
                 //DON'T DELETE THE COMMENTS
 
-                // let userID = 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
+                let userID = 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
                 const { currentDoctorId,doctorPatients,setDoctorPatients } = this.props
                 
-                try{
+                // try{
     
                     //The code below is to promote a user so they show on the doctor's page
                     //Just set the user ID above to add another user
@@ -77,56 +77,56 @@ class doctorHome extends React.Component {
                     // let user = await userResponse.json()
                     // console.log(user)
 
-                    let patients;
+            //         let patients;
 
-                    if(doctorPatients){
-                        patients = doctorPatients.map(patient => this.getReportComponents(patient));
-                        this.setState({patients})
-                    }
+            //         if(doctorPatients){
+            //             patients = doctorPatients.map(patient => this.getReportComponents(patient));
+            //             this.setState({patients})
+            //         }
 
-                    let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
-                        method: 'GET',
-                        headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
-                        'doc-access-token': this.generateAccessToken(currentDoctorId)
-                        }
-                    })
+            //         let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
+            //             method: 'GET',
+            //             headers: {
+            //             'Content-Type': 'application/json;charset=utf-8',
+            //             'doc-access-token': this.generateAccessToken(currentDoctorId)
+            //             }
+            //         })
 
-                    let result = await doctorResponse.json();
+            //         let result = await doctorResponse.json();
 
-                    if(result){
-                        patients = result.map(patient => this.getReportComponents(patient));
-                        this.setState({patients})
-                        setDoctorPatients(result)
-                    }
-                  }catch(err){
-                    console.log(err)
-                  }
-            })();
-    }   
+            //         if(result){
+            //             patients = result.map(patient => this.getReportComponents(patient));
+            //             this.setState({patients})
+            //             setDoctorPatients(result)
+            //         }
+            //       }catch(err){
+            //         console.log(err)
+            //       }
+            // })();
+       
 
-    render(){
-        return (
-            <>
-                <div className="dhomeContainer">
-                    <div className="dhomeHeader">
-                        <div className="dh-container">
-                            <h1>Welcome Dr Emmanuel</h1>
-                            <p>We appreciate your efforts in fighting covid-19<br/>
-                            Please check for recently sent reports
-                            </p>
-                        </div>
-                    </div>
-                    <input name="search-home" className="search" />
-                    <div className="reports">
-                        {
-                            this.state.patients
-                        }
-                    </div>
-                </div>
-                </>
-        )
-    }
+    // render(){
+    //     return (
+    //         <>
+    //             <div className="dhomeContainer">
+    //                 <div className="dhomeHeader">
+    //                     <div className="dh-container">
+    //                         <h1>Welcome Dr Emmanuel</h1>
+    //                         <p>We appreciate your efforts in fighting covid-19<br/>
+    //                         Please check for recently sent reports
+    //                         </p>
+    //                     </div>
+    //                 </div>
+    //                 <input name="search-home" className="search" />
+    //                 <div className="reports">
+    //                     {
+    //                         this.state.patients
+    //                     }
+    //                 </div>
+    //             </div>
+    //             </>
+    //     )
+    // }
 			try {
 				//The code below is to promote a user so they show on the doctor's page
 				//Just set the user ID above to add another user
@@ -156,7 +156,7 @@ class doctorHome extends React.Component {
 							headers: {
 								"Content-Type": "application/json;charset=utf-8",
 								"doc-access-token": this.generateAccessToken(
-									hardCurrentDoctorId
+									userID
 								)
 							}
 						}
@@ -178,7 +178,7 @@ class doctorHome extends React.Component {
 							headers: {
 								"Content-Type": "application/json;charset=utf-8",
 								"doc-access-token": this.generateAccessToken(
-									hardCurrentDoctorId
+									userID
 								)
 							}
 						}
@@ -196,9 +196,9 @@ class doctorHome extends React.Component {
 			} catch (err) {
 				console.log(err);
 			}
-		})();
+	// 	})();
 	}
-
+        )}
 	render() {
 		return (
 			<>
