@@ -3,14 +3,15 @@ import {Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import nJwt from 'njwt';
 
+import PatientDetailsGraph from '../../components/PatientDetailsGraph/PatientDetailsGraph';
 import { setCurrentPatient } from './../../redux/doctor/doctor.actions';
 
 import './PatientDetails.css';
 import profilePic from "../../assets/prof.png";
 import editIcon from './../../assets/svg/edit.svg';
-import docGraph from './../../assets/doc-graph.png';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";
+import DoctorComment from "./../../components/doctorComment/doctorComment"
 
 
 
@@ -20,9 +21,11 @@ class PatientDetails extends Component{
         this.state={
             page:'progress',
             comment : '',
-            isExtraHistoryHidden: true
+            isExtraHistoryHidden: true,
+            isExtraRemarkHidden: true,
+            remarks: []
         };
-        
+
     }
 
     generateAccessToken = (uid) => {
@@ -36,6 +39,53 @@ class PatientDetails extends Component{
         let token = jwt.compact();
         return token;
     };
+
+    setRemarks = (limit) => (
+        limit
+    ?   this.state.remarks
+        .filter((remark,index) => index < limit)
+        .map((remark) => 
+            {
+                let date = new Date(remark.date_created)
+                date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+                return  <DoctorComment 
+                name={remark.first_name + ' ' + remark.last_name} 
+                content={remark.content}
+                date={date}
+                key={remark.id}
+                />
+            }
+        )
+    :  this.state.remarks.map((remark) => 
+        {
+            let date = new Date(remark.date_created)
+            date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+            return  <DoctorComment 
+            name={remark.first_name + ' ' + remark.last_name} 
+            content={remark.content}
+            date={date}
+            key={remark.id}
+            />
+        }
+    )
+    )
+
+    componentDidMount(){
+
+        fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', {
+            method : 'GET',
+            headers : {
+                'Content-Type' : 'application/json',
+                'access-token' : this.generateAccessToken(this.patient.user_id)
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            this.setState({ remarks: data });
+        })
+        .catch(err=>console.log(err))
+    }
 
     submitRemark = (e,patientId) => {
         e.preventDefault();
@@ -65,6 +115,12 @@ class PatientDetails extends Component{
         event.target.classList.add('active')
     }
 
+    handleRemarkClick = () => {
+        this.setState( prevState => ({
+            isExtraRemarkHidden: !prevState.isExtraRemarkHidden
+        }))
+    }
+
     toggleExtraHistory = e => {
         e.preventDefault();
         this.setState( prevState => ({isExtraHistoryHidden: !prevState.isExtraHistoryHidden}),()=> console.log(this.state.isExtraHistoryHidden))
@@ -73,7 +129,7 @@ class PatientDetails extends Component{
     flagPatient = async (e,patientId) => {
         e.preventDefault();
         const { currentDoctorId } = this.props
-        
+
         try{
         let response = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/flag', {
             method: 'POST',
@@ -92,7 +148,7 @@ class PatientDetails extends Component{
         console.log(err)
     }
     }
-    
+
 
     setDisplay(patient){
         let {page} = this.state;
@@ -102,7 +158,8 @@ class PatientDetails extends Component{
                         <div className="head-container">
                             <h4>HISTORY</h4>
                         </div>
-                        {   this.state.isExtraHistoryHidden
+
+                        {   (this.state.isExtraHistoryHidden && patient.symptoms.length > 0)
                         ?   <>
                             { this.setHistory(patient.symptoms[patient.symptoms.length-1]) }
                             <button onClick={this.toggleExtraHistory} > View All </button>
@@ -112,13 +169,18 @@ class PatientDetails extends Component{
                             <button onClick={this.toggleExtraHistory} > View Latest </button>
                             </>
                          }
-                        
+
                     </div>
                     <div className="prescriptions">
                         <div className="head-container">
                             <h4>PRESCRIPTIONS</h4>
-                            <Link to="/add-prescription"><img src={editIcon} alt='edit icon' /></Link>
-                            
+                            <Link to={{
+                               pathname: "/add-prescription",
+                               user_id: patient.user_id,
+                               doctor_id: this.props.currentDoctorId
+                             }}>
+                               <img src={editIcon} alt='edit icon' />
+                             </Link>
                         </div>
                         <div className="drugs">
                             <div className="head-container2">
@@ -128,16 +190,16 @@ class PatientDetails extends Component{
                             {
                                 patient.guides.map((guide,index) => ( <Prescription key={index} name={guide.info} time={guide.time_lapse}/> ))
                             }
-                            
+
                         </div>
                     </div>
                     <div className="body-temp">
                         <div className="head-container">
                             <h4>BODY TEMPERATURE</h4>
                         </div>
-                        <img src={docGraph} alt='graph' />
+                        <PatientDetailsGraph />
                     </div>
-                
+
                     <div className='notes'>
                         <div className='patient'>
                             <h4>PATIENT'S NOTE</h4>
@@ -147,14 +209,29 @@ class PatientDetails extends Component{
                                 <span>I developed dry cough yesterday morning.</span>
                             </p>
                         </div>
+
                         <div className='doctor'>
                             <h4>DOCTOR'S NOTE</h4>
+                            {
+                                this.state.isExtraRemarkHidden
+                            ?   this.setRemarks(5)
+                            :   this.setRemarks()
+                            }
+                            <button
+                            onClick={this.handleRemarkClick} 
+                            className='add'>
+                            {
+                                this.state.isExtraRemarkHidden
+                            ?   'View All Remarks'
+                            :   'View Latest Remarks'
+                            }
+                            </button>
                             <textarea value={this.state.comment} onChange={e => this.setState({comment : e.target.value})} rows='10'/>
-                            <button onClick={e=>this.submitRemark(e,patient.user_id)}>Send</button>
+                            <button onClick={e=>this.submitRemark(e,patient.user_id)}>Add Remark</button>
                         </div>
                     </div>
                     <button onClick={e=>this.flagPatient(e,patient.user_id)}>Flag As Emergency</button>
-                </div>    
+                </div>
         }
         if(page==='info'){
             return <div className="information-div">
@@ -199,7 +276,7 @@ class PatientDetails extends Component{
         return <div key={id} className='history-slot'>
             <h1>{date}</h1>
             { finalArray }
-        </div>   
+        </div>
     }
 
     setFullHistory = symptoms => {
@@ -207,17 +284,18 @@ class PatientDetails extends Component{
     }
 
     render(){
-        
+
         const { setCurrentPatient,currentPatient } = this.props
-        let patient;
 
         if(this.props.location.patient){
-            patient = this.props.location.patient
-            setCurrentPatient(patient)
+            this.patient = this.props.location.patient
+            setCurrentPatient(this.patient)
         }else {
-            patient = currentPatient
+            this.patient = currentPatient
         }
-       
+        let patient = this.patient
+        
+
         return (
             <div className="PatientDetails">
                 <div className="Pcontainer">
@@ -225,7 +303,7 @@ class PatientDetails extends Component{
                         <div className="Pbanner">
                             <h2>Patient's Details</h2>
                             <img src={profilePic} alt="img"/>
-                            <h3>{ `${patient.first_name} 
+                            <h3>{ `${patient.first_name}
                                   ${patient.last_name}`
                                 }
                             </h3>
@@ -236,13 +314,13 @@ class PatientDetails extends Component{
                             <h4 onClick={e=>this.setPage(e,'info')} className="Pinfo">INFORMATION</h4>
                         </div>
                     </header>
-                    
+
                     <div className="Pdisplay">
                         {this.setDisplay(patient)}
                     </div>
 
                     </div>
-            
+
         </div>
         );
     }

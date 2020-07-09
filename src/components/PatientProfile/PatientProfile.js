@@ -119,7 +119,7 @@ class PatientProfile extends Component {
 						{" "}
 						+ Update Records{" "}
 					</button>
-          <ActivitySchedule guides={this.props.guides}/>
+          <ActivitySchedule guides={this.props.guides} setUserGuides={this.props.setUserGuides}/>
 				</div>
 			);
 		} else {

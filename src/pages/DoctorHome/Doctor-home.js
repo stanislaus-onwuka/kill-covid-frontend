@@ -1,6 +1,6 @@
 import React from "react";
 import njwt from "njwt";
-import Lockr from "lockr";
+// import Lockr from "lockr";
 import { connect } from "react-redux";
 import { setDoctorPatients } from './../../redux/doctor/doctor.actions';
 
@@ -44,18 +44,18 @@ class doctorHome extends React.Component {
 
     getReportComponents = user =>
     (
-    <Report name={`${user.first_name} ${user.last_name}`} 
+    <Report name={`${user.first_name} ${user.last_name}`}
     profileImg={ProfilePic}
     symptom={this.setSymptoms(user.symptoms)}
     key={user.id}
-    patient={user}    
+    patient={user}
     />
     )
-        
+
     componentDidMount(){
         return (async () => {
                 //Hard Coding currentDoctorID for test purposes
-               
+
                 //DON'T DELETE THE COMMENTS
 
                 let userID = 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
@@ -63,9 +63,12 @@ class doctorHome extends React.Component {
                 
                 // try{
     
+
+                try{
+
                     //The code below is to promote a user so they show on the doctor's page
                     //Just set the user ID above to add another user
-    
+
                     // let userResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{
                     //   method: 'GET',
                     //   headers: {
@@ -73,7 +76,7 @@ class doctorHome extends React.Component {
                     //     'access-token': this.generateAccessToken(userID)
                     //   }
                     // })
-                    
+
                     // let user = await userResponse.json()
                     // console.log(user)
 
@@ -199,26 +202,56 @@ class doctorHome extends React.Component {
 	// 	})();
 	}
         )}
+//                     let patients;
+
+//                     if(doctorPatients){
+//                         patients = doctorPatients.map(patient => this.getReportComponents(patient));
+//                         this.setState({patients})
+//                     }
+
+//                     let doctorResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/getpatients',{
+//                         method: 'GET',
+//                         headers: {
+//                         'Content-Type': 'application/json;charset=utf-8',
+//                         'doc-access-token': this.generateAccessToken(currentDoctorId)
+//                         }
+//                     })
+
+//                     let result = await doctorResponse.json();
+
+// //                     if(result){
+//                         patients = result.map(patient => this.getReportComponents(patient));
+//                         this.setState({patients})
+//                         setDoctorPatients(result)
+//                     }
+//                   }catch(err){
+//                     console.log(err)
+//                   }
+//             })();
+//   }
+
 	render() {
-		return (
-			<>
-				<div className='dhomeContainer'>
-					<div className='dhomeHeader'>
-						<div className='dh-container'>
-							<h1>Welcome Dr Emmanuel</h1>
-							<p>
-								We appreciate your efforts in fighting covid-19
-								<br />
-								Please check for recently sent reports
-							</p>
-						</div>
-					</div>
-					<input name='search-home' className='search' />
-					<div className='reports'>{this.state.patients}</div>
-				</div>
-			</>
-		);
-	}
+
+  	return (
+  		<>
+  			<div className='dhomeContainer'>
+  				<div className='dhomeHeader'>
+  					<div className='dh-container'>
+  						<h1>Welcome Dr Emmanuel</h1>
+  						<p>
+  							We appreciate your efforts in fighting covid-19
+  							<br />
+  							Please check for recently sent reports
+  						</p>
+  					</div>
+  				</div>
+  				<input name='search-home' className='search' />
+  				<div className='reports'>{this.state.patients}</div>
+  			</div>
+  		</>
+  	);
+  }
+
 }
 
 const mapStateToProps = state => ({
@@ -232,4 +265,3 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps,mapDispatchToProps)(doctorHome);
-
