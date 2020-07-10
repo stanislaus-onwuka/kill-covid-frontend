@@ -1,3 +1,11 @@
+.login-fail {
+  margin: 0 auto;
+  padding: 0.5rem;
+  color: #f15e5e;
+  width: 80% ;
+  max-width: 500px;
+  text-align: left;
+}
 .login-input-box-container{
   width: 100%;
   margin: 1.5rem auto;
@@ -19,7 +27,7 @@
 .login-input-box-container input::placeholder{
   color: #a69fae;
 }
-.login-input-box-container a{
+.login-input-box-container button{
   display: block;
   text-decoration: none;
   margin: 0 auto;
@@ -34,6 +42,6 @@
   transition: 0.3s;
 }
 
-.login-input-box-container a:hover{
+.login-input-box-container button:hover{
   background-color:#152a3a ;
 }

@@ -14,7 +14,6 @@ class signup extends React.Component {
     super();
     this.state = {
       phoneNumber: "",
-      username: "",
       signUpMethod: "Google-Account",
     };
   }
@@ -25,7 +24,7 @@ class signup extends React.Component {
   };
 
   render() {
-    const { phoneNumber, username } = this.state;
+    const { phoneNumber } = this.state;
 
     return (
       <div>
@@ -42,13 +41,6 @@ class signup extends React.Component {
                 onChange={this.handleChange}
                 value={phoneNumber}
                 placeholder="Phone Number"
-              />
-              <input
-                name="username"
-                type="text"
-                onChange={this.handleChange}
-                value={username}
-                placeholder="Create a username"
               />
               <input
                 onClick={() => this.props.history.push("/Eval")}
