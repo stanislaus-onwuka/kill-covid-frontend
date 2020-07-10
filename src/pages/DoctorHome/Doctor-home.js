@@ -64,8 +64,6 @@ class doctorHome extends React.Component {
                 // try{
     
 
-                try{
-
                     //The code below is to promote a user so they show on the doctor's page
                     //Just set the user ID above to add another user
 
