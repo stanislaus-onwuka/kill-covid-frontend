@@ -6,11 +6,26 @@ export const authWithGoogle = (dispatch) => () => {
   dispatch({ type: actionTypes.AUTH_WITH_GOOGLE_REQUESTED });
   signInWithGoogle()
     .then((data) => {
-      // This action shold be SIGN_UP_WITH... or SIGN_IN_WITH...
-      // depending on if it's first signup or not
-      dispatch({ type: actionTypes.AUTH_WITH_GOOGLE_SUCCESSFUL });
+      const { user, additionalUserInfo } = data;
+      const payload = {
+        userId: user.uid,
+        profile: user.profile,
+        additionalUserInfo,
+      };
+      if (additionalUserInfo.isNewUser) {
+        dispatch({
+          type: actionTypes.SIGNED_UP_WITH_GOOGLE,
+          payload,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.SIGNED_IN_WITH_GOOGLE,
+          payload,
+        });
+      }
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       dispatch({ type: actionTypes.AUTH_WITH_GOOGLE_FAILED });
     });
 };
