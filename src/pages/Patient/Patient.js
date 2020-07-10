@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import format from 'date-fns/format';
-import nJwt from 'njwt';
 import Lockr from 'lockr';
 
 import { setCurrentUser, setUserGuides } from './../../redux/user/user.actions';
@@ -18,7 +16,6 @@ import PatientHome from '../../components/PatientHome/PatientHome';
 import PatientInfo from '../../components/PatientInfo/PatientInfo';
 import PatientProfile from '../../components/PatientProfile/PatientProfile';
 import PatientConsultation from '../../components/PatientConsultation/PatientConsultation';
-import LoadingError from '../../components/LoadingError/LoadingError';
 import './Patient.css';
 
 
@@ -27,111 +24,9 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      uid: '1bcb6b20-6fb8-4126-a8df-26d8349fd187',
-      isLoading: true,
-      loadFail: false
     }
     this.currentPage = Lockr.get('page');
   }
-
-  generateAccessToken = uid => {
-    // monkey patch for generation of access token
-    let claims = {
-     "sub": "1234567890",
-     "iat": 1592737638,
-     "exp": 1592741238,
-     "uid": uid
-    };
-    let jwt = nJwt.create(claims, "secret", "HS256");
-    let token = jwt.compact();
-    return token;
-  };
-
-  loadUser = async () => {
-    const { setCurrentUser, currentUser, setUserGuides } = this.props;
-
-    let user = null;
-    let remoteGuides = null;
-
-    const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
-    const options = {
-      method: 'GET',
-      headers: {
-        'access-token': this.generateAccessToken(this.state.uid)
-      }
-    };
-
-    try {
-      let response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      };
-
-      user = await response.json();
-      remoteGuides = user.guides;
-      //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
-      let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
-      remarks = await remarks.json()
-      user.remarks = remarks
-    }
-    catch(error) {
-      console.error('There has been a problem fetching user data', error);
-      return;
-    }
-    finally{
-      let localGuides = currentUser === null
-        ? null
-        : currentUser.guides;
-
-      let updateGuides = false;
-      let newGuides = null;
-
-      // replace persisted guides if required
-      if (user && !localGuides) {
-        updateGuides = true;
-        newGuides = remoteGuides.map(item => {
-          item.previousTime = format(new Date(), "hh:mm");
-          return item;
-        });
-      }
-      else if (user && (localGuides.length !== remoteGuides.length)) {
-        updateGuides = true;
-        newGuides = remoteGuides.map(remoteGuideItem => {
-          // initialize values for new user guides
-          let match = localGuides.find(localGuideItem => localGuideItem.name === remoteGuideItem.name);
-
-          if (match === undefined) {
-            remoteGuideItem.previousTime = format(new Date(), "hh:mm");
-            return remoteGuideItem;
-          };
-          return match;
-        });
-      };
-
-      if (currentUser === null && user) {
-        user.guides = newGuides;
-        setCurrentUser(user);
-      } else if (updateGuides) {
-        setUserGuides(newGuides)
-      };
-
-      if (!user && currentUser === null) {
-        this.setState({ loadFail: true })
-      };
-
-      this.setState({ isLoading: false });
-    };
-  };
-
-  componentDidMount() {
-    const { currentUser } = this.props;
-
-    if (currentUser !== null) {
-      this.setState({ isLoading: false });
-    };
-
-    this.loadUser();
-  };
 
   onLinkClick(page){
     this.setState({page});
@@ -184,8 +79,6 @@ class Patient extends Component{
   }
 
   render(){
-    // const { currentUser } = this.props
-
     if(this.currentPage){
        this.setState({page: this.currentPage})
        this.currentPage = false
@@ -195,28 +88,24 @@ class Patient extends Component{
 
     return(
         <div className="patient-container">
-          { this.state.isLoading
-            ? <h1 className="patient_loading-title">loading...</h1>
-            : this.state.loadFail // handle possible error when fetching user data
-              ? <LoadingError />
-              : <>
-                  {this.setContent()}
-                  <div className="spacing"></div>
-                  <div className="dashboard">
-                    <div className="dashboard-control">
-                      { this.setDashboard('home',activeHome,home) }
-                    </div>
-                    <div className="dashboard-control">
-                      { this.setDashboard('info',activeInfo,info) }
-                    </div>
-                    <div className="dashboard-control">
-                      { this.setDashboard('consultation',activeMessage,message) }
-                    </div>
-                    <div className="dashboard-control">
-                      { this.setDashboard('profile',activeProfile,profile) }
-                    </div>
-                  </div>
-                </>
+          { <>
+              {this.setContent()}
+              <div className="spacing"></div>
+              <div className="dashboard">
+                <div className="dashboard-control">
+                  { this.setDashboard('home',activeHome,home) }
+                </div>
+                <div className="dashboard-control">
+                  { this.setDashboard('info',activeInfo,info) }
+                </div>
+                <div className="dashboard-control">
+                  { this.setDashboard('consultation',activeMessage,message) }
+                </div>
+                <div className="dashboard-control">
+                  { this.setDashboard('profile',activeProfile,profile) }
+                </div>
+              </div>
+            </>
           }
         </div>
     );
@@ -232,7 +121,4 @@ const mapDispatchToProps = dispatch => ({
   setUserGuides: guides => dispatch(setUserGuides(guides))
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-  )(Patient);
+export default connect(mapStateToProps, mapDispatchToProps)(Patient);

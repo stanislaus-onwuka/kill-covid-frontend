@@ -8,3 +8,11 @@
   min-height: 100vh;
   padding-top: 10rem;
 }
+.loading{
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #224a68;
+  transform: translate(0, -50%);
+}
