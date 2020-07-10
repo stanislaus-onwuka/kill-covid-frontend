@@ -53,29 +53,29 @@ class doctorHome extends React.Component {
     )
 
     componentDidMount(){
-        (async () => {
+        return (async () => {
                 //Hard Coding currentDoctorID for test purposes
 
                 //DON'T DELETE THE COMMENTS
 
-                // let userID = 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
+                let userID = 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
                 const { currentDoctorId,doctorPatients,setDoctorPatients } = this.props
 
                 try{
 
-                    //The code below is to promote a user so they show on the doctor's page
-                    //Just set the user ID above to add another user
+                    // The code below is to promote a user so they show on the doctor's page
+                    // Just set the user ID above to add another user
 
-                    // let userResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{
-                    //   method: 'GET',
-                    //   headers: {
-                    //     'Content-Type': 'application/json;charset=utf-8',
-                    //     'access-token': this.generateAccessToken(userID)
-                    //   }
-                    // })
+                    let userResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        'access-token': this.generateAccessToken(userID)
+                      }
+                    })
 
-                    // let user = await userResponse.json()
-                    // console.log(user)
+                    let user = await userResponse.json()
+                    console.log(user)
 
                     let patients;
 
@@ -102,11 +102,10 @@ class doctorHome extends React.Component {
                   }catch(err){
                     console.log(err)
                   }
-            })();
-  }
+            })()
+          };
 
 	render() {
-
   	return (
   		<>
   			<div className='dhomeContainer'>
