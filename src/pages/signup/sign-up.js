@@ -24,6 +24,7 @@ class signup extends React.Component {
   };
 
   render() {
+    const { authWithGoogle, history } = this.props;
     const { phoneNumber } = this.state;
 
     return (
@@ -61,7 +62,7 @@ class signup extends React.Component {
               </a>
               {/* eslint-disable-next-line */}
               <button
-                onClick={this.props.authWithGoogle}
+                onClick={() => authWithGoogle(history)}
                 className="auth-button"
               >
                 <img src={google} alt="google-logo"></img>
@@ -82,7 +83,8 @@ class signup extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authWithGoogle: authWithGoogle(dispatch),
+    authWithGoogle: (history) => dispatch(authWithGoogle(history)),
+    // authWithGoogle: authWithGoogle(dispatch),
   };
 };
 

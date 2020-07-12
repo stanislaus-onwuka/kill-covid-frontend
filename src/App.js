@@ -45,7 +45,6 @@ class App extends React.Component {
       <div>
         <Switch>
           <Route path="/Login" component={Login} />
-          <Route path="/signup" component={Signup} />
           <ProtectedRoute
             auth={this.props.user}
             path="/Eval"
