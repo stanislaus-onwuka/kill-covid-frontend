@@ -9,7 +9,7 @@ import rootReducer from './root-reducer';
 let middlewares = [thunkMiddleware, logger]
 
 if(process.env.NODE_ENV==='production'){
-  middlewares = []
+  middlewares = [thunkMiddleware]
 }
 
 // export const store =  createStore(rootReducer,applyMiddleware(...middlewares));

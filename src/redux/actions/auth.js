@@ -3,10 +3,6 @@ import { signInWithGoogle } from "../../firebase";
 import * as actionTypes from "../actions/types";
 
 export const authWithGoogle = (history) => (dispatch) => {
-// export const authWithGoogle = (dispatch) => (history) => {
-// export const authWithGoogle = (history) => (dispatch) => {
-  // console.log("history", history)
-  // console.log("something")
   dispatch({ type: actionTypes.AUTH_WITH_GOOGLE_REQUESTED });
   signInWithGoogle()
     .then((data) => {
