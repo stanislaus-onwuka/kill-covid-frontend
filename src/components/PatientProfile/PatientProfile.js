@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import userImage from "./../../assets/prof.png";
 import backIcon from "./../../assets/svg/arrow-left.svg";
 import ActivitySchedule from "../ActivitySchedule/ActivitySchedule";
+import ProfilePicUploader from "../ProfilePicUploader/profile-pic-uploader";
 import "./PatientProfile.css";
 import axios from "axios";
 
@@ -31,7 +32,9 @@ class PatientProfile extends Component {
 			other: false,
 			otherName: '',
 			otherRate: "",
-			temp: ''
+			temp: '',
+			openUploader:false
+
 		};
 	}
 
@@ -91,15 +94,23 @@ class PatientProfile extends Component {
 		this.setState({ [name]: checked });
 	};
 
+	showUploader = () =>{
+		this.setState({openUploader:!this.state.openUploader})
+	};
+
 	setDisplay() {
 		if (this.state.page === "home") {
 			return (
 				<div className='patient-profile-container'>
 					<h1>My Account</h1>
 					<div className='patient-info'>
-						<img src={userImage} alt='patient'></img>
+						<img src={userImage} alt='patient' className="patient-profile-picture"/>
 						<em>{this.props.firstName + " " + this.props.lastName}</em>
+						<button className="upload-profile-picture-btn" onClick={this.showUploader}>
+							<img src={require('../../assets/svg/camera.svg')} alt="Upload a profile"/>
+						</button>
 					</div>
+					<ProfilePicUploader showUploader={this.showUploader} openUploader = {this.state.openUploader}/>
 					<div className='quarantine'>
 						<div className='objective'>
 							<span>Quarantine</span>
@@ -112,6 +123,7 @@ class PatientProfile extends Component {
 					</div>
 					<em className='date'>Started April 1.</em>
 					<button
+						className="update-records-btn"
 						onClick={() => {
 							this.onButtonClick("symptom");
 						}}
