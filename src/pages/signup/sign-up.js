@@ -84,7 +84,6 @@ class signup extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     authWithGoogle: (history) => dispatch(authWithGoogle(history)),
-    // authWithGoogle: authWithGoogle(dispatch),
   };
 };
 
