@@ -6,7 +6,7 @@ function InputBox({ loginFail, handleSubmit }) {
     <div className="login-input-box-container">
       <>
       <input type='text' placeholder="Phone No" />
-      { loginFail && <p class="login-fail">Login failed</p> }
+      { loginFail && <p className="login-fail">Login failed</p> }
       <button onClick={handleSubmit}>Log In</button>
       </>
     </div>

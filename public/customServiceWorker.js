@@ -1,6 +1,10 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
+if('function' === typeof importScripts){
+  importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
+}
+
+workbox.setConfig({debug: false});
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
@@ -18,25 +22,26 @@ self.addEventListener('install',()=>{
 
 //It is this fetch event that handles all fetch requests and enables us intercept fetch made from the app
 
-// self.addEventListener('fetch',(e)=>{
-//    e.respondWith(
-//     caches.match(e.request)
-//     .then(cachedFile => {
-//         if(cachedFile){
-//             return cachedFile
-//         }else{
-//             console.log(!e.request.url.includes(location.origin))
-//             if(!e.request.url.includes(location.origin)){
-//                 var init = {
-//                     "status": 200,
-//                     "message": 'Finally worked'
-//                 }
-//                 return new Response(null,init)
-//             }
-//         }
-//     })
-//    )
-// })
+self.addEventListener('fetch',(e)=>{
+  //  e.respondWith(
+  //   caches.match(e.request)
+  //   .then(cachedFile => {
+  //       if(cachedFile){
+  //           return cachedFile
+  //       }else{
+  //           console.log(!e.request.url.includes(location.origin))
+  //           if(!e.request.url.includes(location.origin)){
+  //               var init = {
+  //                   "status": 200,
+  //                   "message": 'Finally worked'
+  //               }
+  //               return new Response(null,init)
+  //           }
+  //       }
+  //   })
+  //  )'
+   console.log(e.request)
+})
 
 
 

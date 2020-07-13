@@ -62,7 +62,8 @@ class ActivitySchedule extends React.Component{
   };
 
   componentDidMount() {
-    this.interval = setInterval(this.checkActivities, 1000);
+    // this.interval = setInterval(this.checkActivities, 1000);
+    this.checkActivities()
   };
 
   render(){
