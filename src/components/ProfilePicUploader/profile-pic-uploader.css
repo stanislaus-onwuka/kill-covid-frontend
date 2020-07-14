@@ -1,0 +1,90 @@
+.profile-pic-uploader{
+    position: fixed;
+}
+
+.profile-pic-uploader-main{
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    top: 15%;
+    left: 10%;
+    right: 10%;
+    z-index: 6;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    border-radius: 15px;
+    transition: all 3s;
+    max-width: 300px;
+    min-width: 270px;
+}
+
+@media(min-width:40rem){
+    .profile-pic-uploader-main{
+        top: 20%;
+        left: 40%;
+        right: 40%;
+        max-width: 350px;
+        min-width: 270px;
+    }
+}
+
+.profile-pic-uploader-main form{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 0.3rem 0;
+}
+
+.profile-pic-uploader-main form input{
+    margin: 0.3rem 0;
+}
+
+.profile-pic-uploader-main .upload-btn{
+    color: #fff;
+    background-color: #3C8CB5;
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 20px;
+    width: fit-content;
+    align-self: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.438);
+    cursor: pointer;
+    transition: 1s;
+}
+
+.profile-pic-uploader-main .upload-btn:hover{
+    box-shadow: none;
+}
+
+.image-div img{
+    width: 100%;
+    max-width: 230px;
+    max-height: 230px;
+}
+
+.invisible-picture{
+    display: none;
+}
+
+.visible-picture{
+    display: block;
+}
+
+.invisible-uploader{
+    z-index: -10;
+}
+
+.visible-uploader{
+    z-index: unset;
+}
+
+.profile-pic-uploader .mask{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.849);
+    transition: all 3s;
+}

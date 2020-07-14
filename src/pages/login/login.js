@@ -100,7 +100,7 @@ class Login extends Component {
         });
       };
 
-      if (currentUser === null && user) {
+      if (currentUser.userId || (currentUser === null && user)) {
         user.guides = newGuides;
         setCurrentUser(user);
       } else if (updateGuides) {
@@ -113,7 +113,11 @@ class Login extends Component {
   render() {
     const { currentUser } = this.props;
 
-    if (currentUser) {
+    if (currentUser.userId) {
+      this.loadUser();
+    };
+
+    if (currentUser.guides) {
       return <Redirect to='/Patient' />;
     };
 

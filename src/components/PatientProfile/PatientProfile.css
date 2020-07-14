@@ -19,10 +19,16 @@
   font-size: 1rem;
 }
 .patient-profile-container .patient-info{
+
   margin-top: 4rem;
 }
-.patient-profile-container .patient-info img{
+
+.patient-info{
+  position: relative;
+}
+.patient-profile-container .patient-info .patient-profile-picture{
   width: 30%;
+  min-width: 100px;
   max-width:220px;
   margin: 0 auto;
   display: block;
@@ -39,6 +45,40 @@
   font-weight: 600;
   color: #224a68;
 }
+
+
+.upload-profile-picture-btn{
+  position: absolute;
+  background-color: #224a68;
+  border-radius: 50px;
+  right: 39%;
+  bottom: 35%;
+  padding: 0.3rem 0.2rem 0.2rem 0.2rem;
+  border: none;
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.438);
+  transition: 0.2s;
+}
+
+.upload-profile-picture-btn:hover{
+  box-shadow: none;
+}
+
+@media(min-width:40rem){
+  .upload-profile-picture-btn{
+    right: 43%;
+    bottom: 28%;
+  }
+}
+
+.upload-profile-picture-btn img{
+  width: 100%;
+  max-width: 45px;
+  min-width: 30px;
+  cursor: pointer;
+}
+
+
 .patient-profile-container .quarantine{
   width: 100%;
   height: 10rem;
@@ -80,7 +120,7 @@
   font-style: normal;
   margin: 1rem 0 1rem 0;
 }
-.patient-profile-container button{
+.patient-profile-container .update-records-btn{
   display: block;
   margin: 0 auto;
   padding: 1rem 1.5rem 1rem 1.5rem;

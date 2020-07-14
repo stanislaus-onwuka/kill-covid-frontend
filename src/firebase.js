@@ -8,8 +8,8 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  apppId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MESUREMENT_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -17,7 +17,10 @@ firebase.initializeApp(firebaseConfig);
 let auth = null;
 try {
   auth = firebase.auth();
+  console.log("Success")
+  console.log(auth);
 } catch (error) {
+  console.log("Failure")
   console.error("Error at firebase.auth()", error);
 };
 

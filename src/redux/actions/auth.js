@@ -2,7 +2,7 @@ import { signInWithGoogle } from "../../firebase";
 // import asyncAction from "../../utils/asyncAction";
 import * as actionTypes from "../actions/types";
 
-export const authWithGoogle = (dispatch) => () => {
+export const authWithGoogle = (history) => (dispatch) => {
   dispatch({ type: actionTypes.AUTH_WITH_GOOGLE_REQUESTED });
   signInWithGoogle()
     .then((data) => {
@@ -23,6 +23,7 @@ export const authWithGoogle = (dispatch) => () => {
           payload,
         });
       }
+      history.push('/Login');
     })
     .catch((err) => {
       console.log(err);
