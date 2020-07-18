@@ -12,18 +12,23 @@ export const authWithGoogle = (history) => (dispatch) => {
         profile: user.profile,
         additionalUserInfo,
       };
+      dispatch({
+        type: actionTypes.SET_ACCESS_TOKEN,
+        payload: user._lat
+      })
       if (additionalUserInfo.isNewUser) {
         dispatch({
           type: actionTypes.SIGNED_UP_WITH_GOOGLE,
           payload,
         });
+        history.push('/Eval');
       } else {
         dispatch({
           type: actionTypes.SIGNED_IN_WITH_GOOGLE,
           payload,
         });
+        history.push('/Patient');
       }
-      history.push('/Login');
     })
     .catch((err) => {
       console.log(err);

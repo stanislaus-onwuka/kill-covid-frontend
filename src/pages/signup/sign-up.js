@@ -3,9 +3,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { authWithGoogle } from "../../redux/actions/auth";
-import twitter from "../../assets/svg/twitter.svg";
-import facebook from "../../assets/svg/facebook.svg";
-import google from "../../assets/svg/google.svg";
+import { addPhoneNumber } from "../../redux/user/user.actions.js";
+import ExtraLogin from '../../components/ExtraLogin/ExtraLogin';
 
 import "./sign-up.css";
 
@@ -23,6 +22,15 @@ class signup extends React.Component {
     this.setState({ [name]: value });
   };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    const { history, addPhoneNumber } = this.props;
+
+    addPhoneNumber(this.state.phoneNumber);
+    history.push("/Eval");
+  }
+
   render() {
     const { authWithGoogle, history } = this.props;
     const { phoneNumber } = this.state;
@@ -35,7 +43,7 @@ class signup extends React.Component {
               <h2>Sign up</h2>
               <em>Create an account</em>
             </div>
-            <form className="sign-up-form">
+            <form onSubmit={this.handleSubmit} className="sign-up-form">
               <input
                 name="phoneNumber"
                 type="tel"
@@ -44,30 +52,15 @@ class signup extends React.Component {
                 placeholder="Phone Number"
               />
               <input
-                onClick={() => this.props.history.push("/Eval")}
                 type="submit"
                 value="Sign Up"
                 className="signup-submit"
               />
             </form>
-            <em className="socials-text">Or Sign up with</em>
-            <div className="socials">
-              {/* eslint-disable-next-line */}
-              <a href="#" className="twitter-logo">
-                <img src={twitter} alt="twitter-logo"></img>
-              </a>
-              {/* eslint-disable-next-line */}
-              <a href="#" className="facebook-logo">
-                <img src={facebook} alt="facebook-logo"></img>
-              </a>
-              {/* eslint-disable-next-line */}
-              <button
-                onClick={() => authWithGoogle(history)}
-                className="auth-button"
-              >
-                <img src={google} alt="google-logo"></img>
-              </button>
-            </div>
+            <ExtraLogin
+              authWithGoogle={authWithGoogle}
+              history={history}
+            />
             <em className="socials-text">Already have an account?</em>
             <div className="signup-login-btn">
               <Link className="btn" to="/Login">
@@ -84,6 +77,7 @@ class signup extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     authWithGoogle: (history) => dispatch(authWithGoogle(history)),
+    addPhoneNumber: (number) => dispatch(addPhoneNumber(number)),
   };
 };
 
