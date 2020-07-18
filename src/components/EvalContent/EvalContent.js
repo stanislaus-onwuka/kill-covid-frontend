@@ -51,7 +51,8 @@ class EvalContent extends Component {
 		this.setState({[name]: value})
 	};
 
-	switchPage = () => {
+	switchPage = (e) => {
+		if(e) e.preventDefault();
 		this.setState(prevState => {
 			return { pageNo: prevState.pageNo + 1 };
 		});
@@ -457,13 +458,13 @@ class EvalContent extends Component {
 	}
 
 	postDetails = async e => {
-		const { accessToken } = this.props;
+		const { accessToken, currentUser } = this.props;
 
 		const addname = {
 			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
 			"firstName": this.state.formData.firstName,
 			"lastName": this.state.formData.lastName,
-			"signUpMethod":"Google-Account",
+			"signUpMethod": currentUser.additionalUserInfo.providerId,
 			"access-token": accessToken
 		};
 		const add_profile={

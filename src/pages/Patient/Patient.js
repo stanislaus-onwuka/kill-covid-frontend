@@ -56,7 +56,7 @@ class Patient extends Component{
       let response = await fetch(url, options);
 
       if (response.status === 404) {
-        history.push('/Eval');
+        history.push('/');
         return;
       };
       if (!response.ok) {

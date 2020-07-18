@@ -32,11 +32,13 @@ const signInWithGoogle = () => auth.signInWithPopup(providerGoogle);
 const signInWithFacebook = async () => {
   const data = await auth.signInWithPopup(providerFacebook);
   console.log(data);
+  return data;
 };
 
 const signInWithTwitter = async () => {
   const data = await auth.signInWithPopup(providerTwitter);
   console.log(data);
+  return data;
 };
 
 export { auth, signInWithGoogle, signInWithFacebook, signInWithTwitter };

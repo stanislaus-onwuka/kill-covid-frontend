@@ -27,12 +27,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
           guides: action.payload,
         },
       };
-    case actionTypes.AUTH_WITH_GOOGLE_REQUESTED:
+    case actionTypes.AUTH_WITH_SOCIAL_REQUESTED:
       return {
         ...state,
         authenticating: true,
       };
-    case actionTypes.SIGNED_IN_WITH_GOOGLE:
+    case actionTypes.SIGNED_IN_WITH_SOCIAL:
       return {
         ...state,
         currentUser: action.payload,
@@ -43,13 +43,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         accessToken: action.payload
       };
-    case actionTypes.SIGNED_UP_WITH_GOOGLE:
+    case actionTypes.SIGNED_UP_WITH_SOCIAL:
       return {
         ...state,
         currentUser: action.payload,
         authenticating: false,
       };
-    case actionTypes.AUTH_WITH_GOOGLE_FAILED:
+    case actionTypes.AUTH_WITH_SOCIAL_FAILED:
       return {
         ...state,
         authenticating: false,

@@ -5,7 +5,7 @@ import InputBox from '../../components/InputBox/InputBox';
 import ExtraLogin from '../../components/ExtraLogin/ExtraLogin';
 import SignUp from '../../components/SignUp/SignUp';
 
-import { authWithGoogle } from "../../redux/actions/auth";
+import { authWithGoogle, authWithFacebook, authWithTwitter } from "../../redux/actions/auth";
 import { connect } from 'react-redux';
 
 import './login.css';
@@ -20,7 +20,7 @@ class Login extends Component {
   }
 
   render() {
-    const { currentUser, history, authWithGoogle } = this.props;
+    const { currentUser, history, authWithGoogle, authWithFacebook, authWithTwitter } = this.props;
 
     if (currentUser?.guides) {
       return <Redirect to='/Patient' />;
@@ -32,6 +32,8 @@ class Login extends Component {
         <InputBox />
         <ExtraLogin
           authWithGoogle={authWithGoogle}
+          authWithFacebook={authWithFacebook}
+          authWithTwitter={authWithTwitter}
           history={history}
           authPage={"login"}
         />
@@ -47,6 +49,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   authWithGoogle: (history) => dispatch(authWithGoogle(history)),
+  authWithFacebook: (history) => dispatch(authWithFacebook(history)),
+  authWithTwitter: (history) => dispatch(authWithTwitter(history)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

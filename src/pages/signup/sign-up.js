@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { authWithGoogle } from "../../redux/actions/auth";
+import { authWithGoogle, authWithFacebook, authWithTwitter } from "../../redux/actions/auth";
 import { addPhoneNumber } from "../../redux/user/user.actions.js";
 import ExtraLogin from '../../components/ExtraLogin/ExtraLogin';
 
@@ -32,7 +32,7 @@ class signup extends React.Component {
   }
 
   render() {
-    const { authWithGoogle, history } = this.props;
+    const { authWithGoogle, authWithFacebook, authWithTwitter, history } = this.props;
     const { phoneNumber } = this.state;
 
     return (
@@ -59,6 +59,8 @@ class signup extends React.Component {
             </form>
             <ExtraLogin
               authWithGoogle={authWithGoogle}
+              authWithFacebook={authWithFacebook}
+              authWithTwitter={authWithTwitter}
               history={history}
               authPage="signup"
             />
@@ -78,6 +80,8 @@ class signup extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     authWithGoogle: (history) => dispatch(authWithGoogle(history)),
+    authWithFacebook : (history) => dispatch(authWithFacebook(history)),
+    authWithTwitter : (history) => dispatch(authWithTwitter(history)),
     addPhoneNumber: (number) => dispatch(addPhoneNumber(number)),
   };
 };
