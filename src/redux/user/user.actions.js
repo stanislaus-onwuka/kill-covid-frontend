@@ -14,3 +14,8 @@ export const setUserGuides = guides => ({
   type: userActionTypes.SET_USER_GUIDES,
   payload: guides
 });
+
+export const addPhoneNumber = number => ({
+  type: userActionTypes.ADD_PHONE_NUMBER,
+  payload: number
+})

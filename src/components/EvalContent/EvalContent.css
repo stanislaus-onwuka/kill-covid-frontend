@@ -5,10 +5,15 @@
   margin-right: auto;
   margin-top: 2rem;
 }
+.eval-content-container form{
+  display: flex;
+  flex-direction: column;
+  width: 22rem;
+  text-align: left;
+}
 .eval-content-container em{
   display: inline-block;
   font-size: 1.2rem;
-  margin: 0 auto;
   margin-bottom: 1rem;
   color: #2b4c66 ;
   letter-spacing: .1rem;
@@ -93,6 +98,14 @@ input:focus{
 .eval-content-container input:not(:last-child){
   margin-bottom: 1rem;
 }
+
+.eval-content-container .alert-error {
+  position: relative;
+  top: -1rem;
+  font-size: 0.95rem;
+  color: #e92424;
+}
+
 .login-input-box-container input::placeholder{
   color: #a69fae;
 }

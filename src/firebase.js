@@ -18,9 +18,8 @@ let auth = null;
 try {
   auth = firebase.auth();
   console.log("Success")
-  console.log(auth);
 } catch (error) {
-  console.log("Failure")
+  console.error("Failure")
   console.error("Error at firebase.auth()", error);
 };
 

@@ -4,6 +4,7 @@ import * as actionTypes from "../actions/types";
 const INITIAL_STATE = {
   currentUser: null,
   authenticating: false,
+  accessToken: null
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -37,6 +38,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         currentUser: action.payload,
         authenticating: false,
       };
+    case actionTypes.SET_ACCESS_TOKEN:
+      return {
+        ...state,
+        accessToken: action.payload
+      };
     case actionTypes.SIGNED_UP_WITH_GOOGLE:
       return {
         ...state,
@@ -48,6 +54,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         authenticating: false,
       };
+    case userActionTypes.ADD_PHONE_NUMBER:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          phoneNumber: action.payload
+        }
+      }
     default:
       return state;
   }
