@@ -60,6 +60,7 @@ class signup extends React.Component {
             <ExtraLogin
               authWithGoogle={authWithGoogle}
               history={history}
+              authPage="signup"
             />
             <em className="socials-text">Already have an account?</em>
             <div className="signup-login-btn">

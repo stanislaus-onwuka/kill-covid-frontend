@@ -4,10 +4,10 @@ import facebookIcon from "./../../assets/svg/facebook.svg";
 import googleIcon from "./../../assets/svg/google.svg";
 import './ExtraLogin.css';
 
-function ExtraLogin({ authWithGoogle, history }) {
+function ExtraLogin({ authWithGoogle, history, authPage }) {
   return (
       <div className="extra-login-container">
-        <p> Or Login with</p>
+        <p>{`Or ${authPage} with`}</p>
         <div className="login-links-container">
            {/* eslint-disable-next-line */}
           <a href="#" className="twitter-logo logo"><img src={twitterIcon} alt='twitter-logo'></img></a>

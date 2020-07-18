@@ -22,7 +22,7 @@ class Login extends Component {
   render() {
     const { currentUser, history, authWithGoogle } = this.props;
 
-    if (currentUser.guides) {
+    if (currentUser?.guides) {
       return <Redirect to='/Patient' />;
     };
 
@@ -33,6 +33,7 @@ class Login extends Component {
         <ExtraLogin
           authWithGoogle={authWithGoogle}
           history={history}
+          authPage={"login"}
         />
         <SignUp />
       </div>
