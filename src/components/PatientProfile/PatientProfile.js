@@ -100,7 +100,7 @@ class PatientProfile extends Component {
 	};
 
 	setDisplay() {
-		const { currentUser, setImageUrl} = this.props;
+		const { currentUser, updateImageUrl} = this.props;
 
 		if (this.state.page === "home") {
 			return (
@@ -117,7 +117,7 @@ class PatientProfile extends Component {
 						showUploader={this.showUploader}
 						openUploader = {this.state.openUploader}
 						currentUser={currentUser}
-						setImageUrl={setImageUrl}
+						setImageUrl={updateImageUrl}
 					/>
 					<div className='quarantine'>
 						<div className='objective'>
