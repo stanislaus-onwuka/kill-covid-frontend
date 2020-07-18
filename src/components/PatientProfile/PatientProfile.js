@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import njwt from 'njwt';
 import { connect } from 'react-redux';
+import { updateImageUrl } from './../../redux/user/user.actions';
 import userImage from "./../../assets/prof.png";
 import backIcon from "./../../assets/svg/arrow-left.svg";
 import ActivitySchedule from "../ActivitySchedule/ActivitySchedule";
@@ -42,7 +43,7 @@ class PatientProfile extends Component {
 		this.setState({ page }, () => {
 			console.log(this.state.page);
 		});
-		
+
 		const {userId} = this.props
 		console.log(userId)
 		let symptoms = [
@@ -79,7 +80,7 @@ class PatientProfile extends Component {
 		 "exp": 1592741238,
 		 "uid": uid
 		};
-			let jwt = njwt.create(claims, "secret", "HS256");
+		let jwt = njwt.create(claims, "secret", "HS256");
 		let token = jwt.compact();
 		return token;
 	};
@@ -99,6 +100,8 @@ class PatientProfile extends Component {
 	};
 
 	setDisplay() {
+		const { currentUser, setImageUrl} = this.props;
+
 		if (this.state.page === "home") {
 			return (
 				<div className='patient-profile-container'>
@@ -110,7 +113,12 @@ class PatientProfile extends Component {
 							<img src={require('../../assets/svg/camera.svg')} alt="Upload a profile"/>
 						</button>
 					</div>
-					<ProfilePicUploader showUploader={this.showUploader} openUploader = {this.state.openUploader}/>
+					<ProfilePicUploader
+						showUploader={this.showUploader}
+						openUploader = {this.state.openUploader}
+						currentUser={currentUser}
+						setImageUrl={setImageUrl}
+					/>
 					<div className='quarantine'>
 						<div className='objective'>
 							<span>Quarantine</span>
@@ -274,10 +282,10 @@ class PatientProfile extends Component {
 							</label>
 							{this.state.other ? (
 								<div className='rating'>
-									<input type='text' 
-									name='otherName' 
+									<input type='text'
+									name='otherName'
 									value={this.state.otherName}
-									onChange={this.handleRateChange} 
+									onChange={this.handleRateChange}
 									placeholder='What symptoms are you showing' />
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
@@ -294,7 +302,7 @@ class PatientProfile extends Component {
 							)}
 						</div>
 
-						
+
 						<button
 							onClick={() => {
 								this.onButtonClick("home");
@@ -315,7 +323,11 @@ class PatientProfile extends Component {
 }
 
 const mapStateToProps = state => ({
-	userId: state.user.currentUser.user_id
+	currentUser: state.user.currentUser,
+	userId: state.user.currentUser.user_id,
+})
+const mapDispatchToProps = dispatch => ({
+	updateImageUrl: (imageUrl) => dispatch(updateImageUrl(imageUrl))
 })
 
-export default connect(mapStateToProps)(PatientProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(PatientProfile);

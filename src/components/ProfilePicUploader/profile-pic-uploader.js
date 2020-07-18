@@ -2,7 +2,9 @@ import React, { useState, useRef } from "react";
 import "./profile-pic-uploader.css";
 
 const ProfilePicUploader=(props)=> {
-  const [imageUrl, setImageUrl] = useState("");
+  const { currentUser: { imageUrl }, setImageUrl } = props;
+
+  // const [imageUrl, setImageUrl] = useState("");
   const inputFile = useRef(null);
 
   const uploadImage = event => {
@@ -37,7 +39,7 @@ const ProfilePicUploader=(props)=> {
                 <img src={imageUrl} alt="Profile"/>
             </div>
             <form onSubmit={uploadImage}>
-                <input ref={inputFile} type="file" accept="image/*" multiple = "false"/>
+                <input ref={inputFile} type="file" accept="image/*" multiple={false}/>
                 <input type="submit" value="UPLOAD" className="upload-btn" onClick={props.showUploader}/>
             </form>
         </div>

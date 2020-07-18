@@ -19,7 +19,7 @@
   letter-spacing: .1rem;
   font-style: normal;
 }
-.eval-content-container a,.eval-content-container .eval-next-btn{
+.eval-content-container .eval-continue-btn,.eval-content-container .eval-next-btn{
   display: block;
   margin-top: 1.5rem;
   text-decoration: none;
@@ -34,7 +34,7 @@
   border: none;
 }
 
-.eval-content-container a:hover{
+.eval-content-container .eval-continue-btn:hover{
   background-color: #296380;
 }
 

@@ -62,6 +62,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
           phoneNumber: action.payload
         }
       }
+    case userActionTypes.UPDATE_IMAGE_URL:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          imageUrl: action.payload
+        }
+      }
     default:
       return state;
   }

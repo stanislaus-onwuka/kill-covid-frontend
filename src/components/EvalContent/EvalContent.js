@@ -76,19 +76,13 @@ class EvalContent extends Component {
 		const { register, errors, currentUser } = this.props;
 		const { pageNo } = this.state;
 
-		console.log(errors, "errors");
-
 
 		switch (pageNo) {
 			case 1:
 				return (
 					<>
 						<em>First, tell us a few things about you</em>
-						{/* eslint-disable-next-line */}
-						<a href='#' onClick={this.switchPage}>
-							{" "}
-							Continue{" "}
-						</a>
+						<button className="eval-continue-btn" onClick={this.switchPage}>Continue</button>
 					</>
 				);
 			case 2:

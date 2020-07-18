@@ -36,8 +36,8 @@ class PatientHome extends Component {
           <div className='patient-home-container'>
           <div className="patient-home-profile">
             <em> Welcome {this.props.firstName},</em>
-            <div class="patient-home-image__wrapper">
-              <span onClick={this.logUserOut} class="logout-span">Logout</span>
+            <div className="patient-home-image__wrapper">
+              <span onClick={this.logUserOut} className="logout-span">Logout</span>
               <img src={profilePic} alt="patient"></img>
             </div>
           </div>
