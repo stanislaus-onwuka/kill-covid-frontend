@@ -38,7 +38,7 @@ const ProfilePicUploader=(props)=> {
             </div>
             <form onSubmit={uploadImage}>
                 <input ref={inputFile} type="file" accept="image/*" multiple = "false"/>
-                <input type="submit" value="UPLOAD" className="upload-btn"/>
+                <input type="submit" value="UPLOAD" className="upload-btn" onClick={props.showUploader}/>
             </form>
         </div>
         <div className="mask" onClick={props.showUploader}></div>
