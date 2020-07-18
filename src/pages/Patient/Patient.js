@@ -27,7 +27,6 @@ class Patient extends Component{
     super();
     this.state = {
       page : 'home',
-      isLoading: true,
       fetchFail: false
     }
     this.currentPage = Lockr.get('page');
@@ -82,8 +81,6 @@ class Patient extends Component{
       return;
     }
     finally{
-      this.setState({ isLoading: false });
-
       let localGuides = currentUser === null
         ? null
         : currentUser.guides;
@@ -129,7 +126,8 @@ class Patient extends Component{
   }
 
   setContent(){
-    const { currentUser } = this.props
+    const { currentUser, setCurrentUser, history } = this.props
+
     switch(this.state.page){
       case 'home':
         return (
@@ -138,6 +136,8 @@ class Patient extends Component{
             guides={currentUser.guides}
             med_state={currentUser.med_state}
             setUserGuides={this.props.setUserGuides}
+            setCurrentUser={setCurrentUser}
+            history={history}
           />
         )
       case 'info':
@@ -182,7 +182,7 @@ class Patient extends Component{
 
   render(){
     const { currentUser } = this.props;
-    const { isLoading, fetchFail } = this.state;
+    const { fetchFail } = this.state;
 
     if(this.currentPage){
        this.setState({page: this.currentPage})
@@ -195,7 +195,7 @@ class Patient extends Component{
         <div className="patient-container">
           { fetchFail && !currentUser.guides
             ? <LoadingError />
-            : isLoading || !currentUser.guides
+            : !currentUser.guides
               ? <h1 className="loading">loading...</h1>
               : <>
                   {this.setContent()}
