@@ -11,6 +11,17 @@
   justify-content: space-between;
   margin-bottom: 1rem;
 }
+.patient-home-profile .patient-home-image__wrapper {
+  display: flex;
+  justify-content: ;
+  align-items: center;
+  min-width: 8rem;
+  justify-content: space-between;
+}
+.patient-home-image__wrapper .logout-span {
+  text-decoration: underline;
+  color: #a8a4a4;
+}
 .patient-home-profile img{
   width: 3rem;
   border-radius: 50%;
@@ -42,7 +53,7 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: auto auto;
-  grid-template-areas: 
+  grid-template-areas:
   "i i t t t t"
   "i i n n n n";
 }
