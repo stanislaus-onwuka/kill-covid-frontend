@@ -18,9 +18,8 @@ let auth = null;
 try {
   auth = firebase.auth();
   console.log("Success")
-  console.log(auth);
 } catch (error) {
-  console.log("Failure")
+  console.error("Failure")
   console.error("Error at firebase.auth()", error);
 };
 
@@ -33,11 +32,13 @@ const signInWithGoogle = () => auth.signInWithPopup(providerGoogle);
 const signInWithFacebook = async () => {
   const data = await auth.signInWithPopup(providerFacebook);
   console.log(data);
+  return data;
 };
 
 const signInWithTwitter = async () => {
   const data = await auth.signInWithPopup(providerTwitter);
   console.log(data);
+  return data;
 };
 
 export { auth, signInWithGoogle, signInWithFacebook, signInWithTwitter };

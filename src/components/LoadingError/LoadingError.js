@@ -7,7 +7,7 @@ const LoadingError = () => {
     <div className="loading-error">
       <img src={error} height="100px" alt="error"/>
       <h2 className="loading-error_message">
-        Sorry an error occurred when trying to get user data.
+        Sorry an error occurred while loading user data.
       </h2>
     </div>
   )

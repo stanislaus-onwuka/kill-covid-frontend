@@ -5,16 +5,22 @@
   margin-right: auto;
   margin-top: 2rem;
 }
+.eval-content-container form{
+  display: flex;
+  flex-direction: column;
+  width: 22rem;
+  max-width: 100%;
+  text-align: left;
+}
 .eval-content-container em{
   display: inline-block;
   font-size: 1.2rem;
-  margin: 0 auto;
   margin-bottom: 1rem;
   color: #2b4c66 ;
   letter-spacing: .1rem;
   font-style: normal;
 }
-.eval-content-container a,.eval-content-container .eval-next-btn{
+.eval-content-container .eval-continue-btn,.eval-content-container .eval-next-btn{
   display: block;
   margin-top: 1.5rem;
   text-decoration: none;
@@ -29,7 +35,7 @@
   border: none;
 }
 
-.eval-content-container a:hover{
+.eval-content-container .eval-continue-btn:hover{
   background-color: #296380;
 }
 
@@ -80,8 +86,7 @@
 .eval-content-container input{
   display: block;
   padding: 1rem;
-  width: auto ;
-  max-width:600px;
+  max-width: 600px;
   border: solid 2px #234661;
   border-radius: 1rem;
   font-size: 1rem;
@@ -93,6 +98,14 @@ input:focus{
 .eval-content-container input:not(:last-child){
   margin-bottom: 1rem;
 }
+
+.eval-content-container .alert-error {
+  position: relative;
+  top: -1rem;
+  font-size: 0.95rem;
+  color: #e92424;
+}
+
 .login-input-box-container input::placeholder{
   color: #a69fae;
 }

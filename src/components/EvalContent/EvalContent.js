@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import njwt from 'njwt';
+import { Redirect } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import axios from "axios";
 import { connect } from 'react-redux';
 
 import { updateUserDetails } from './../../redux/user/user.actions';
 import countries from './countries.js';
 import "./EvalContent.css";
-
 
 
 let ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -23,24 +23,9 @@ let ratingOptions = ratings.map(rating => (
 ));
 
 class EvalContent extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			firstName: "",
-			lastName: "",
-			age:"",
-			state: "",
-			address: "",
-			tel:"0",
-			email:"",
-			countryVisited: "",
-			ownCountry: "",
-			otherSymptoms: "",
-			otherRate: "",
-			coughRate: "",
-			feverRate: "",
-			fatigueRate: "",
-			respRate: "",
 			yesBtnActive: false,
 			pageNo: 1,
 			isCoughChecked: false,
@@ -48,15 +33,10 @@ class EvalContent extends Component {
 			isFatigueChecked: false,
 			isRespiratoryChecked: false,
 			isOthersChecked: false,
-			visitedCountry: false
+			visitedCountry: false,
+			formData: {}
 		};
 	}
-
-	switchPage = () => {
-		this.setState(prevState => {
-			return { pageNo: prevState.pageNo + 1 };
-		});
-	};
 
 	handleChange = (event,type) => {
 		let name =  event.target.name;
@@ -69,23 +49,49 @@ class EvalContent extends Component {
 		}
 
 		this.setState({[name]: value})
-	}
+	};
+
+	switchPage = (e) => {
+		if(e) e.preventDefault();
+		this.setState(prevState => {
+			return { pageNo: prevState.pageNo + 1 };
+		});
+	};
+
+	onSubmit = (data) => {
+		const { history, errors } = this.props;
+
+		if (Object.keys(errors).length > 0) return;
+
+		this.setState({
+			formData: {
+				...this.state.formData,
+				...data
+			}
+		});
+
+		if (this.state.pageNo === 6) {
+			this.postDetails();
+			history.push('/Patient');
+			return;
+		};
+
+		this.switchPage();
+	};
 
 	renderComp = () => {
+		const { register, errors, currentUser } = this.props;
 		const { pageNo } = this.state;
+
+
 		switch (pageNo) {
 			case 1:
 				return (
 					<>
 						<em>First, tell us a few things about you</em>
-						{/* eslint-disable-next-line */}
-						<a href='#' onClick={this.switchPage}>
-							{" "}
-							Continue{" "}
-						</a>
+						<button className="eval-continue-btn" onClick={this.switchPage}>Continue</button>
 					</>
 				);
-
 			case 2:
 				return (
 					<>
@@ -95,52 +101,91 @@ class EvalContent extends Component {
 							type='text'
 							name='firstName'
 							placeholder='First Name'
-							value={this.state.firstName}
-							onChange={this.handleChange}
+							defaultValue={
+								currentUser.additionalUserInfo?.profile.given_name || ''
+							}
+							key="firstName"
+							ref={register({ required: true })}
 						/>
+						{errors.firstName && <span role="alert" className="alert-error">This field cannot be empty</span>}
+
 						<input
 							className='eval-last-name-input'
 							type='text'
 							name='lastName'
 							placeholder='Last Name'
-							value={this.state.lastName}
-							onChange={this.handleChange}
+							defaultValue={
+								currentUser.additionalUserInfo?.profile.family_name || ''
+							}
+							key="lastName"
+							ref={register({ required: true })}
 						/>
+						{errors.lastName && <span role="alert" className="alert-error">This field cannot be empty</span>}
+
 						<em> How old are you ? </em>
 						<input
 							className='eval-first-name-input'
 							type='number'
 							name='Age'
 							placeholder='Your Age'
-							value={this.state.age}
-							onChange={this.onAgeChange}
+							key='Age'
+							ref={register({
+								required: true,
+								min: 18
+							})}
 						/>
+						{
+							errors.Age
+							&& isNaN(errors.Age.ref.valueAsNumber)
+							&& <span role="alert" className="alert-error">This field cannot be empty</span>
+						}
+						{
+							errors.Age
+							&& typeof(errors.Age.ref.valueAsNumber) === 'number'
+							&& errors.Age.ref.valueAsNumber < 18
+							&& <span role="alert" className="alert-error">Must be at least 18 years to register</span>
+						}
+
 					</>
 				);
 			case 3:
-			return(<>
-				<em>Contact Info</em>
-				<input
-					className='eval-first-name-input'
-					type='text'
-					name='phone-number'
-					placeholder='Phone Number'
-					value={this.state.tel}
-					onChange={this.onTelChange}
-				/>
-				<input
-					className='eval-last-name-input'
-					type='text'
-					name='email'
-					placeholder='Email'
-					value={this.state.email}
-					onChange={this.onEmailChange}
-				/>
-			</>)
+				return(
+					<>
+						<em>Contact Info</em>
+						<input
+							className='eval-first-name-input'
+							type='text'
+							name='tel'
+							placeholder='Phone Number'
+							defaultValue={
+								currentUser.phoneNumber || ''
+							}
+							key="tel"
+							ref={register({
+								required: true,
+								validate: value => !isNaN(value)
+							})}
+						/>
+						{errors.tel && <span role="alert" className="alert-error">This field must contain a number</span>}
+
+						<input
+							className='eval-last-name-input'
+							type='text'
+							name='email'
+							placeholder='Email'
+							defaultValue={
+								currentUser.additionalUserInfo?.profile.email || ''
+							}
+							key="email"
+							ref={register({ required: true })}
+						/>
+							{errors.email && <span role="alert" className="alert-error">This field cannot be empty</span>}
+					</>
+				)
 			case 4:
 				return (
 					<div>
-						<em> In the last 14 days, have you traveled to any country? </em>
+						<em>In the last 14 days, have you traveled to any country? </em>
 						<div className='yes-no-btn'>
 							<button className='yes inactive' onClick={this.yesButtonClick}>
 								Yes
@@ -150,55 +195,63 @@ class EvalContent extends Component {
 							</button>
 						</div>
 
-						{this.state.yesBtnActive 
-						? (
+						{this.state.yesBtnActive &&
+							<>
 								<select
 									id='countries'
 									name='countryVisited'
-									value={this.state.countryVisited}
-									onChange={this.handleChange}
+									key={"phone_number"}
+									ref={register({
+										validate: value => value !== "select country"
+									})}
 								>
 									<option value="select country"  hidden defaultValue>
 										Select the country
 									</option>
 									{countryOptions}
 								</select>
-						  ) 
-						: null
-						}
+								{errors.countryVisited && <span role="alert" className="alert-error">A country has to be selected</span>}
+							</>
+							}
 					</div>
 				);
-
 			case 5:
 				return (
 					<>
 						<select
 							id='countries'
 							name='ownCountry'
-							value={this.state.ownCountry}
-							onChange={this.handleChange}
+							key={"ownCountry"}
+							ref={register({
+								validate: value => value !== "select country"
+							})}
 						>
-							<option value="select Country"  defaultValue hidden>
+							<option value="select country"  defaultValue hidden>
 									Select the country
 								</option>
 							{countryOptions}
 						</select>
+						{errors.ownCountry && <span role="alert" className="alert-error">A country has to be selected</span>}
+
 						<input
 							className='eval-state-input'
 							type='text'
 							name='state'
 							placeholder='State'
-							value={this.state.state}
-							onChange={this.handleChange}
+							key={"state"}
+							ref={register({ required: true })}
 						/>
+						{errors.state && <span role="alert" className="alert-error">This field cannot be empty</span>}
+
 						<input
 							className='eval-address-input'
 							type='text'
 							name='address'
 							placeholder='Address'
-							value={this.state.address}
-							onChange={this.handleChange}
+							key={"address"}
+							ref={register({ required: true })}
 						/>
+						{errors.address && <span role="alert" className="alert-error">This field cannot be empty</span>}
 					</>
 				);
 			case 6:
@@ -209,25 +262,25 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onChange={(e) => this.handleChange(e,'checkbox')}
+								onChange={(e) => this.handleChange(e, 'checkbox')}
 								name='isCoughChecked'
 								value='Cough'
 								id='cough'
+								ref={register}
 							/>
 							<label htmlFor='cough'>Cough</label>
-							{this.state.isCoughChecked 
+							{this.state.isCoughChecked
 								? (
 									<div className='rating'>
 										<em>On a scale of 1-10, how serious is it ?</em>
 										<select
 											name='coughRate'
-											value={this.state.coughRate}
-											onChange={this.handleChange}
+											ref={register}
 										>
 											{ratingOptions}
 										</select>
 									</div>
-									) 
+									)
 								: null
 								}
 						</div>
@@ -236,10 +289,11 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onChange={(e) => this.handleChange(e,'checkbox')}
+								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='fever'
 								name='isFeverChecked'
 								value='Fever'
+								ref={register}
 							/>
 							<label htmlFor='fever'>Fever</label>
 							{this.state.isFeverChecked ? (
@@ -247,9 +301,8 @@ class EvalContent extends Component {
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
 										name='feverRate'
-										value={this.state.feverRate}
-										onChange={this.handleChange}
 										id='rating'
+										ref={register}
 									>
 										{ratingOptions}
 									</select>
@@ -263,10 +316,11 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onChange={(e) => this.handleChange(e,'checkbox')}
+								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='fatigue'
 								name='isFatigueChecked'
 								value='Fatigue'
+								ref={register}
 							/>
 							<label htmlFor='fatigue'>Fatigue</label>
 							{this.state.isFatigueChecked ? (
@@ -274,9 +328,8 @@ class EvalContent extends Component {
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
 										name='fatigueRate'
-										value={this.state.fatigueRate}
-										onChange={this.handleChange}
 										id='rating'
+										ref={register}
 									>
 										{ratingOptions}
 									</select>
@@ -290,10 +343,11 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onChange={(e) => this.handleChange(e,'checkbox')}
+								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='respiratory'
 								name='isRespiratoryChecked'
 								value='Respiratory'
+								ref={register}
 							/>
 							<label htmlFor='respiratory'>Respiratory Problems</label>
 							{this.state.isRespiratoryChecked ? (
@@ -301,9 +355,8 @@ class EvalContent extends Component {
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
 										name='respRate'
-										value={this.state.respRate}
-										onChange={this.handleChange}
 										id='rating'
+										ref={register}
 									>
 										{ratingOptions}
 									</select>
@@ -317,28 +370,27 @@ class EvalContent extends Component {
 							<input
 								className='radio-btns'
 								type='checkbox'
-								onChange={(e) => this.handleChange(e,'checkbox')}
+								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='others'
 								name='isOthersChecked'
 								value='Others'
+								ref={register}
 							/>
 							<label htmlFor='others'>Others</label>
 							{this.state.isOthersChecked ? (
 								<div className='rating'>
 									<input
-										value={this.state.otherSymptoms}
-										onChange={this.handleChange}
 										className='eval-others-input'
 										type='text'
 										name='otherSymptoms'
 										placeholder='What symptom ?'
+										ref={register}
 									/>
 									<em>On a scale of 1-10, how serious is it ?</em>
 									<select
 										name='otherRate'
-										value={this.state.otherRate}
-										onChange={this.handleChange}
 										id='rating'
+										ref={register}
 									>
 										{ratingOptions}
 									</select>
@@ -378,139 +430,72 @@ class EvalContent extends Component {
 	displayContinueBtn = () => {
 		if (this.state.pageNo > 1 && this.state.pageNo < 6) {
 			return (
-				<>
-					{/* eslint-disable-next-line */}
-					<button
-						type='button'
-						className='eval-next-btn'
-						href='#'
-						onClick={this.switchPage}
-					>
-						Next
-					</button>
-				</>
+				<input
+					type='submit'
+					className='eval-next-btn'
+					value="Next"
+				/>
 			);
-
-		} else if(this.state.pageNo === 6){
-			return <>
-			{/* eslint-disable-next-line */}
-				<Link 
-				to='/Patient'
-				className='eval-next-btn'
-				onClick={this.postDetails}
-				>
-					Submit
-				</Link>
-		</>
+		} else if (this.state.pageNo === 6) {
+			return (
+				<input
+					type='submit'
+					className='eval-next-btn'
+					value="Submit"
+				/>
+			)
 		}
 	};
-	onFirstNameChange = e => {
-		this.setState({ firstName: e.target.value });
-	};
-	onLastNameChange = e => {
-		this.setState({ lastName: e.target.value });
-	};
-	onAgeChange = e =>{
-		this.setState({age:e.target.value})
-	}
-	onTelChange = e =>{
-		let num = null
-		num = e.target.value
-		!isNaN(parseInt(num[num.length -1])) ? this.setState({tel:e.target.value}):console.log()
-	}
-	onEmailChange = e =>{
-		this.setState({email:e.target.value})
-	}
-	handleSelectChange = e => {
-		this.setState({ visitedCountry: e.target.value });
-	};
-	handleOwnCountryChange = e => {
-		this.setState({ ownCountry: e.target.value });
-	};
-	handleStateChange = e => {
-		this.setState({ state: e.target.value });
-	};
-	handleAddressChange = e => {
-		this.setState({ address: e.target.value });
-	};
-	handlesymptomchange = e => {
-		this.setState({ otherSymptoms: e.target.value });
-	};
-	feverRate = e => {
-		this.setState({ feverRate: e.target.value });
-	};
-	coughRate = e => {
-		this.setState({ coughRate: e.target.value });
-	};
-	respRate = e => {
-		this.setState({ respRate: e.target.value });
-	};
-	fatigueRate = e => {
-		this.setState({ fatigueRate: e.target.value });
-	};
-	otherRate = e => {
-		this.setState({ otherRate: e.target.value });
-	};
 
-	 generateAccessToken = uid => {
-    let claims = {
-     "sub": "1234567890",
-     "iat": 1592737638,
-     "exp": 1592741238,
-     "uid": uid
-    };
-		let jwt = njwt.create(claims, "secret", "HS256");
-    let token = jwt.compact();
-    return token;
-};
-
- setAge = () => {
-	if(this.state.age){
-		const age = parseInt(this.state.age)
-		if (age===0) return 1
-		return age
+	setAge = () => {
+		if(this.state.formData.Age){
+			const age = parseInt(this.state.formData.Age)
+			if (age===0) return 1
+			return age
+		}
+		return 1
 	}
-	return 1
-}
-	
+
 	postDetails = async e => {
+		const { accessToken, currentUser } = this.props;
+
 		const addname = {
 			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
-			"firstName": this.state.firstName,
-			"lastName": this.state.lastName,
-			"signUpMethod":"Google-Account"
+			"firstName": this.state.formData.firstName,
+			"lastName": this.state.formData.lastName,
+			"signUpMethod": currentUser.additionalUserInfo?.providerId,
+			"access-token": accessToken
 		};
 		const add_profile={
-			"email":this.state.email,
-			"tel" : this.state.tel,
+			"email":this.state.formData.email,
+			"tel" : this.state.formData.tel,
 			"age": this.setAge(),
-			"state": this.state.state,
-			"address": this.state.address,
-			"country": this.state.ownCountry
+			"state": this.state.formData.state,
+			"address": this.state.formData.address,
+			"country": this.state.formData.ownCountry
 		}
 		const add_symptoms = [
-			// 
-			{"countryVisited": this.state.countryVisited,
-			"cough": this.state.isCoughChecked,
-			"fever": this.state.isFeverChecked,
-			"fatigue": this.state.isFatigueChecked,
-			"resp": this.state.isRespiratoryChecked,
-			"other": this.state.otherSymptoms},
-			{"otherDegree": this.state.otherRate,
-			"coughDegree": this.state.coughRate,
-			"feverDegree": this.state.feverRate,
-			"fatigueDegree": this.state.fatigueRate,
-			"respDegree": this.state.respRate}
+			//
+			{"countryVisited": this.state.formData.countryVisited,
+			"cough": this.state.formData.isCoughChecked,
+			"fever": this.state.formData.isFeverChecked,
+			"fatigue": this.state.formData.isFatigueChecked,
+			"resp": this.state.formData.isRespiratoryChecked,
+			"other": this.state.formData.otherSymptoms},
+			{"otherDegree": this.state.formData.otherRate,
+			"coughDegree": this.state.formData.coughRate,
+			"feverDegree": this.state.formData.feverRate,
+			"fatigueDegree": this.state.formData.fatigueRate,
+			"respDegree": this.state.formData.respRate}
 		];
 
-		
 
-		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname)
+		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname);
 
 		let uid = signUpResult.data.uid
 		console.log(uid)
 
-		const headers = {headers:{'access-token': this.generateAccessToken(uid)}}
+		const headers = {headers:{'access-token': accessToken}}
 
 		const updateReduxStore = {
 			...add_profile,
@@ -528,24 +513,51 @@ class EvalContent extends Component {
 			console.log(res);
 			console.log(res.data)
 		});
-		
 	};
 
 	render() {
+		const { handleSubmit, currentUser } = this.props;
+
+		if (currentUser === null) {
+			return <Redirect to="/signup" />;
+		}
+
 		return (
 			<div className='eval-content-container'>
-				<form>
+			{
+				<form onSubmit={handleSubmit(this.onSubmit)}>
 					{this.renderComp()}
 
 					{this.displayContinueBtn()}
 				</form>
+			}
 			</div>
 		);
 	}
 }
 
+
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+  accessToken: state.user.accessToken
+});
+
 const mapDispatchToProps = dispatch => ({
 	updateUserDetails: details => dispatch(updateUserDetails(details))
 })
 
-export default connect(null,mapDispatchToProps)(EvalContent);
+const withReactHookForm = (Component) => (props) => {
+	const { register, handleSubmit, errors, watch } = useForm();
+
+	return (
+		<Component
+			{...props}
+			register={register}
+			handleSubmit={handleSubmit}
+			errors={errors}
+			watch={watch}
+		/>
+	)
+}
+
+export default withReactHookForm(connect(mapStateToProps, mapDispatchToProps)(EvalContent));
