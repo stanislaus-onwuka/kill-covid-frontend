@@ -121,7 +121,7 @@ class Patient extends Component{
     };
   };
 
-  onLinkClick(page){
+  onLinkClick = (page) => {
     this.setState({page});
   }
 
@@ -138,6 +138,7 @@ class Patient extends Component{
             setUserGuides={this.props.setUserGuides}
             setCurrentUser={setCurrentUser}
             history={history}
+            changePage={this.onLinkClick}
           />
         )
       case 'info':
