@@ -41,6 +41,7 @@ const ProtectedRoute = ({
 
 class App extends React.Component {
   render() {
+    Notification.requestPermission()
     return (
       <div>
         <Switch>

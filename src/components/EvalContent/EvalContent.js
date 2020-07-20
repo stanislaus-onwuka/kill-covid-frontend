@@ -468,11 +468,12 @@ class EvalContent extends Component {
 			"age": this.setAge(),
 			"state": this.state.formData.state,
 			"address": this.state.formData.address,
-			"country": this.state.formData.ownCountry
+			"country": this.state.formData.ownCountry,
+			"countryVisited": this.state.formData.countryVisited
 		}
 		const add_symptoms = [
 			//
-			{"countryVisited": this.state.formData.countryVisited || '',
+			{
 			"cough": this.state.formData.isCoughChecked,
 			"fever": this.state.formData.isFeverChecked,
 			"fatigue": this.state.formData.isFatigueChecked,
