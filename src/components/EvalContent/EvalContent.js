@@ -296,14 +296,17 @@ class EvalContent extends Component {
 							<label htmlFor='fever'>Fever</label>
 							{this.state.isFeverChecked ? (
 								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
+									<em>How high is it (in &deg;C)?</em>
+									<input
+										className="fever-select"
 										name='feverRate'
 										id='rating'
-										ref={register}
-									>
-										{ratingOptions}
-									</select>
+										ref={
+											register({
+												validate: value => Number(value) > 0
+										})}
+										/>
+									{errors.feverRate && <span role="alert" className="alert-error">Temperature cannot be less than 0&deg;C</span> }
 								</div>
 							) : (
 								console.log()

@@ -72,7 +72,8 @@
   color: rgba(0,0,0,.6);
 }
 
-.eval-content-container select{
+.eval-content-container select,
+.eval-content-container .fever-select{
   display: block;
   margin: 1rem 0;
   width: 100%;
@@ -104,6 +105,10 @@ input:focus{
   top: -1rem;
   font-size: 0.95rem;
   color: #e92424;
+}
+
+.eval-content-container .rating .alert-error {
+  top: 0;
 }
 
 .login-input-box-container input::placeholder{
