@@ -22,7 +22,7 @@ const isLocalhost = Boolean(
 );
 
 export async function register(config) {
-  if (process.env.NODE_ENV==='production' && 'serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
@@ -39,12 +39,9 @@ export async function register(config) {
         
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
-        console.log('Registered')
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
-        let x = await navigator.serviceWorker.ready
 
-        console.log(x)
         navigator.serviceWorker.ready
         .then(() => {
           console.log(
@@ -65,7 +62,6 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
-      console.log('Registered')
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
