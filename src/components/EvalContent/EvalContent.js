@@ -462,6 +462,7 @@ class EvalContent extends Component {
 			"firstName": this.state.formData.firstName,
 			"lastName": this.state.formData.lastName,
 			"signUpMethod": currentUser.additionalUserInfo?.providerId || '',
+			"image_url": currentUser.additionalUserInfo?.profile?.image_url || '',
 		};
 		const add_profile={
 			"email":this.state.formData.email,
@@ -488,11 +489,10 @@ class EvalContent extends Component {
 		];
 		
 		const headers = {headers:{'access-token': accessToken}}
-
 		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname,headers);
 
 		let uid = signUpResult.data.uid
-		console.log(uid)
+		console.log(uid, "uid");
 
 		const updateReduxStore = {
 			...add_profile,
