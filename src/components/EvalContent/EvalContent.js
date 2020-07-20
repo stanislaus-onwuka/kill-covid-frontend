@@ -488,13 +488,13 @@ class EvalContent extends Component {
 			"fatigueDegree": this.state.formData.fatigueRate || '',
 			"respDegree": this.state.formData.respRate || ''}
 		];
+		
+		const headers = {headers:{'access-token': accessToken}}
 
-		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname);
+		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname,headers);
 
 		let uid = signUpResult.data.uid
 		console.log(uid)
-
-		const headers = {headers:{'access-token': accessToken}}
 
 		const updateReduxStore = {
 			...add_profile,
