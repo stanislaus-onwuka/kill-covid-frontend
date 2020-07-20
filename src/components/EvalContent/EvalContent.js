@@ -223,10 +223,10 @@ class EvalContent extends Component {
 							name='ownCountry'
 							key={"ownCountry"}
 							ref={register({
-								validate: value => value !== "select country"
+								validate: value => value !== "select your country"
 							})}
 						>
-							<option value="select country"  defaultValue hidden>
+							<option value="select your country"  defaultValue hidden>
 									Select the country
 								</option>
 							{countryOptions}
@@ -264,7 +264,6 @@ class EvalContent extends Component {
 								type='checkbox'
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								name='isCoughChecked'
-								value='Cough'
 								id='cough'
 								ref={register}
 							/>
@@ -292,7 +291,6 @@ class EvalContent extends Component {
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='fever'
 								name='isFeverChecked'
-								value='Fever'
 								ref={register}
 							/>
 							<label htmlFor='fever'>Fever</label>
@@ -319,7 +317,6 @@ class EvalContent extends Component {
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='fatigue'
 								name='isFatigueChecked'
-								value='Fatigue'
 								ref={register}
 							/>
 							<label htmlFor='fatigue'>Fatigue</label>
@@ -346,7 +343,6 @@ class EvalContent extends Component {
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='respiratory'
 								name='isRespiratoryChecked'
-								value='Respiratory'
 								ref={register}
 							/>
 							<label htmlFor='respiratory'>Respiratory Problems</label>
@@ -372,8 +368,8 @@ class EvalContent extends Component {
 								type='checkbox'
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='others'
+								defaultValue={false}
 								name='isOthersChecked'
-								value='Others'
 								ref={register}
 							/>
 							<label htmlFor='others'>Others</label>
@@ -463,7 +459,7 @@ class EvalContent extends Component {
 			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
 			"firstName": this.state.formData.firstName,
 			"lastName": this.state.formData.lastName,
-			"signUpMethod": currentUser.additionalUserInfo?.providerId,
+			"signUpMethod": currentUser.additionalUserInfo?.providerId || '',
 			"access-token": accessToken
 		};
 		const add_profile={
@@ -476,19 +472,18 @@ class EvalContent extends Component {
 		}
 		const add_symptoms = [
 			//
-			{"countryVisited": this.state.formData.countryVisited,
+			{"countryVisited": this.state.formData.countryVisited || '',
 			"cough": this.state.formData.isCoughChecked,
 			"fever": this.state.formData.isFeverChecked,
 			"fatigue": this.state.formData.isFatigueChecked,
 			"resp": this.state.formData.isRespiratoryChecked,
-			"other": this.state.formData.otherSymptoms},
-			{"otherDegree": this.state.formData.otherRate,
-			"coughDegree": this.state.formData.coughRate,
-			"feverDegree": this.state.formData.feverRate,
-			"fatigueDegree": this.state.formData.fatigueRate,
-			"respDegree": this.state.formData.respRate}
+			"other": this.state.formData.otherSymptoms || ''},
+			{"otherDegree": this.state.formData.otherRate || '',
+			"coughDegree": this.state.formData.coughRate || '',
+			"feverDegree": this.state.formData.feverRate || '',
+			"fatigueDegree": this.state.formData.fatigueRate || '',
+			"respDegree": this.state.formData.respRate || ''}
 		];
-
 
 		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname);
 
