@@ -56,8 +56,8 @@ class Patient extends Component{
       let response = await fetch(url, options);
 
       if (response.status === 404) {
-        history.push('/');
-        return;
+        this.setState({ fetchFail: true });
+        return -1;
       };
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -180,7 +180,12 @@ class Patient extends Component{
   }
 
   componentDidMount() {
-    this.loadUser();
+    const { currentUser, history } = this.props;
+  
+    this.loadUser()
+      .then(result => {
+        if (result === -1 && !currentUser.guides) history.push('/');
+      })
   }
 
   render(){
@@ -196,8 +201,8 @@ class Patient extends Component{
 
     return(
         <div className="patient-container">
-          { fetchFail && !currentUser.guides
-            ? <LoadingError />
+          {fetchFail && !currentUser.guides
+          ? <LoadingError />
             : !currentUser.guides
               ? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div> 
               : <>

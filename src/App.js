@@ -21,12 +21,13 @@ const ProtectedRoute = ({
   setRedirectUrl,
   component: Comp,
   auth,
+  accessToken,
   exact,
   to,
   children,
   ...props
 }) => {
-  if (auth) {
+  if (accessToken) {
     return (
       <Route
         component={(otherProps) => <Comp {...props} {...otherProps} />}
@@ -53,36 +54,43 @@ class App extends React.Component {
           <Route path="/Login" component={Login} />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/Eval"
             component={Evaluation}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/Patient"
             component={Patient}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/Patient-details"
             component={PatientDetails}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/doctor/login"
             component={DoctorLandingPage}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/doctor/signup"
             component={DoctorSignUpPage}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/doctor/home"
             component={DoctorHome}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/add-prescription"
             component={AddPrescription}
           />
@@ -96,6 +104,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
+    accessToken: state.user.accessToken
   };
 };
 
