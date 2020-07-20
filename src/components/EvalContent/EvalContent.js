@@ -27,7 +27,7 @@ class EvalContent extends Component {
 		super(props);
 		this.state = {
 			yesBtnActive: false,
-			pageNo: 1,
+			pageNo: 6,
 			isCoughChecked: false,
 			isFeverChecked: false,
 			isFatigueChecked: false,

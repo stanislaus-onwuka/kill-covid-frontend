@@ -51,11 +51,14 @@ class signup extends React.Component {
                 value={phoneNumber}
                 placeholder="Phone Number"
               />
-              <input
-                type="submit"
-                value="Sign Up"
-                className="signup-submit"
-              />
+              { // till firebase authentication with phone number works
+                false &&        
+                  <input
+                  type="submit"
+                  value="Sign Up"
+                  className="signup-submit"
+                />
+              } 
             </form>
             <ExtraLogin
               authWithGoogle={authWithGoogle}
