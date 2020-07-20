@@ -27,7 +27,7 @@ class EvalContent extends Component {
 		super(props);
 		this.state = {
 			yesBtnActive: false,
-			pageNo: 6,
+			pageNo: 1,
 			isCoughChecked: false,
 			isFeverChecked: false,
 			isFatigueChecked: false,
@@ -459,11 +459,9 @@ class EvalContent extends Component {
 		const { accessToken, currentUser } = this.props;
 
 		const addname = {
-			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
 			"firstName": this.state.formData.firstName,
 			"lastName": this.state.formData.lastName,
 			"signUpMethod": currentUser.additionalUserInfo?.providerId || '',
-			"access-token": accessToken
 		};
 		const add_profile={
 			"email":this.state.formData.email,
@@ -472,7 +470,7 @@ class EvalContent extends Component {
 			"state": this.state.formData.state,
 			"address": this.state.formData.address,
 			"country": this.state.formData.ownCountry,
-			"countryVisited": this.state.formData.countryVisited
+			"countryVisited": this.state.formData.countryVisited || ''
 		}
 		const add_symptoms = [
 			//
