@@ -25,7 +25,9 @@
   text-decoration: underline;
 }
 .patient-home-profile img{
-  width: 3rem;
+  width: 100%;
+  max-width: 52px;
+  max-height: 52px;
   border-radius: 50%;
 }
 .patient-home-profile em{

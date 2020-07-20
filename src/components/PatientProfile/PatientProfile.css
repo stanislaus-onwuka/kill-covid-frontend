@@ -27,9 +27,10 @@
   position: relative;
 }
 .patient-profile-container .patient-info .patient-profile-picture{
-  width: 30%;
+  width: 100%;
   min-width: 100px;
-  max-width:220px;
+  max-width: 129px;
+  max-height: 131px;
   margin: 0 auto;
   display: block;
   padding: .1rem;

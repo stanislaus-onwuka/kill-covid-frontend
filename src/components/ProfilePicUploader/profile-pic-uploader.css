@@ -7,8 +7,8 @@
     position: fixed;
     flex-direction: column;
     top: 15%;
-    left: 10%;
-    right: 10%;
+    left: 15%;
+    right: 15%;
     z-index: 6;
     padding: 1rem 2rem;
     background-color: #fff;
@@ -26,6 +26,10 @@
         max-width: 350px;
         min-width: 270px;
     }
+}
+
+.profile-pic-uploader-main h3{
+    padding: 0.5rem 0;
 }
 
 .profile-pic-uploader-main form{
@@ -58,8 +62,9 @@
 
 .image-div img{
     width: 100%;
-    max-width: 230px;
-    max-height: 230px;
+    max-width: 147px;
+    max-height: 179px;
+    margin: 0 auto;
 }
 
 .invisible-picture{
@@ -67,7 +72,7 @@
 }
 
 .visible-picture{
-    display: block;
+    display: flex;
 }
 
 .invisible-uploader{

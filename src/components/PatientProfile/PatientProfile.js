@@ -89,14 +89,14 @@ class PatientProfile extends Component {
 	};
 
 	setDisplay() {
-		const { currentUser, updateImageUrl} = this.props;
+		const { updateImageUrl, imageUrl} = this.props;
 
 		if (this.state.page === "home") {
 			return (
 				<div className='patient-profile-container'>
 					<h1>My Account</h1>
 					<div className='patient-info'>
-						<img src={userImage} alt='patient' className="patient-profile-picture"/>
+						<img src={imageUrl || userImage} alt='patient' className="patient-profile-picture"/>
 						<em>{this.props.firstName + " " + this.props.lastName}</em>
 						<button className="upload-profile-picture-btn" onClick={this.showUploader}>
 							<img src={require('../../assets/svg/camera.svg')} alt="Upload a profile"/>
@@ -105,8 +105,8 @@ class PatientProfile extends Component {
 					<ProfilePicUploader
 						showUploader={this.showUploader}
 						openUploader = {this.state.openUploader}
-						currentUser={currentUser}
-						setImageUrl={updateImageUrl}
+						imageUrl={imageUrl}
+						updateImageUrl={updateImageUrl}
 					/>
 					<div className='quarantine'>
 						<div className='objective'>
