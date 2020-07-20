@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import njwt from 'njwt';
 import { connect } from 'react-redux';
 import { updateImageUrl } from './../../redux/user/user.actions';
 import userImage from "./../../assets/prof.png";
@@ -40,6 +39,8 @@ class PatientProfile extends Component {
 	}
 
 	onButtonClick(page) {
+		const { accessToken } = this.props;
+
 		this.setState({ page }, () => {
 			console.log(this.state.page);
 		});
@@ -65,25 +66,13 @@ class PatientProfile extends Component {
 		console.log(symptoms)
 		if (page === "home") {
 			console.log(symptoms);
-			const token= this.generateAccessToken(userId)
+			const token= accessToken;
 			axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',
 			symptoms,{headers:{'access-token':token}})
 			.then(res=>{console.log(res.data)})
 			.catch(err=>console.log(err))
 		}
 	}
-
-	generateAccessToken = uid => {
-		let claims = {
-		 "sub": "1234567890",
-		 "iat": 1592737638,
-		 "exp": 1592741238,
-		 "uid": uid
-		};
-		let jwt = njwt.create(claims, "secret", "HS256");
-		let token = jwt.compact();
-		return token;
-	};
 
 	handleRateChange = e => {
 		const { name,value } = e.target
@@ -100,7 +89,7 @@ class PatientProfile extends Component {
 	};
 
 	setDisplay() {
-		const { currentUser, setImageUrl} = this.props;
+		const { currentUser, updateImageUrl, accessToken } = this.props;
 
 		if (this.state.page === "home") {
 			return (
@@ -117,7 +106,8 @@ class PatientProfile extends Component {
 						showUploader={this.showUploader}
 						openUploader = {this.state.openUploader}
 						currentUser={currentUser}
-						setImageUrl={setImageUrl}
+						updateImageUrl={updateImageUrl}
+						accessToken={accessToken}
 					/>
 					<div className='quarantine'>
 						<div className='objective'>
@@ -325,6 +315,7 @@ class PatientProfile extends Component {
 const mapStateToProps = state => ({
 	currentUser: state.user.currentUser,
 	userId: state.user.currentUser.user_id,
+	accessToken: state.user.accessToken,
 })
 const mapDispatchToProps = dispatch => ({
 	updateImageUrl: (imageUrl) => dispatch(updateImageUrl(imageUrl))
