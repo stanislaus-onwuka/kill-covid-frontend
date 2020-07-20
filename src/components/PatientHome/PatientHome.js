@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import profilePic from './../../assets/prof.png';
+import profilePic from './../../assets/user.svg';
 import temperature from './../../assets/svg/temperature.svg';
 import happy from './../../assets/svg/happy.svg';
 import alert from './../../assets/svg/alert.svg';

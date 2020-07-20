@@ -226,7 +226,7 @@ class EvalContent extends Component {
 								validate: value => value !== "select country"
 							})}
 						>
-							<option value="select country"  defaultValue hidden>
+							<option value="select home country"  defaultValue hidden>
 									Select the country
 								</option>
 							{countryOptions}

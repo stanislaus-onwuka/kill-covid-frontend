@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { updateImageUrl } from './../../redux/user/user.actions';
-import userImage from "./../../assets/prof.png";
+import userImage from "./../../assets/user.svg";
 import backIcon from "./../../assets/svg/arrow-left.svg";
 import ActivitySchedule from "../ActivitySchedule/ActivitySchedule";
 import ProfilePicUploader from "../ProfilePicUploader/profile-pic-uploader";
