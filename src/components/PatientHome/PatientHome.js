@@ -29,7 +29,8 @@ class PatientHome extends Component {
   }
 
   setDisplay(){
-    const { med_state } = this.props
+    const { med_state, changePage, temp } = this.props
+    
     if(this.state.page==='home'){
       return(
         <>
@@ -38,7 +39,7 @@ class PatientHome extends Component {
             <em> Welcome {this.props.firstName},</em>
             <div className="patient-home-image__wrapper">
               <span onClick={this.logUserOut} className="logout-span">Logout</span>
-              <img src={profilePic} alt="patient"></img>
+              <img onClick={() => changePage('profile')} src={profilePic} alt="patient"></img>
             </div>
           </div>
           <section className="patient-home-records-container">
@@ -47,7 +48,7 @@ class PatientHome extends Component {
               <div className="patient-home-body-temp">
               <img src={temperature} alt="temperature-icon"></img>
               <span className='text'>Body Temperature</span>
-              <span className='temp'>37.7&deg;</span>
+              <span className='temp'>{`${temp || '____'}`}&deg;</span>
               </div>
               {
                 med_state === 'Mild'

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import axios from "axios";
@@ -59,7 +59,7 @@ class EvalContent extends Component {
 	};
 
 	onSubmit = (data) => {
-		const { errors } = this.props;
+		const { history, errors } = this.props;
 
 		if (Object.keys(errors).length > 0) return;
 
@@ -69,6 +69,13 @@ class EvalContent extends Component {
 				...data
 			}
 		});
+
+		if (this.state.pageNo === 6) {
+			this.postDetails();
+			history.push('/Patient');
+			return;
+		};
+
 		this.switchPage();
 	};
 
@@ -431,13 +438,11 @@ class EvalContent extends Component {
 			);
 		} else if (this.state.pageNo === 6) {
 			return (
-				<Link
-				to='/Patient'
-				className='eval-next-btn'
-				onClick={this.postDetails}
-				>
-					Submit
-				</Link>
+				<input
+					type='submit'
+					className='eval-next-btn'
+					value="Submit"
+				/>
 			)
 		}
 	};
@@ -458,7 +463,7 @@ class EvalContent extends Component {
 			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
 			"firstName": this.state.formData.firstName,
 			"lastName": this.state.formData.lastName,
-			"signUpMethod": currentUser.additionalUserInfo.providerId,
+			"signUpMethod": currentUser.additionalUserInfo?.providerId,
 			"access-token": accessToken
 		};
 		const add_profile={
