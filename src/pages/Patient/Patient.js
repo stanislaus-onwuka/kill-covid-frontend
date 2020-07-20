@@ -197,7 +197,7 @@ class Patient extends Component{
           { fetchFail && !currentUser.guides
             ? <LoadingError />
             : !currentUser.guides
-              ? <h1 className="loading">loading...</h1>
+              ? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div> 
               : <>
                   {this.setContent()}
                   <div className="spacing"></div>

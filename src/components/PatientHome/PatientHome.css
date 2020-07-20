@@ -13,14 +13,16 @@
 }
 .patient-home-profile .patient-home-image__wrapper {
   display: flex;
-  justify-content: ;
   align-items: center;
   min-width: 8rem;
   justify-content: space-between;
 }
 .patient-home-image__wrapper .logout-span {
-  text-decoration: underline;
+  cursor: pointer;
   color: #a8a4a4;
+}
+.patient-home-image__wrapper .logout-span:hover{
+  text-decoration: underline;
 }
 .patient-home-profile img{
   width: 3rem;
