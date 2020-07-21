@@ -522,7 +522,7 @@ class EvalContent extends Component {
 			.catch(err => {
 				// this.setState({ isSigningUp: false });
 				console.log("error signing user up");
-			})
+			});
 	};
 
 	render() {
