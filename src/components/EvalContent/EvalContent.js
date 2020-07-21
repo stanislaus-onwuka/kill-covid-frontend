@@ -26,6 +26,7 @@ class EvalContent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			isSigningUp: false,
 			yesBtnActive: false,
 			pageNo: 1,
 			isCoughChecked: false,
@@ -59,7 +60,7 @@ class EvalContent extends Component {
 	};
 
 	onSubmit = (data) => {
-		const { history, errors } = this.props;
+		const { errors } = this.props;
 
 		if (Object.keys(errors).length > 0) return;
 
@@ -71,8 +72,8 @@ class EvalContent extends Component {
 		});
 
 		if (this.state.pageNo === 6) {
+			this.setState({ isSigningUp: true });
 			this.postDetails();
-			history.push('/Patient');
 			return;
 		};
 
@@ -184,6 +185,45 @@ class EvalContent extends Component {
 				)
 			case 4:
 				return (
+					<>
+						<select
+							id='countries'
+							name='ownCountry'
+							key={"ownCountry"}
+							ref={register({
+								validate: value => value !== "Select home country"
+							})}
+						>
+							<option value="Select home country"  defaultValue hidden>
+								Select home country
+							</option>
+							{countryOptions}
+						</select>
+						{errors.ownCountry && <span role="alert" className="alert-error">A country has to be selected</span>}
+
+						<input
+							className='eval-state-input'
+							type='text'
+							name='state'
+							placeholder='State'
+							key={"state"}
+							ref={register({ required: true })}
+						/>
+						{errors.state && <span role="alert" className="alert-error">This field cannot be empty</span>}
+
+						<input
+							className='eval-address-input'
+							type='text'
+							name='address'
+							placeholder='Address'
+							key={"address"}
+							ref={register({ required: true })}
+						/>
+						{errors.address && <span role="alert" className="alert-error">This field cannot be empty</span>}
+					</>
+				);
+			case 5:
+				return (
 					<div>
 						<em>In the last 14 days, have you traveled to any country? </em>
 						<div className='yes-no-btn'>
@@ -214,45 +254,6 @@ class EvalContent extends Component {
 							</>
 							}
 					</div>
-				);
-			case 5:
-				return (
-					<>
-						<select
-							id='countries'
-							name='ownCountry'
-							key={"ownCountry"}
-							ref={register({
-								validate: value => value !== "select your country"
-							})}
-						>
-							<option value="select your country"  defaultValue hidden>
-									Select the country
-								</option>
-							{countryOptions}
-						</select>
-						{errors.ownCountry && <span role="alert" className="alert-error">A country has to be selected</span>}
-
-						<input
-							className='eval-state-input'
-							type='text'
-							name='state'
-							placeholder='State'
-							key={"state"}
-							ref={register({ required: true })}
-						/>
-						{errors.state && <span role="alert" className="alert-error">This field cannot be empty</span>}
-
-						<input
-							className='eval-address-input'
-							type='text'
-							name='address'
-							placeholder='Address'
-							key={"address"}
-							ref={register({ required: true })}
-						/>
-						{errors.address && <span role="alert" className="alert-error">This field cannot be empty</span>}
-					</>
 				);
 			case 6:
 				return (
@@ -456,7 +457,7 @@ class EvalContent extends Component {
 	}
 
 	postDetails = async e => {
-		const { accessToken, currentUser } = this.props;
+		const { accessToken, currentUser, history } = this.props;
 
 		const addname = {
 			"firstName": this.state.formData.firstName,
@@ -501,15 +502,25 @@ class EvalContent extends Component {
 		}
 		this.props.updateUserDetails(updateReduxStore);
 
-		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,headers).then(res=>{
-			console.log(res)
-			console.log(res.data)
-		})
-
-		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers).then(res => {
-			console.log(res);
-			console.log(res.data)
-		});
+		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,headers)
+			.then(res=>{
+				console.log(res)
+				console.log(res.data)
+	
+				axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers)
+					.then(res => {
+						console.log(res);
+						console.log(res.data)
+						
+						history.push('/Patient');
+					})
+					.catch(err => {
+						console.log("error adding user profile");
+					});
+			})
+			.catch(err => {
+				console.log("error signing user up");
+			})
 	};
 
 	render() {
@@ -521,13 +532,15 @@ class EvalContent extends Component {
 
 		return (
 			<div className='eval-content-container'>
-			{
+				{this.state.isSigningUp
+				? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div> 
+				:
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					{this.renderComp()}
 
 					{this.displayContinueBtn()}
 				</form>
-			}
+				}
 			</div>
 		);
 	}

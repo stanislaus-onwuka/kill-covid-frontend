@@ -54,6 +54,7 @@ class Patient extends Component{
 
     try {
       let response = await fetch(url, options);
+      console.log("request sent");
 
       if (response.status === 404) {
         this.setState({ fetchFail: true });

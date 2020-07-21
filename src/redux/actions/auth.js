@@ -30,7 +30,8 @@ export const authWithGoogle = (history) => (dispatch) => {
           type: actionTypes.SIGNED_IN_WITH_SOCIAL,
           payload,
         });
-        history.push('/Patient');
+        history.push('/Eval');
+        // history.push('/Patient');
       }
     })
     .catch((err) => {
