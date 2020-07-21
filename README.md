@@ -1,68 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##Kill Coveed
 
-## Available Scripts
+Kill-Coveed is a remote health guide that helps patients (who can be classified as patients with mild symptoms of the Covid19 infection) in their self-isolation routine.
 
-In the project directory, you can run:
+Who can use Coveed
+✅ tested patients (with minimal symptoms) who wish to self isolate
 
-### `npm start`
+✅ People who suspect that they have been infected, and are experiencing mild symptoms
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+How it Works
+✅ A user signs up and he gets to add his symptoms on a daily basis to the app, and the app records that data over the space of two weeks.
+✅ The data is then sent to a review staging area.where a certified medical practioner (MP) can review the progress of the patient based on his/her medical history. The MP can recommend that the patient stays on the app for an extra two weeks in isolation or schedule a test for the patient , and can as well flag a patient for emergency.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+✅ While a patient is on the app the patient can willingly contact emergency, and will consent to having his location revealed to health agencies, and be picked up to a proper isolation center if he observes that he's unstable.
 
-### `npm test`
+Benefits of Coveed
+✅ It eases the tension on the medical system , since lots of cases can be addressed remotely
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+✅ lowers the chances of  front-liners in this war against Covid19 - getting infected 
 
-### `npm run build`
+✅ More cases can be brought under the radar, lots of people here in Nigeria , are either afraid to go for tests or ignorant, with this we can keep an eye on them.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Live test
+https://kill-coveed-test.netlify.app
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
