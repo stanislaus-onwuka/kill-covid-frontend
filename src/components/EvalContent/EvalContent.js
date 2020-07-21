@@ -72,7 +72,7 @@ class EvalContent extends Component {
 		});
 
 		if (this.state.pageNo === 6) {
-			this.setState({ isSigningUp: true });
+			// this.setState({ isSigningUp: true });
 			this.postDetails();
 			return;
 		};
@@ -515,10 +515,12 @@ class EvalContent extends Component {
 						history.push('/Patient');
 					})
 					.catch(err => {
+						// this.setState({ isSigningUp: false });
 						console.log("error adding user profile");
 					});
 			})
 			.catch(err => {
+				// this.setState({ isSigningUp: false });
 				console.log("error signing user up");
 			})
 	};
