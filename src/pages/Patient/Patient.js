@@ -136,6 +136,7 @@ class Patient extends Component{
             firstName={currentUser.first_name}
             guides={currentUser.guides}
             med_state={currentUser.med_state}
+            imageUrl={currentUser.imageUrl}
             setUserGuides={this.props.setUserGuides}
             setCurrentUser={setCurrentUser}
             history={history}
@@ -150,6 +151,7 @@ class Patient extends Component{
               firstName={currentUser.first_name}
               lastName={currentUser.last_name}
               guides={currentUser.guides}
+              imageUrl={currentUser.imageUrl}
               setUserGuides={this.props.setUserGuides}
           />
         )

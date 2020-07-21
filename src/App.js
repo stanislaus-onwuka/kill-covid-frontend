@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
+
+import { updateImageUrl } from './redux/user/user.actions.js';
+
 import Login from "./pages/login/login";
 import Signup from "./pages/signup/sign-up.js";
 import Evaluation from "./pages/Evaluation/Evaluation.js";
@@ -41,7 +44,9 @@ const ProtectedRoute = ({
 
 
 class App extends React.Component {
+  
   render() {
+    console.log(this.props.updateImageUrl, "updateImageUrl");
     Notification.requestPermission()
     return (
       <div>
@@ -103,4 +108,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  updateImageUrl: (imageUrl) => dispatch(updateImageUrl(imageUrl)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

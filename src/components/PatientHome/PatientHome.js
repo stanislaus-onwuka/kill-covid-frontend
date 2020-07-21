@@ -29,7 +29,7 @@ class PatientHome extends Component {
   }
 
   setDisplay(){
-    const { med_state, changePage, temp } = this.props
+    const { med_state, changePage, temp, imageUrl } = this.props
     
     if(this.state.page==='home'){
       return(
@@ -39,7 +39,7 @@ class PatientHome extends Component {
             <em> Welcome {this.props.firstName},</em>
             <div className="patient-home-image__wrapper">
               <span onClick={this.logUserOut} className="logout-span">Logout</span>
-              <img onClick={() => changePage('profile')} src={profilePic} alt="patient"></img>
+              <img onClick={() => changePage('profile')} src={imageUrl || profilePic} alt="patient"></img>
             </div>
           </div>
           <section className="patient-home-records-container">

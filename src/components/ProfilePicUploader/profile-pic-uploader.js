@@ -1,14 +1,15 @@
 import React, { useRef } from "react";
+import user from '../../assets/user.svg';
 import "./profile-pic-uploader.css";
 
 const ProfilePicUploader=(props)=> {
   const {
-    currentUser: {
-      imageUrl
-    },
+    imageUrl,
     updateImageUrl,
     accessToken
   } = props;
+
+  console.log(imageUrl, 'imageUrl');
 
   // const [imageUrl, setImageUrl] = useState("");
   const inputFile = useRef(null);
@@ -54,9 +55,9 @@ const ProfilePicUploader=(props)=> {
   return (
     <div className={`profile-pic-uploader ${props.openUploader ? "visible-uploader":"invisible-uploader" }`}>
         <div className="profile-pic-uploader-main">
-            <h2>Upload Profile Picture</h2>
-            <div className={`image-div ${!imageUrl ? "invisible-picture" : "visible-picture" }`}>
-                <img src={imageUrl} alt="Profile"/>
+            <h3>Upload Profile Picture</h3>
+            <div className={`image-div ${ !uploadImage ? "invisible-picture" : "visible-picture" }`}>
+                <img src={imageUrl || user} alt="Profile"/>
             </div>
             <form onSubmit={uploadImage}>
                 <input ref={inputFile} type="file" accept="image/*" multiple={false}/>
