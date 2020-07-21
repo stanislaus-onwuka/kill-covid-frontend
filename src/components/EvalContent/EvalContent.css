@@ -72,7 +72,8 @@
   color: rgba(0,0,0,.6);
 }
 
-.eval-content-container select{
+.eval-content-container select,
+.eval-content-container .fever-select{
   display: block;
   margin: 1rem 0;
   width: 100%;
@@ -106,6 +107,10 @@ input:focus{
   color: #e92424;
 }
 
+.eval-content-container .rating .alert-error {
+  top: 0;
+}
+
 .login-input-box-container input::placeholder{
   color: #a69fae;
 }
@@ -121,6 +126,29 @@ input:focus{
   margin-top:.7em;
   border-radius:.7em;
 }
+.eval-next-btn:active {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
 .eval-content-container .radio-btns{
   margin: 1rem;
   display: inline;
@@ -149,4 +177,12 @@ input:focus{
 .next-but{
   background: none;
   border: none;
+}
+.loading{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center; 
+  width: 100%;
+  height: 100%;
 }

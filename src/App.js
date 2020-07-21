@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
+
+import { updateImageUrl } from './redux/user/user.actions.js';
+
 import Login from "./pages/login/login";
 import Signup from "./pages/signup/sign-up.js";
 import Evaluation from "./pages/Evaluation/Evaluation.js";
@@ -18,12 +21,13 @@ const ProtectedRoute = ({
   setRedirectUrl,
   component: Comp,
   auth,
+  accessToken,
   exact,
   to,
   children,
   ...props
 }) => {
-  if (auth) {
+  if (accessToken) {
     return (
       <Route
         component={(otherProps) => <Comp {...props} {...otherProps} />}
@@ -40,44 +44,55 @@ const ProtectedRoute = ({
 
 
 class App extends React.Component {
+  
   render() {
-    Notification.requestPermission()
+    console.log(this.props.updateImageUrl, "updateImageUrl");
+    if(typeof Notification.requestPermissionm === 'function' ){
+      Notification.requestPermission()
+    }
     return (
       <div>
         <Switch>
           <Route path="/Login" component={Login} />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/Eval"
             component={Evaluation}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/Patient"
             component={Patient}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/Patient-details"
             component={PatientDetails}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/doctor/login"
             component={DoctorLandingPage}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/doctor/signup"
             component={DoctorSignUpPage}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/doctor/home"
             component={DoctorHome}
           />
           <ProtectedRoute
             auth={this.props.user}
+            accessToken={this.props.accessToken}
             path="/add-prescription"
             component={AddPrescription}
           />
@@ -91,7 +106,12 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
+    accessToken: state.user.accessToken
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  updateImageUrl: (imageUrl) => dispatch(updateImageUrl(imageUrl)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

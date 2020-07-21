@@ -7,7 +7,7 @@ import PatientDetailsGraph from '../../components/PatientDetailsGraph/PatientDet
 import { setCurrentPatient } from './../../redux/doctor/doctor.actions';
 
 import './PatientDetails.css';
-import profilePic from "../../assets/prof.png";
+import profilePic from "../../assets/user.svg";
 import editIcon from './../../assets/svg/edit.svg';
 import PatientHistory from "../../components/patientHistory/patientHistory";
 import Prescription from "../../components/prescription/prescription";

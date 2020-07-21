@@ -1,8 +1,15 @@
 import React, { useRef } from "react";
+import user from '../../assets/user.svg';
 import "./profile-pic-uploader.css";
 
 const ProfilePicUploader=(props)=> {
-  const { currentUser: { imageUrl }, setImageUrl } = props;
+  const {
+    imageUrl,
+    updateImageUrl,
+    accessToken
+  } = props;
+
+  console.log(imageUrl, 'imageUrl');
 
   // const [imageUrl, setImageUrl] = useState("");
   const inputFile = useRef(null);
@@ -24,19 +31,33 @@ const ProfilePicUploader=(props)=> {
     fetch(url, options)
       .then(res => res.json())
       .then(data => {
-        setImageUrl(data.secure_url);
+        updateImageUrl(data.secure_url);
         console.log(formData)
-        console.log(data.secure_url);
       })
       .catch(console.error);
+
+    updateProfile();
   };
+
+  const updateProfile =()=>{
+    fetch('https://fast-hamlet-28566.herokuapp.com/api/user_image', {
+      method: 'PUT',
+      headers: {
+        'access-token': accessToken
+      },
+      body: JSON.stringify({
+        image_url:imageUrl
+      })
+    })
+  }
+  
 
   return (
     <div className={`profile-pic-uploader ${props.openUploader ? "visible-uploader":"invisible-uploader" }`}>
         <div className="profile-pic-uploader-main">
-            <h2>Upload Profile Picture</h2>
-            <div className={`image-div ${!imageUrl ? "invisible-picture" : "visible-picture" }`}>
-                <img src={imageUrl} alt="Profile"/>
+            <h3>Upload Profile Picture</h3>
+            <div className={`image-div ${ !uploadImage ? "invisible-picture" : "visible-picture" }`}>
+                <img src={imageUrl || user} alt="Profile"/>
             </div>
             <form onSubmit={uploadImage}>
                 <input ref={inputFile} type="file" accept="image/*" multiple={false}/>

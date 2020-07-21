@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import njwt from 'njwt';
 import { connect } from 'react-redux';
 import { updateImageUrl } from './../../redux/user/user.actions';
-import userImage from "./../../assets/prof.png";
+import userImage from "./../../assets/user.svg";
 import backIcon from "./../../assets/svg/arrow-left.svg";
 import ActivitySchedule from "../ActivitySchedule/ActivitySchedule";
 import ProfilePicUploader from "../ProfilePicUploader/profile-pic-uploader";
@@ -40,6 +39,8 @@ class PatientProfile extends Component {
 	}
 
 	onButtonClick(page) {
+		const { accessToken } = this.props;
+
 		this.setState({ page }, () => {
 			console.log(this.state.page);
 		});
@@ -65,25 +66,13 @@ class PatientProfile extends Component {
 		console.log(symptoms)
 		if (page === "home") {
 			console.log(symptoms);
-			const token= this.generateAccessToken(userId)
+			const token= accessToken;
 			axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',
 			symptoms,{headers:{'access-token':token}})
 			.then(res=>{console.log(res.data)})
 			.catch(err=>console.log(err))
 		}
 	}
-
-	generateAccessToken = uid => {
-		let claims = {
-		 "sub": "1234567890",
-		 "iat": 1592737638,
-		 "exp": 1592741238,
-		 "uid": uid
-		};
-		let jwt = njwt.create(claims, "secret", "HS256");
-		let token = jwt.compact();
-		return token;
-	};
 
 	handleRateChange = e => {
 		const { name,value } = e.target
@@ -100,14 +89,14 @@ class PatientProfile extends Component {
 	};
 
 	setDisplay() {
-		const { currentUser, updateImageUrl} = this.props;
+		const { updateImageUrl, imageUrl} = this.props;
 
 		if (this.state.page === "home") {
 			return (
 				<div className='patient-profile-container'>
 					<h1>My Account</h1>
 					<div className='patient-info'>
-						<img src={userImage} alt='patient' className="patient-profile-picture"/>
+						<img src={imageUrl || userImage} alt='patient' className="patient-profile-picture"/>
 						<em>{this.props.firstName + " " + this.props.lastName}</em>
 						<button className="upload-profile-picture-btn" onClick={this.showUploader}>
 							<img src={require('../../assets/svg/camera.svg')} alt="Upload a profile"/>
@@ -116,8 +105,8 @@ class PatientProfile extends Component {
 					<ProfilePicUploader
 						showUploader={this.showUploader}
 						openUploader = {this.state.openUploader}
-						currentUser={currentUser}
-						setImageUrl={updateImageUrl}
+						imageUrl={imageUrl}
+						updateImageUrl={updateImageUrl}
 					/>
 					<div className='quarantine'>
 						<div className='objective'>
@@ -325,6 +314,7 @@ class PatientProfile extends Component {
 const mapStateToProps = state => ({
 	currentUser: state.user.currentUser,
 	userId: state.user.currentUser.user_id,
+	accessToken: state.user.accessToken,
 })
 const mapDispatchToProps = dispatch => ({
 	updateImageUrl: (imageUrl) => dispatch(updateImageUrl(imageUrl))

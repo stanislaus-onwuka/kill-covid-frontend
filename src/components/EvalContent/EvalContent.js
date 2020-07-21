@@ -26,6 +26,7 @@ class EvalContent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			isSigningUp: false,
 			yesBtnActive: false,
 			pageNo: 1,
 			isCoughChecked: false,
@@ -59,7 +60,7 @@ class EvalContent extends Component {
 	};
 
 	onSubmit = (data) => {
-		const { history, errors } = this.props;
+		const { errors } = this.props;
 
 		if (Object.keys(errors).length > 0) return;
 
@@ -71,8 +72,8 @@ class EvalContent extends Component {
 		});
 
 		if (this.state.pageNo === 6) {
+			// this.setState({ isSigningUp: true });
 			this.postDetails();
-			history.push('/Patient');
 			return;
 		};
 
@@ -184,6 +185,45 @@ class EvalContent extends Component {
 				)
 			case 4:
 				return (
+					<>
+						<select
+							id='countries'
+							name='ownCountry'
+							key={"ownCountry"}
+							ref={register({
+								validate: value => value !== "Select home country"
+							})}
+						>
+							<option value="Select home country"  defaultValue hidden>
+								Select home country
+							</option>
+							{countryOptions}
+						</select>
+						{errors.ownCountry && <span role="alert" className="alert-error">A country has to be selected</span>}
+
+						<input
+							className='eval-state-input'
+							type='text'
+							name='state'
+							placeholder='State'
+							key={"state"}
+							ref={register({ required: true })}
+						/>
+						{errors.state && <span role="alert" className="alert-error">This field cannot be empty</span>}
+
+						<input
+							className='eval-address-input'
+							type='text'
+							name='address'
+							placeholder='Address'
+							key={"address"}
+							ref={register({ required: true })}
+						/>
+						{errors.address && <span role="alert" className="alert-error">This field cannot be empty</span>}
+					</>
+				);
+			case 5:
+				return (
 					<div>
 						<em>In the last 14 days, have you traveled to any country? </em>
 						<div className='yes-no-btn'>
@@ -215,45 +255,6 @@ class EvalContent extends Component {
 							}
 					</div>
 				);
-			case 5:
-				return (
-					<>
-						<select
-							id='countries'
-							name='ownCountry'
-							key={"ownCountry"}
-							ref={register({
-								validate: value => value !== "select country"
-							})}
-						>
-							<option value="select country"  defaultValue hidden>
-									Select the country
-								</option>
-							{countryOptions}
-						</select>
-						{errors.ownCountry && <span role="alert" className="alert-error">A country has to be selected</span>}
-
-						<input
-							className='eval-state-input'
-							type='text'
-							name='state'
-							placeholder='State'
-							key={"state"}
-							ref={register({ required: true })}
-						/>
-						{errors.state && <span role="alert" className="alert-error">This field cannot be empty</span>}
-
-						<input
-							className='eval-address-input'
-							type='text'
-							name='address'
-							placeholder='Address'
-							key={"address"}
-							ref={register({ required: true })}
-						/>
-						{errors.address && <span role="alert" className="alert-error">This field cannot be empty</span>}
-					</>
-				);
 			case 6:
 				return (
 					<>
@@ -264,7 +265,6 @@ class EvalContent extends Component {
 								type='checkbox'
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								name='isCoughChecked'
-								value='Cough'
 								id='cough'
 								ref={register}
 							/>
@@ -292,20 +292,22 @@ class EvalContent extends Component {
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='fever'
 								name='isFeverChecked'
-								value='Fever'
 								ref={register}
 							/>
 							<label htmlFor='fever'>Fever</label>
 							{this.state.isFeverChecked ? (
 								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
+									<em>How high is it (in &deg;C)?</em>
+									<input
+										className="fever-select"
 										name='feverRate'
 										id='rating'
-										ref={register}
-									>
-										{ratingOptions}
-									</select>
+										ref={
+											register({
+												validate: value => Number(value) > 0
+										})}
+										/>
+									{errors.feverRate && <span role="alert" className="alert-error">Temperature cannot be less than 0&deg;C</span> }
 								</div>
 							) : (
 								console.log()
@@ -319,7 +321,6 @@ class EvalContent extends Component {
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='fatigue'
 								name='isFatigueChecked'
-								value='Fatigue'
 								ref={register}
 							/>
 							<label htmlFor='fatigue'>Fatigue</label>
@@ -346,7 +347,6 @@ class EvalContent extends Component {
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='respiratory'
 								name='isRespiratoryChecked'
-								value='Respiratory'
 								ref={register}
 							/>
 							<label htmlFor='respiratory'>Respiratory Problems</label>
@@ -372,8 +372,8 @@ class EvalContent extends Component {
 								type='checkbox'
 								onChange={(e) => this.handleChange(e, 'checkbox')}
 								id='others'
+								defaultValue={false}
 								name='isOthersChecked'
-								value='Others'
 								ref={register}
 							/>
 							<label htmlFor='others'>Others</label>
@@ -457,31 +457,30 @@ class EvalContent extends Component {
 	}
 
 	postDetails = async e => {
-		const { accessToken, currentUser } = this.props;
+		const { accessToken, currentUser, history } = this.props;
 
 		const addname = {
-			// "access-token":'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTkyNjA4NjA2LCJqdGkiOiI2NmZlYzFhMy00YmEwLTRmMTYtYmQzYi01YjNmYzA1MjMyMjQiLCJleHAiOjE1OTI2MTk3NTJ9.qVCiqXkfjVn1vra4XIK1O0med5uh26tk1MlAbkuI',
 			"firstName": this.state.formData.firstName,
 			"lastName": this.state.formData.lastName,
-			"signUpMethod": currentUser.additionalUserInfo?.providerId,
-			"access-token": accessToken
+			"signUpMethod": currentUser.additionalUserInfo?.providerId || '',
+			"image_url": currentUser.additionalUserInfo?.profile?.image_url || '',
 		};
 		const add_profile={
-			"email":this.state.formData.email || '',
-			"tel" : this.state.formData.tel || '',
-			"age": this.setAge() || '',
-			"state": this.state.formData.state || '',
-			"address": this.state.formData.address || '',
-			"country": this.state.formData.ownCountry || '',
+			"email":this.state.formData.email,
+			"tel" : this.state.formData.tel,
+			"age": this.setAge(),
+			"state": this.state.formData.state,
+			"address": this.state.formData.address,
+			"country": this.state.formData.ownCountry,
 			"countryVisited": this.state.formData.countryVisited || ''
 		}
 		const add_symptoms = [
 			//
 			{
-			"cough": this.state.formData.isCoughChecked || false,
-			"fever": this.state.formData.isFeverChecked || false,
-			"fatigue": this.state.formData.isFatigueChecked || false,
-			"resp": this.state.formData.isRespiratoryChecked || false,
+			"cough": this.state.formData.isCoughChecked,
+			"fever": this.state.formData.isFeverChecked,
+			"fatigue": this.state.formData.isFatigueChecked,
+			"resp": this.state.formData.isRespiratoryChecked,
 			"other": this.state.formData.otherSymptoms || ''},
 			{"otherDegree": this.state.formData.otherRate || '',
 			"coughDegree": this.state.formData.coughRate || '',
@@ -489,16 +488,12 @@ class EvalContent extends Component {
 			"fatigueDegree": this.state.formData.fatigueRate || '',
 			"respDegree": this.state.formData.respRate || ''}
 		];
-		console.log(addname)
-		console.log(add_profile)
-		console.log(add_symptoms)
-
+		
 		const headers = {headers:{'access-token': accessToken}}
-
 		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname,headers);
-		console.log(signUpResult)
+
 		let uid = signUpResult.data.uid
-		console.log(uid)
+		console.log(uid, "uid");
 
 		const updateReduxStore = {
 			...add_profile,
@@ -507,15 +502,27 @@ class EvalContent extends Component {
 		}
 		this.props.updateUserDetails(updateReduxStore);
 
-		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,headers).then(res=>{
-			console.log(res)
-			console.log(res.data)
-		})
-
-		axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers).then(res => {
-			console.log(res);
-			console.log(res.data)
-		});
+		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,headers)
+			.then(res=>{
+				console.log(res)
+				console.log(res.data)
+	
+				axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers)
+					.then(res => {
+						console.log(res);
+						console.log(res.data)
+						
+						history.push('/Patient');
+					})
+					.catch(err => {
+						// this.setState({ isSigningUp: false });
+						console.log("error adding user profile");
+					});
+			})
+			.catch(err => {
+				// this.setState({ isSigningUp: false });
+				console.log("error signing user up");
+			});
 	};
 
 	render() {
@@ -527,13 +534,15 @@ class EvalContent extends Component {
 
 		return (
 			<div className='eval-content-container'>
-			{
+				{this.state.isSigningUp
+				? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div> 
+				:
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					{this.renderComp()}
 
 					{this.displayContinueBtn()}
 				</form>
-			}
+				}
 			</div>
 		);
 	}
