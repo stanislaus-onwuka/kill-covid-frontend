@@ -467,36 +467,38 @@ class EvalContent extends Component {
 			"access-token": accessToken
 		};
 		const add_profile={
-			"email":this.state.formData.email,
-			"tel" : this.state.formData.tel,
-			"age": this.setAge(),
-			"state": this.state.formData.state,
-			"address": this.state.formData.address,
-			"country": this.state.formData.ownCountry,
-			"countryVisited": this.state.formData.countryVisited
+			"email":this.state.formData.email || '',
+			"tel" : this.state.formData.tel || '',
+			"age": this.setAge() || '',
+			"state": this.state.formData.state || '',
+			"address": this.state.formData.address || '',
+			"country": this.state.formData.ownCountry || '',
+			"countryVisited": this.state.formData.countryVisited || ''
 		}
 		const add_symptoms = [
 			//
 			{
-			"cough": this.state.formData.isCoughChecked,
-			"fever": this.state.formData.isFeverChecked,
-			"fatigue": this.state.formData.isFatigueChecked,
-			"resp": this.state.formData.isRespiratoryChecked,
-			"other": this.state.formData.otherSymptoms},
-			{"otherDegree": this.state.formData.otherRate,
-			"coughDegree": this.state.formData.coughRate,
-			"feverDegree": this.state.formData.feverRate,
-			"fatigueDegree": this.state.formData.fatigueRate,
-			"respDegree": this.state.formData.respRate}
+			"cough": this.state.formData.isCoughChecked || false,
+			"fever": this.state.formData.isFeverChecked || false,
+			"fatigue": this.state.formData.isFatigueChecked || false,
+			"resp": this.state.formData.isRespiratoryChecked || false,
+			"other": this.state.formData.otherSymptoms || ''},
+			{"otherDegree": this.state.formData.otherRate || '',
+			"coughDegree": this.state.formData.coughRate || '',
+			"feverDegree": this.state.formData.feverRate || '',
+			"fatigueDegree": this.state.formData.fatigueRate || '',
+			"respDegree": this.state.formData.respRate || ''}
 		];
-
-
-		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname);
-
-		let uid = signUpResult.data.uid
-		console.log(uid)
+		console.log(addname)
+		console.log(add_profile)
+		console.log(add_symptoms)
 
 		const headers = {headers:{'access-token': accessToken}}
+
+		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname,headers);
+		console.log(signUpResult)
+		let uid = signUpResult.data.uid
+		console.log(uid)
 
 		const updateReduxStore = {
 			...add_profile,
