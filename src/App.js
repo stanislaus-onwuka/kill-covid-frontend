@@ -47,7 +47,7 @@ class App extends React.Component {
   
   render() {
     console.log(this.props.updateImageUrl, "updateImageUrl");
-    if(typeof Notification.requestPermissionm === 'function' ){
+    if(typeof Notification === 'function'){
       Notification.requestPermission()
     }
     return (
