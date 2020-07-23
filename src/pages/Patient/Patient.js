@@ -52,6 +52,8 @@ class Patient extends Component{
       }
     };
 
+    console.log("access token in Patient", accessToken);
+
     try {
       let response = await fetch(url, options);
       console.log("request sent");
