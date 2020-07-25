@@ -1,4 +1,5 @@
 import userActionTypes  from './user.types';
+// import signUp from '../../pages/signup/sign-up';
 
 export const setCurrentUser = user => ({
   type: userActionTypes.SET_CURRENT_USER,

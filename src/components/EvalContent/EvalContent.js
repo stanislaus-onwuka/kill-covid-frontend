@@ -3,22 +3,16 @@ import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import axios from "axios";
-import { connect } from 'react-redux';
+import { getAccessToken } from '../../utils/firebaseUtils';
 
+import { connect } from 'react-redux';
 import { updateUserDetails } from './../../redux/user/user.actions';
 import countries from './countries.js';
 import "./EvalContent.css";
 
-
-let ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let countryOptions = countries.map(country => (
 	<option key={country} value={country}>
 		{country}
-	</option>
-));
-let ratingOptions = ratings.map(rating => (
-	<option key={rating} value={rating}>
-		{rating}
 	</option>
 ));
 
@@ -26,16 +20,22 @@ class EvalContent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isSigningUp: false,
-			yesBtnActive: false,
-			pageNo: 1,
-			isCoughChecked: false,
-			isFeverChecked: false,
-			isFatigueChecked: false,
-			isRespiratoryChecked: false,
-			isOthersChecked: false,
+			firstName: '',
+			lastName: '',
+			signUpMethod: '',
+			email: '',
+			tel: '',
+			address: '',
+			image_url: '',
 			visitedCountry: false,
-			formData: {}
+			state: '',
+			Age: '',
+			countryVisited: '',
+			country: '',
+			yesBtnActive: false,
+			pageNo: 2,
+			isSigningUp: false,
+			signUpStatus: '',
 		};
 	}
 
@@ -64,16 +64,11 @@ class EvalContent extends Component {
 
 		if (Object.keys(errors).length > 0) return;
 
-		this.setState({
-			formData: {
-				...this.state.formData,
-				...data
-			}
-		});
-
-		if (this.state.pageNo === 6) {
-			// this.setState({ isSigningUp: true });
-			this.postDetails();
+		this.setState({...data});
+		
+		if (this.state.pageNo === 5) {
+			this.setState({ isSigningUp: true });
+			this.completeSignUp();
 			return;
 		};
 
@@ -255,152 +250,6 @@ class EvalContent extends Component {
 							}
 					</div>
 				);
-			case 6:
-				return (
-					<>
-						<em>What symptoms are you showing ? </em>
-						<div className='symptom-input'>
-							<input
-								className='radio-btns'
-								type='checkbox'
-								onChange={(e) => this.handleChange(e, 'checkbox')}
-								name='isCoughChecked'
-								id='cough'
-								ref={register}
-							/>
-							<label htmlFor='cough'>Cough</label>
-							{this.state.isCoughChecked
-								? (
-									<div className='rating'>
-										<em>On a scale of 1-10, how serious is it ?</em>
-										<select
-											name='coughRate'
-											ref={register}
-										>
-											{ratingOptions}
-										</select>
-									</div>
-									)
-								: null
-								}
-						</div>
-
-						<div className='symptom-input'>
-							<input
-								className='radio-btns'
-								type='checkbox'
-								onChange={(e) => this.handleChange(e, 'checkbox')}
-								id='fever'
-								name='isFeverChecked'
-								ref={register}
-							/>
-							<label htmlFor='fever'>Fever</label>
-							{this.state.isFeverChecked ? (
-								<div className='rating'>
-									<em>How high is it (in &deg;C)?</em>
-									<input
-										className="fever-select"
-										name='feverRate'
-										id='rating'
-										ref={
-											register({
-												validate: value => Number(value) > 0
-										})}
-										/>
-									{errors.feverRate && <span role="alert" className="alert-error">Temperature cannot be less than 0&deg;C</span> }
-								</div>
-							) : (
-								console.log()
-							)}
-						</div>
-
-						<div className='symptom-input'>
-							<input
-								className='radio-btns'
-								type='checkbox'
-								onChange={(e) => this.handleChange(e, 'checkbox')}
-								id='fatigue'
-								name='isFatigueChecked'
-								ref={register}
-							/>
-							<label htmlFor='fatigue'>Fatigue</label>
-							{this.state.isFatigueChecked ? (
-								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
-										name='fatigueRate'
-										id='rating'
-										ref={register}
-									>
-										{ratingOptions}
-									</select>
-								</div>
-							) : (
-								console.log()
-							)}
-						</div>
-
-						<div className='symptom-input'>
-							<input
-								className='radio-btns'
-								type='checkbox'
-								onChange={(e) => this.handleChange(e, 'checkbox')}
-								id='respiratory'
-								name='isRespiratoryChecked'
-								ref={register}
-							/>
-							<label htmlFor='respiratory'>Respiratory Problems</label>
-							{this.state.isRespiratoryChecked ? (
-								<div className='rating'>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
-										name='respRate'
-										id='rating'
-										ref={register}
-									>
-										{ratingOptions}
-									</select>
-								</div>
-							) : (
-								console.log()
-							)}
-						</div>
-
-						<div className='symptom-input'>
-							<input
-								className='radio-btns'
-								type='checkbox'
-								onChange={(e) => this.handleChange(e, 'checkbox')}
-								id='others'
-								defaultValue={false}
-								name='isOthersChecked'
-								ref={register}
-							/>
-							<label htmlFor='others'>Others</label>
-							{this.state.isOthersChecked ? (
-								<div className='rating'>
-									<input
-										className='eval-others-input'
-										type='text'
-										name='otherSymptoms'
-										placeholder='What symptom ?'
-										ref={register}
-									/>
-									<em>On a scale of 1-10, how serious is it ?</em>
-									<select
-										name='otherRate'
-										id='rating'
-										ref={register}
-									>
-										{ratingOptions}
-									</select>
-								</div>
-							) : (
-								console.log()
-							)}
-						</div>
-					</>
-				);
 			default:
 				return <em> The end </em>;
 		}
@@ -428,7 +277,7 @@ class EvalContent extends Component {
 	};
 
 	displayContinueBtn = () => {
-		if (this.state.pageNo > 1 && this.state.pageNo < 6) {
+		if (this.state.pageNo > 1 && this.state.pageNo < 5) {
 			return (
 				<input
 					type='submit'
@@ -436,7 +285,7 @@ class EvalContent extends Component {
 					value="Next"
 				/>
 			);
-		} else if (this.state.pageNo === 6) {
+		} else if (this.state.pageNo === 5) {
 			return (
 				<input
 					type='submit'
@@ -448,81 +297,66 @@ class EvalContent extends Component {
 	};
 
 	setAge = () => {
-		if(this.state.formData.Age){
-			const age = parseInt(this.state.formData.Age)
+		if(this.state.Age){
+			const age = parseInt(this.state.Age)
 			if (age===0) return 1
 			return age
 		}
 		return 1
 	}
 
-	postDetails = async e => {
-		const { accessToken, currentUser, history } = this.props;
+	completeSignUp = async e => {
+		const { currentUser, history, updateUserDetails } = this.props;
 
 		const addname = {
-			"firstName": this.state.formData.firstName,
-			"lastName": this.state.formData.lastName,
+			"firstName": this.state.firstName,
+			"lastName": this.state.lastName,
 			"signUpMethod": currentUser.additionalUserInfo?.providerId || '',
+			"email":this.state.email,
+			"tel" : this.state.tel,
+			"address": this.state.address,
 			"image_url": currentUser.additionalUserInfo?.profile?.image_url || '',
-		};
-		const add_profile={
-			"email":this.state.formData.email,
-			"tel" : this.state.formData.tel,
+			"travel_history": this.state.visitedCountry,
+			"state": this.state.state,
 			"age": this.setAge(),
-			"state": this.state.formData.state,
-			"address": this.state.formData.address,
-			"country": this.state.formData.ownCountry,
-			"countryVisited": this.state.formData.countryVisited || ''
+			"countryVisited": this.state.countryVisited || '',
+			"country": this.state.ownCountry,
 		}
-		const add_symptoms = [
-			//
-			{
-			"cough": this.state.formData.isCoughChecked,
-			"fever": this.state.formData.isFeverChecked,
-			"fatigue": this.state.formData.isFatigueChecked,
-			"resp": this.state.formData.isRespiratoryChecked,
-			"other": this.state.formData.otherSymptoms || ''},
-			{"otherDegree": this.state.formData.otherRate || '',
-			"coughDegree": this.state.formData.coughRate || '',
-			"feverDegree": this.state.formData.feverRate || '',
-			"fatigueDegree": this.state.formData.fatigueRate || '',
-			"respDegree": this.state.formData.respRate || ''}
-		];
+
+		updateUserDetails({...addname});
 		
-		const headers = {headers:{'access-token': accessToken}}
-		let signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname,headers);
+		try {
+			const headers = {
+				headers: {
+					'access-token': await getAccessToken(),
+				}
+			};
 
-		let uid = signUpResult.data.uid
-		console.log(uid, "uid");
-
-		const updateReduxStore = {
-			...add_profile,
-			...add_symptoms[0],
-			...add_symptoms[1],
-		}
-		this.props.updateUserDetails(updateReduxStore);
-
-		axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',add_symptoms,headers)
-			.then(res=>{
-				console.log(res)
-				console.log(res.data)
-	
-				axios.put('https://fast-hamlet-28566.herokuapp.com/api/add_profile',add_profile,headers)
-					.then(res => {
-						console.log(res);
-						console.log(res.data)
-						
+			const signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname, headers);
+			if (signUpResult.status !== 200) {
+				throw new Error("Couldn't sign user up", signUpResult);
+			} else {
+				let uid = signUpResult.data.uid
+				console.log(uid, "uid");		
+			};
+			
+			this.setState({ isSigningUp: false }, () => {
+				this.setState({ signUpStatus: 'SUCCESS' }, () => {
+					setTimeout(() => {
 						history.push('/Patient');
-					})
-					.catch(err => {
-						// this.setState({ isSigningUp: false });
-						console.log("error adding user profile");
-					});
-			})
-			.catch(err => {
-				// this.setState({ isSigningUp: false });
-				console.log("error signing user up");
+					}, 1000);
+				});
 			});
+		}	catch (error) {
+			console.error(error);
+			this.setState({ isSigningUp: false }, () => {
+				this.setState({ signUpStatus: 'FAIL' }, () => {
+					setTimeout(() => {
+						this.setState({ signUpStatus: '' });
+					}, 1000);
+				});
+			});
+		}
 	};
 
 	render() {
@@ -534,14 +368,17 @@ class EvalContent extends Component {
 
 		return (
 			<div className='eval-content-container'>
-				{this.state.isSigningUp
-				? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div> 
-				:
-				<form onSubmit={handleSubmit(this.onSubmit)}>
-					{this.renderComp()}
+				{ this.state.signUpStatus === 'FAIL'
+				? <p className='signup-update'>Sorry, something went wrong during signup.</p>
+				: this.state.signUpStatus === 'SUCCESS'
+					? <p className='signup-update'>Signup complete.</p>
+					: this.state.isSigningUp
+						? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div> 
+						: <form onSubmit={handleSubmit(this.onSubmit)}>
+							{this.renderComp()}
 
-					{this.displayContinueBtn()}
-				</form>
+							{this.displayContinueBtn()}
+				     	  </form>
 				}
 			</div>
 		);
@@ -555,7 +392,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	updateUserDetails: details => dispatch(updateUserDetails(details))
+	updateUserDetails: details => dispatch(updateUserDetails(details)),
 })
 
 const withReactHookForm = (Component) => (props) => {

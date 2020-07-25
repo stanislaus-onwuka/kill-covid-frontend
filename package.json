@@ -12,6 +12,7 @@
     "date-fns": "^2.14.0",
     "firebase": "^7.15.0",
     "lockr": "^0.8.5",
+    "njwt": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.0.5",
@@ -49,7 +50,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "njwt": "^1.0.0"
-  }
+  "devDependencies": {}
 }

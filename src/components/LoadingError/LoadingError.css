@@ -10,3 +10,14 @@
 .loading-error_message {
   margin-top: 2rem;
 }
+
+.button-retry {
+  margin-top: 2rem;
+  background: #224a68;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.3rem;
+  box-shadow: black;
+  font-size: 1rem;
+};
