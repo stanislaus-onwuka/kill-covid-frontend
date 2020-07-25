@@ -19,8 +19,9 @@ import PatientInfo from '../../components/PatientInfo/PatientInfo';
 import PatientProfile from '../../components/PatientProfile/PatientProfile';
 import PatientConsultation from '../../components/PatientConsultation/PatientConsultation';
 import LoadingError from '../../components/LoadingError/LoadingError';
-import './Patient.css';
 
+import { getAccessToken } from '../../utils/firebaseUtils';
+import './Patient.css';
 
 class Patient extends Component{
   constructor(){
@@ -38,8 +39,16 @@ class Patient extends Component{
       setCurrentUser,
       currentUser,
       setUserGuides,
-      accessToken
     } = this.props;
+
+    let accessToken;
+    try {
+      accessToken = await getAccessToken();
+    } catch (error) {
+      this.setState({ fetchFail: true });
+      console.error(error);
+      return;
+    };
 
     let user = null;
     let remoteGuides = null;
@@ -56,12 +65,14 @@ class Patient extends Component{
 
     try {
       let response = await fetch(url, options);
-      console.log("request sent");
-
+      console.log("response status code", response.status);
+     
       if (response.status === 404) {
         this.setState({ fetchFail: true });
-        return -1;
+        if (!currentUser.guides) history.push('/');
+        return;
       };
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       };
@@ -77,13 +88,11 @@ class Patient extends Component{
       let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
       remarks = await remarks.json();
       user.remarks = remarks;
-    }
-    catch(error) {
+    } catch(error) {
       console.error('There has been a problem fetching user data', error);
       this.setState({ fetchFail: true });
       return;
-    }
-    finally{
+    } finally{
       let localGuides = currentUser === null
         ? null
         : currentUser.guides;
@@ -129,7 +138,7 @@ class Patient extends Component{
   }
 
   setContent(){
-    const { currentUser, setCurrentUser, history } = this.props
+    const { currentUser, setCurrentUser, history } = this.props;
 
     switch(this.state.page){
       case 'home':
@@ -164,7 +173,7 @@ class Patient extends Component{
           I have not been set yet
         </>
     }
-  }
+  };
 
   setDashboard(pageName,activeIcon,inactiveIcon){
     if(this.state.page===pageName){
@@ -180,15 +189,10 @@ class Patient extends Component{
      <a onClick={()=> this.onLinkClick(pageName)} href="#"><img src={inactiveIcon} alt='home-icon'></img></a>
      </>
     }
-  }
+  };
 
   componentDidMount() {
-    const { currentUser, history } = this.props;
-  
-    this.loadUser()
-      .then(result => {
-        if (result === -1 && !currentUser.guides) history.push('/');
-      })
+    this.loadUser();
   }
 
   render(){
@@ -204,8 +208,8 @@ class Patient extends Component{
 
     return(
         <div className="patient-container">
-          {fetchFail && !currentUser.guides
-          ? <LoadingError />
+          { fetchFail && !currentUser.guides
+            ? <LoadingError onRetry={this.loadUser}/>
             : !currentUser.guides
               ? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div> 
               : <>
@@ -239,7 +243,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  setUserGuides: guides => dispatch(setUserGuides(guides))
+  setUserGuides: guides => dispatch(setUserGuides(guides)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Patient);

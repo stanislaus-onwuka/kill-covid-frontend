@@ -172,8 +172,6 @@ input:focus{
   width: 80%;
   margin: 0;
 }
-
-
 .next-but{
   background: none;
   border: none;
@@ -185,4 +183,7 @@ input:focus{
   align-content: center; 
   width: 100%;
   height: 100%;
+}
+.signup-update {
+  color: #2b4c66;
 }
