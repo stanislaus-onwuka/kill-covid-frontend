@@ -8,6 +8,54 @@
   color: #224a68;
   font-weight: 100;
 }
+.notification-modal {
+  position: fixed;
+  display: block;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.4);
+}
+.notification-modal_content {
+  background-color: white;
+  margin: 15% auto;
+  width: 50%;
+  min-width: 15rem;
+  max-width: 25rem;
+  padding-bottom: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  color: #224a68;
+}
+.notification-modal_image {
+  padding-top: 1.5rem;
+  height: 5.5rem;
+  width: 100%;
+  text-align: center;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.notification-modal_text {
+  padding: 1rem 0 1.5rem 0;
+}
+.notification-modal_text h3 {
+  margin-bottom: .5rem; 
+}
+.notification-modal_text p {
+  font-size: 0.95rem;
+}
+.notification-modal_button {
+  color: white;
+  border: 0;
+  padding: .5rem .7rem;
+  border-radius: .3rem;
+  box-shadow: 3px 3px 5px #ccc;
+}
+.notification-modal_button.success-button {
+  background-color: #224a68;
+}
+.notification-modal_button.failure-button {
+  background-color: #d84646;
+}
 .patient-symptom-container select{
   display: block;
   margin: 1rem 0;
@@ -19,7 +67,6 @@
   font-size: 1rem;
 }
 .patient-profile-container .patient-info{
-
   margin-top: 4rem;
 }
 

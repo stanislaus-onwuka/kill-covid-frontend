@@ -4,7 +4,7 @@ import * as actionTypes from "../actions/types";
 const INITIAL_STATE = {
   currentUser: null,
   authenticating: false,
-  accessToken: null
+  isAuthenticated: false
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -37,17 +37,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: action.payload,
         authenticating: false,
-      };
-    case actionTypes.SET_ACCESS_TOKEN:
-      return {
-        ...state,
-        accessToken: action.payload
+        isAuthenticated: true,
       };
     case actionTypes.SIGNED_UP_WITH_SOCIAL:
       return {
         ...state,
         currentUser: action.payload,
         authenticating: false,
+        isAuthenticated: true,
       };
     case actionTypes.AUTH_WITH_SOCIAL_FAILED:
       return {
