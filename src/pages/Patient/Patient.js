@@ -19,6 +19,7 @@ import PatientInfo from '../../components/PatientInfo/PatientInfo';
 import PatientProfile from '../../components/PatientProfile/PatientProfile';
 import PatientConsultation from '../../components/PatientConsultation/PatientConsultation';
 import LoadingError from '../../components/LoadingError/LoadingError';
+import SplashScreen from '../../components/SplashScreen/SplashScreen';
 
 import { getAccessToken } from '../../utils/firebaseUtils';
 import './Patient.css';
@@ -214,7 +215,7 @@ class Patient extends Component{
           { fetchFail && !currentUser.guides
             ? <LoadingError onRetry={this.loadUser}/>
             : !currentUser.guides
-              ? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div> 
+              ? <SplashScreen/>
               : <>
                   {this.setContent()}
                   <div className="spacing"></div>
