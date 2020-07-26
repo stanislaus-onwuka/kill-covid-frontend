@@ -28,8 +28,17 @@ class PatientHome extends Component {
     }
   }
 
+  getCurrentTemperature = () => {
+    const symptomsRecordsLength = this.props.symptoms.length;
+    if (symptomsRecordsLength === 0) {
+      return;
+    }
+    const latestTemp = this.props.symptoms[symptomsRecordsLength - 1].specifics.fever_degree;
+    return latestTemp;
+  };
+
   setDisplay(){
-    const { med_state, changePage, temp, imageUrl } = this.props
+    const { med_state, changePage, imageUrl } = this.props
     
     if(this.state.page==='home'){
       return(
@@ -48,7 +57,7 @@ class PatientHome extends Component {
               <div className="patient-home-body-temp">
               <img src={temperature} alt="temperature-icon"></img>
               <span className='text'>Body Temperature</span>
-              <span className='temp'>{`${temp || '____'}`}&deg;</span>
+              <span className='temp'>{`${this.getCurrentTemperature() || '____'}`}&deg;</span>
               </div>
               {
                 med_state === 'Mild'
@@ -107,7 +116,6 @@ class PatientHome extends Component {
         document.querySelector('.active').classList.remove('active');
 				event.target.classList.add('active');
   }
-
 
   render(){
     return this.setDisplay();

@@ -18,7 +18,9 @@ class ActivitySchedule extends React.Component{
     let newLocalGuides = this.props.guides.map((item, index) => {
       // update status of items on activity schedule
       let currentTime = new Date();
-      if (!isBefore(currentTime, item.nextTime)) {
+      let nextTime = item.nextTime ? new Date(Date.parse(item.nextTime)) : undefined;
+        
+      if (!isBefore(currentTime, nextTime)) {
         // avoid updating guides unnecessarily
         if (item.done === true) {
           item.done = false;
@@ -62,7 +64,8 @@ class ActivitySchedule extends React.Component{
   };
 
   componentDidMount() {
-    this.interval = setInterval(this.checkActivities, 1000);
+    this.interval = setTimeout(this.checkActivities, 1000 * 5);
+    // this.interval = setInterval(this.checkActivities, 1000);
   };
 
   render(){

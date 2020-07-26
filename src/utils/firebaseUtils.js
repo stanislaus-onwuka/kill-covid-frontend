@@ -1,6 +1,5 @@
 import { auth } from '../firebase.js';
 
-
 const getAccessToken = async () => (
     new Promise((resolve, reject) => {
         // wait for firebase sdk to resolve current user 
