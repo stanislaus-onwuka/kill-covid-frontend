@@ -38,7 +38,6 @@ class Patient extends Component{
       history,
       setCurrentUser,
       currentUser,
-      setUserGuides,
     } = this.props;
 
     let accessToken;
@@ -61,7 +60,7 @@ class Patient extends Component{
       }
     };
 
-    console.log("access token in Patient", accessToken);
+    // console.log("access token in Patient", accessToken);
 
     try {
       let response = await fetch(url, options);
@@ -69,7 +68,7 @@ class Patient extends Component{
      
       if (response.status === 404) {
         this.setState({ fetchFail: true });
-        if (!currentUser.guides) history.push('/');
+        if (!currentUser.guides) history.push('/Eval');
         return;
       };
 
@@ -84,18 +83,20 @@ class Patient extends Component{
       }
 
       remoteGuides = user.guides;
+
       //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
       let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
       remarks = await remarks.json();
       user.remarks = remarks;
+      user.imageUrl = user.profile_pic;
     } catch(error) {
       console.error('There has been a problem fetching user data', error);
       this.setState({ fetchFail: true });
       return;
+
     } finally{
-      let localGuides = currentUser === null
-        ? null
-        : currentUser.guides;
+      
+      let localGuides = (currentUser === null) ? null : currentUser.guides;
       let updateGuides = false;
       let newGuides = null;
 
@@ -107,7 +108,7 @@ class Patient extends Component{
           return item;
         });
       }
-      else if (user && (localGuides.length !== remoteGuides.length)) {
+      else if (user && localGuides) {
         updateGuides = true;
         newGuides = remoteGuides.map(remoteGuideItem => {
           // initialize values for new user guides
@@ -121,15 +122,14 @@ class Patient extends Component{
         });
       };
 
-      if (
-        (currentUser.additionalUserInfo && user) ||
-        (currentUser === null && user)
-      ) {
+      if (updateGuides) {
         user.guides = newGuides;
-        setCurrentUser(user);
-      } else if (updateGuides) {
-        setUserGuides(newGuides)
       };
+
+      if (user) {
+        setCurrentUser(user);
+      };
+      return;
     };
   };
 
@@ -145,6 +145,7 @@ class Patient extends Component{
         return (
           <PatientHome
             firstName={currentUser.first_name}
+            symptoms={currentUser.symptoms}
             guides={currentUser.guides}
             med_state={currentUser.med_state}
             imageUrl={currentUser.imageUrl}
@@ -164,6 +165,8 @@ class Patient extends Component{
               guides={currentUser.guides}
               imageUrl={currentUser.imageUrl}
               setUserGuides={this.props.setUserGuides}
+              signUpDate={currentUser.sign_up_date}
+              loadUser={this.loadUser}
           />
         )
       case 'consultation':
@@ -238,12 +241,11 @@ class Patient extends Component{
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
-  accessToken: state.user.accessToken
 })
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  setUserGuides: guides => dispatch(setUserGuides(guides)),
+  setUserGuides: guides => dispatch(setUserGuides(guides))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Patient);

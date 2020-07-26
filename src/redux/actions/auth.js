@@ -16,10 +16,7 @@ export const authWithGoogle = (history) => (dispatch) => {
         profile: user.profile,
         additionalUserInfo,
       };
-      dispatch({
-        type: actionTypes.SET_ACCESS_TOKEN,
-        payload: user._lat
-      })
+      
       if (additionalUserInfo.isNewUser) {
         dispatch({
           type: actionTypes.SIGNED_UP_WITH_SOCIAL,
@@ -57,10 +54,7 @@ export const authWithFacebook = (history) => (dispatch) => {
         profile: user.profile,
         additionalUserInfo,
       };
-      dispatch({
-        type: actionTypes.SET_ACCESS_TOKEN,
-        payload: user._lat
-      })
+      
       if (additionalUserInfo.isNewUser) {
         dispatch({
           type: actionTypes.SIGNED_UP_WITH_SOCIAL,
@@ -98,10 +92,7 @@ export const authWithTwitter = (history) => (dispatch) => {
         profile: user.profile,
         additionalUserInfo,
       };
-      dispatch({
-        type: actionTypes.SET_ACCESS_TOKEN,
-        payload: user._lat
-      })
+      
       if (additionalUserInfo.isNewUser) {
         dispatch({
           type: actionTypes.SIGNED_UP_WITH_SOCIAL,

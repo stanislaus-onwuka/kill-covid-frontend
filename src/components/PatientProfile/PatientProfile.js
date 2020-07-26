@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { updateImageUrl } from './../../redux/user/user.actions';
+import { getAccessToken } from '../../utils/firebaseUtils';
+import format from 'date-fns/format';
+
+import differenceInDays from 'date-fns/differenceInDays'
 import userImage from "./../../assets/user.svg";
 import backIcon from "./../../assets/svg/arrow-left.svg";
+import {ReactComponent as CheckMark} from "./../../assets/svg/check-mark.svg";
+import {ReactComponent as CrossMark} from "./../../assets/svg/cross-mark.svg";
 import ActivitySchedule from "../ActivitySchedule/ActivitySchedule";
 import ProfilePicUploader from "../ProfilePicUploader/profile-pic-uploader";
 import "./PatientProfile.css";
 import axios from "axios";
+
 
 let ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let ratingOptions = ratings.map(rating => (
@@ -33,20 +40,21 @@ class PatientProfile extends Component {
 			otherName: '',
 			otherRate: "",
 			temp: '',
-			openUploader:false
-
+			openUploader:false,
+			isAddingSymptoms: false,
+			addingSymptomsStatus: '',
 		};
 	}
 
-	onButtonClick(page) {
-		const { accessToken } = this.props;
+	async onButtonClick(page) {
+		const { loadUser } = this.props;
+
+		let accessToken;
 
 		this.setState({ page }, () => {
 			console.log(this.state.page);
 		});
 
-		const {userId} = this.props
-		console.log(userId)
 		let symptoms = [
 			{
 				cough: this.state.cough,
@@ -63,14 +71,24 @@ class PatientProfile extends Component {
 				respDegree: this.state.respRate
 			}
 		];
-		console.log(symptoms)
 		if (page === "home") {
-			console.log(symptoms);
-			const token= accessToken;
-			axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',
-			symptoms,{headers:{'access-token':token}})
-			.then(res=>{console.log(res.data)})
-			.catch(err=>console.log(err))
+			try {
+				this.setState({ isAddingSymptoms: true });
+				accessToken = await getAccessToken();
+				
+				const response = await axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',
+					symptoms,{headers:{'access-token': accessToken}})
+				console.log(response.data);
+				await loadUser();
+				this.setState({ isAddingSymptoms: false }, () => {
+					this.setState({ addingSymptomsStatus: 'SUCCESS' });
+				})
+			}	catch (err) {
+				console.error(err);
+				this.setState({ isAddingSymptoms: false }, () => {
+					this.setState({ addingSymptomsStatus: 'FAILURE' });
+				})
+			};
 		}
 	}
 
@@ -88,48 +106,128 @@ class PatientProfile extends Component {
 		this.setState({openUploader:!this.state.openUploader})
 	};
 
+	getSignUpDate = () => {
+		return new Date(Date.parse(this.props.signUpDate)); 
+	}
+
+	getRemainingDays = () => {
+		const remainingDays = 14 - differenceInDays(new Date(), this.getSignUpDate()); 
+		return (remainingDays >= 0) ? remainingDays : 0;
+	};
+
+	notificationModal = (type) => {
+		return (
+			<div
+				onClick={() => this.setState({ addingSymptomsStatus: '' })}
+				className='notification-modal'
+			>
+				<div className='notification-modal_content'>
+					{type === 'SUCCESS'
+					?	<CheckMark
+							className='notification-modal_image'
+							alt='checkmark'
+							fill='#224a68'
+						/>
+					: <CrossMark
+							className='notification-modal_image'
+							alt='checkmark'
+							fill='#d84646'
+						/>						
+					}
+					<div className='notification-modal_text'>
+						{type === 'SUCCESS'
+						?	<>
+								<h3>Done!</h3>
+								<p>Your symptoms have been updated successfully</p>
+							</>
+						: 	<>
+								<h3>Oops</h3>
+								<p>Sorry something went wrong while updating user's symptoms</p>
+							</>
+						}
+					</div>
+					<button
+						onClick={() => this.setState({ addingSymptomsStatus: '' })}
+						className={'notification-modal_button' + (type === 'SUCCESS' ? ' success-button' : ' failure-button')}
+					>
+						CLOSE
+					</button>
+				</div>
+			</div>
+		)
+	};
+
 	setDisplay() {
-		const { updateImageUrl, imageUrl} = this.props;
+		const { updateImageUrl, imageUrl } = this.props;
+	
+		if (this.state.isAddingSymptoms) {
+			return (
+				<div className='patient-profile-container'>
+					<div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div>
+				</div>
+			);
+		};
+
+		if (this.state.addedSymptomsSuccessfully) {
+			// return (
+			// 	<div className='patient-profile-container'>
+			// 		<h3 className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div>
+			// 	</div>
+			// );
+			alert();
+		}
 
 		if (this.state.page === "home") {
 			return (
-				<div className='patient-profile-container'>
-					<h1>My Account</h1>
-					<div className='patient-info'>
-						<img src={imageUrl || userImage} alt='patient' className="patient-profile-picture"/>
-						<em>{this.props.firstName + " " + this.props.lastName}</em>
-						<button className="upload-profile-picture-btn" onClick={this.showUploader}>
-							<img src={require('../../assets/svg/camera.svg')} alt="Upload a profile"/>
+				<>
+					{this.state.addingSymptomsStatus === 'SUCCESS'
+					?	this.notificationModal(this.state.addingSymptomsStatus)
+					:	this.state.addingSymptomsStatus === 'FAILURE'
+						&& this.notificationModal(this.state.addingSymptomsStatus)
+					}
+					<div className='patient-profile-container'>
+						<h1>My Account</h1>
+						<div className='patient-info'>
+							<img src={imageUrl || userImage} alt='patient' className="patient-profile-picture"/>
+							<em>{this.props.firstName + " " + this.props.lastName}</em>
+							<button className="upload-profile-picture-btn" onClick={this.showUploader}>
+								<img src={require('../../assets/svg/camera.svg')} alt="Upload a profile"/>
+							</button>
+						</div>
+						<ProfilePicUploader
+							showUploader={this.showUploader}
+							openUploader = {this.state.openUploader}
+							imageUrl={imageUrl}
+							updateImageUrl={updateImageUrl}
+						/>
+						<div className='quarantine'>
+							<div className='objective'>
+								<span>Quarantine</span>
+								<span>Track your stay at home.</span>
+							</div>
+							<div className='countdown'>
+								<span>{this.getRemainingDays()}</span>
+								<span>Days</span>
+							</div>
+						</div>
+						<em className='date'>
+							{'Started ' + format(this.getSignUpDate(), 'MMMM dd') + '.'}
+						</em>
+						<button
+							className="update-records-btn"
+							onClick={() => {
+								this.onButtonClick("symptom");
+							}}
+						>
+							{" "}
+							+ Update Records{" "}
 						</button>
+						<ActivitySchedule
+							guides={this.props.guides}
+							setUserGuides={this.props.setUserGuides}
+						/>
 					</div>
-					<ProfilePicUploader
-						showUploader={this.showUploader}
-						openUploader = {this.state.openUploader}
-						imageUrl={imageUrl}
-						updateImageUrl={updateImageUrl}
-					/>
-					<div className='quarantine'>
-						<div className='objective'>
-							<span>Quarantine</span>
-							<span>Track your stay at home.</span>
-						</div>
-						<div className='countdown'>
-							<span>8</span>
-							<span>Days</span>
-						</div>
-					</div>
-					<em className='date'>Started April 1.</em>
-					<button
-						className="update-records-btn"
-						onClick={() => {
-							this.onButtonClick("symptom");
-						}}
-					>
-						{" "}
-						+ Update Records{" "}
-					</button>
-          <ActivitySchedule guides={this.props.guides} setUserGuides={this.props.setUserGuides}/>
-				</div>
+				</>
 			);
 		} else {
 			return (

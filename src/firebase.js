@@ -39,13 +39,4 @@ const signInWithTwitter = async () => {
   return data;
 };
 
-auth.onAuthStateChanged(user => {
-  if (user) {
-    console.log("auth");
-  } else {
-    console.log("not auth");
-  };
-});
-
-
 export { auth, signInWithGoogle, signInWithFacebook, signInWithTwitter };
