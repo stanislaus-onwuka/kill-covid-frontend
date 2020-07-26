@@ -1,7 +1,11 @@
 import React from 'react';
-import './SplashScreen.css';
+import './LandingScreen.css';
 
-class SplashScreen extends React.Component{
+class LandingScreen extends React.Component{
+
+    componentDidMount(){
+        setTimeout(()=>this.props.history.push('/signup'), 2000);
+    }
 
     render(){
         return(
@@ -16,4 +20,4 @@ class SplashScreen extends React.Component{
     
 }
 
-export default SplashScreen;
+export default LandingScreen;

@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 
 import axios from "axios";
 import { getAccessToken } from '../../utils/firebaseUtils';
-import SplashScreen from '../../components/SplashScreen/SplashScreen';
 import { connect } from 'react-redux';
 import { updateUserDetails } from './../../redux/user/user.actions';
 import countries from './countries.js';
@@ -373,7 +372,7 @@ class EvalContent extends Component {
 				: this.state.signUpStatus === 'SUCCESS'
 					? <p className='signup-update'>Signup complete.</p>
 					: this.state.isSigningUp
-						? <SplashScreen/> 
+						? <div className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div>
 						: <form onSubmit={handleSubmit(this.onSubmit)}>
 							{this.renderComp()}
 
