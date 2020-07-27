@@ -13,7 +13,7 @@ import DoctorSignUpPage from "./pages/DoctorSignUp/DoctorSignUp";
 import DoctorHome from "./pages/DoctorHome/Doctor-home";
 import PatientDetails from "./pages/PatientDetails/PatientDetails";
 import AddPrescription from "./pages/AddPrescription/add-prescription";
-import SplashScreen from "./components/SplashScreen/SplashScreen";
+import LandingScreen from "./components/Landing screen/LandingScreen";
 import "./App.css";
 
 
@@ -54,7 +54,7 @@ class App extends React.Component {
     return (
       <div>
         <Switch>
-          <Route path="/" exact component={SplashScreen}/>
+          <Route path="/" exact component={LandingScreen}/>
           <Route path="/Login" exact component={Login} />
           <ProtectedRoute
             auth={this.props.isAuthenticated}

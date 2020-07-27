@@ -76,11 +76,11 @@
 }
 
 .invisible-uploader{
-    z-index: -10;
+    display: none;
 }
 
 .visible-uploader{
-    z-index: 6;
+    display: flex;
 }
 
 .profile-pic-uploader .mask{
