@@ -46,7 +46,7 @@ class PatientProfile extends Component {
 		};
 	}
 
-	async onButtonClick(page) {
+	async onButtonClick(page, submit) {
 		const { loadUser } = this.props;
 
 		let accessToken;
@@ -71,7 +71,7 @@ class PatientProfile extends Component {
 				respDegree: this.state.respRate
 			}
 		];
-		if (page === "home") {
+		if (page === "home" && submit) {
 			try {
 				this.setState({ isAddingSymptoms: true });
 				accessToken = await getAccessToken();
@@ -167,15 +167,6 @@ class PatientProfile extends Component {
 				</div>
 			);
 		};
-
-		if (this.state.addedSymptomsSuccessfully) {
-			// return (
-			// 	<div className='patient-profile-container'>
-			// 		<h3 className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div>
-			// 	</div>
-			// );
-			alert();
-		}
 
 		if (this.state.page === "home") {
 			return (
@@ -392,7 +383,7 @@ class PatientProfile extends Component {
 
 						<button
 							onClick={() => {
-								this.onButtonClick("home");
+								this.onButtonClick("home", "submit");
 							}}
 						>
 							{" "}
