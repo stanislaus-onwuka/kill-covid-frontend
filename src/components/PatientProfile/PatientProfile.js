@@ -188,11 +188,8 @@ class PatientProfile extends Component {
 					<div className='patient-profile-container'>
 						<h1>My Account</h1>
 						<div className='patient-info'>
-							<img src={imageUrl || userImage} alt='patient' className="patient-profile-picture"/>
+							<img src={imageUrl || userImage} alt='patient' className="patient-profile-picture" onClick={this.showUploader}/>
 							<em>{this.props.firstName + " " + this.props.lastName}</em>
-							<button className="upload-profile-picture-btn" onClick={this.showUploader}>
-								<img src={require('../../assets/svg/camera.svg')} alt="Upload a profile"/>
-							</button>
 						</div>
 						<ProfilePicUploader
 							showUploader={this.showUploader}
