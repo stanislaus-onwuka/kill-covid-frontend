@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setCurrentDoctor } from './../../redux/doctor/doctor.actions'
+import {
+  setCurrentDoctor,
+  setDoctorAccessToken,
+  setDoctorRefreshToken
+} from './../../redux/doctor/doctor.actions'
 import docIcon from './../../assets/svg/doctor.svg';
 import "./DoctorLandingPage.css";
 
@@ -9,14 +13,20 @@ class DoctorLandingPage extends React.Component {
     constructor(){
         super()
         this.state = {
-            doc_pass: 'Hun003'
+            doc_pass: 'Hun0012'
         }
     }
 
     handleSubmit = async event => {
         event.preventDefault();
+        
+        const { setDoctorAccessToken, setDoctorRefreshToken } = this.props;
+      
+        console.log('clicked submit');
         let body = this.state;
-        const {history: { push }, setCurrentDoctor } = this.props
+        const {history: { push },
+        //  setCurrentDoctor
+       } = this.props
         // let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkb2NfaWQiOiI4ODM4YmJjOC1jYThjLTQ4YzctYTZkZi03ZDc3NDY3ZWQ0NWUiLCJleHAiOjE1OTI0MzYwMDJ9.VMTxy1kPmYkV-lyItudkL_5s3RLY_dUaOHq4Kl5-lw0'
 
         try{
@@ -26,13 +36,17 @@ class DoctorLandingPage extends React.Component {
               'Content-Type': 'application/json;charset=utf-8',
             },
             body: JSON.stringify(body)
-          })
+          });
 
           let result = await response.json();
 
-          if(result.uid){
-            setCurrentDoctor(result.uid);
-            push('/doctor/home')
+          console.log('json parsed response', result)
+
+          if(result.login){
+            setDoctorAccessToken(result.dc_token);
+            setDoctorRefreshToken(result.dc_refresh_token);
+            // setCurrentDoctor(result.uid);
+            push('/doctor/home');
           }
         }catch(err){
           console.log(err)
@@ -60,8 +74,10 @@ class DoctorLandingPage extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentDoctor:  doctor => dispatch(setCurrentDoctor(doctor))
-})
+  setCurrentDoctor:  doctor => dispatch(setCurrentDoctor(doctor)),
+  setDoctorAccessToken: accessToken => dispatch(setDoctorAccessToken(accessToken)),
+  setDoctorRefreshToken: refreshToken => dispatch(setDoctorRefreshToken(refreshToken)),
+});
 
 export default connect(
   null,

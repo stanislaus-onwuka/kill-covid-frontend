@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { getAccessToken } from '../../utils/firebaseUtils';
 import user from '../../assets/user.svg';
 import "./profile-pic-uploader.css";
 
@@ -6,7 +7,6 @@ const ProfilePicUploader=(props)=> {
   const {
     imageUrl,
     updateImageUrl,
-    accessToken
   } = props;
 
   console.log(imageUrl, 'imageUrl');
@@ -32,23 +32,37 @@ const ProfilePicUploader=(props)=> {
       .then(res => res.json())
       .then(data => {
         updateImageUrl(data.secure_url);
-        console.log(formData)
+        console.log(formData);
+        updateProfile(data.secure_url);
       })
       .catch(console.error);
 
-    updateProfile();
   };
 
-  const updateProfile =()=>{
+  const updateProfile = async (cloudinaryImageUrl)=>{
+    let accessToken;
+    try {
+      accessToken = await getAccessToken();
+      console.log('access token', accessToken);
+    } catch (error) {
+      console.error('Couldn\'t get access token', error);
+      return;
+    };
+
     fetch('https://fast-hamlet-28566.herokuapp.com/api/user_image', {
       method: 'PUT',
       headers: {
         'access-token': accessToken
       },
       body: JSON.stringify({
-        image_url:imageUrl
+        image_url: cloudinaryImageUrl
       })
     })
+      .then(res => res.json())
+      .then(data => {
+        console.log('response', data);
+      })
+      .catch(console.error);
   }
   
 
