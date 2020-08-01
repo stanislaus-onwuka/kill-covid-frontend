@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import { updateImageUrl } from './redux/user/user.actions.js';
+import { updateImageUrl } from "./redux/user/user.actions.js";
 
 import Login from "./pages/login/login";
 import Signup from "./pages/signup/sign-up.js";
@@ -15,7 +15,6 @@ import PatientDetails from "./pages/PatientDetails/PatientDetails";
 import AddPrescription from "./pages/AddPrescription/add-prescription";
 import LandingScreen from "./components/Landing screen/LandingScreen";
 import "./App.css";
-
 
 const ProtectedRoute = ({
   path,
@@ -43,18 +42,16 @@ const ProtectedRoute = ({
   return <Redirect to={to || "/"} />;
 };
 
-
 class App extends React.Component {
-  
   render() {
-    console.log(this.props.updateImageUrl, "updateImageUrl");
-    if(typeof Notification === 'function'){
-      Notification.requestPermission()
+    // console.log(this.props.updateImageUrl, "updateImageUrl");
+    if (typeof Notification === "function") {
+      Notification.requestPermission();
     }
     return (
       <div>
         <Switch>
-          <Route path="/" exact component={LandingScreen}/>
+          <Route path="/" exact component={LandingScreen} />
           <Route path="/Login" exact component={Login} />
           <ProtectedRoute
             auth={this.props.isAuthenticated}
@@ -107,12 +104,12 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.user.isAuthenticated
+    isAuthenticated: state.user.isAuthenticated,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   updateImageUrl: (imageUrl) => dispatch(updateImageUrl(imageUrl)),
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
