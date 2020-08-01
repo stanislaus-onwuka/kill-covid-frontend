@@ -1,6 +1,5 @@
 import React from "react";
 import njwt from "njwt";
-// import Lockr from "lockr";
 import { connect } from "react-redux";
 import { setDoctorPatients } from "./../../redux/doctor/doctor.actions";
 
@@ -58,8 +57,12 @@ class doctorHome extends React.Component {
 
       //DON'T DELETE THE COMMENTS
 
-      let userID = "b4dd38a6-153d-4ca9-90b0-0c60914d6a8e";
-      const { currentDoctorId, doctorPatients, setDoctorPatients } = this.props;
+      // let userID = 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
+      const {
+        doctorAccessToken,
+        doctorPatients,
+        setDoctorPatients,
+      } = this.props;
 
       try {
         // The code below is to promote a user so they show on the doctor's page
@@ -85,28 +88,31 @@ class doctorHome extends React.Component {
           this.setState({ patients });
         }
 
+        console.log("doc access token", doctorAccessToken);
+
         let doctorResponse = await fetch(
           "https://fast-hamlet-28566.herokuapp.com/doctors/getpatients",
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json;charset=utf-8",
-              "doc-csrf-access-token": currentDoctorId,
+              doc_csrf_access_token: doctorAccessToken,
+              "Access-Control-Allow-Origin": "*",
             },
             credentials: "include",
           }
         );
 
         let result = await doctorResponse.json();
-        console.log(result);
 
         if (result) {
+          console.log("get patients result", result);
           patients = result.map((patient) => this.getReportComponents(patient));
           this.setState({ patients });
           setDoctorPatients(result);
         }
       } catch (err) {
-        console.log(err);
+        console.log("error on doctor home page:", err);
       }
     })();
   }
@@ -135,6 +141,7 @@ class doctorHome extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentDoctorId: state.doctor.currentDoctorId,
+  doctorAccessToken: state.doctor.doctorAccessToken,
   doctorPatients: state.doctor.doctorPatients,
 });
 
