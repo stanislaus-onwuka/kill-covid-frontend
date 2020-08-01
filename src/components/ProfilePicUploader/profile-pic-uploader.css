@@ -7,8 +7,8 @@
     position: fixed;
     flex-direction: column;
     top: 15%;
-    left: 15%;
-    right: 15%;
+    left: 8%;
+    right: 8%;
     z-index: 6;
     padding: 1rem 2rem;
     background-color: #fff;
@@ -76,11 +76,11 @@
 }
 
 .invisible-uploader{
-    z-index: -10;
+    display: none;
 }
 
 .visible-uploader{
-    z-index: unset;
+    display: flex;
 }
 
 .profile-pic-uploader .mask{

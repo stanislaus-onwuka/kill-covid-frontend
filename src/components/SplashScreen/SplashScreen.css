@@ -1,0 +1,38 @@
+.splash-screen{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    height: 100vh;
+    min-height: 430px;
+    background-color: #234661;
+}
+
+.splash-screen_content{
+    align-self: center;
+    margin: auto;
+    animation-name: blink;
+    animation-duration: 2s;
+    padding: 0.4rem;
+}
+
+.splash-screen_content img{
+    width: 100%;
+    min-width: 160px;
+    max-width: 240px;
+}
+
+@keyframes blink{
+    0%{
+        opacity: 0;
+    }
+    25%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

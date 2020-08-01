@@ -46,7 +46,7 @@ class PatientProfile extends Component {
 		};
 	}
 
-	async onButtonClick(page) {
+	async onButtonClick(page, submit) {
 		const { loadUser } = this.props;
 
 		let accessToken;
@@ -71,7 +71,7 @@ class PatientProfile extends Component {
 				respDegree: this.state.respRate
 			}
 		];
-		if (page === "home") {
+		if (page === "home" && submit) {
 			try {
 				this.setState({ isAddingSymptoms: true });
 				accessToken = await getAccessToken();
@@ -168,15 +168,6 @@ class PatientProfile extends Component {
 			);
 		};
 
-		if (this.state.addedSymptomsSuccessfully) {
-			// return (
-			// 	<div className='patient-profile-container'>
-			// 		<h3 className="loading"><img src={require('../../assets/loading.gif')} alt="loader"/></div>
-			// 	</div>
-			// );
-			alert();
-		}
-
 		if (this.state.page === "home") {
 			return (
 				<>
@@ -188,11 +179,8 @@ class PatientProfile extends Component {
 					<div className='patient-profile-container'>
 						<h1>My Account</h1>
 						<div className='patient-info'>
-							<img src={imageUrl || userImage} alt='patient' className="patient-profile-picture"/>
+							<img src={imageUrl || userImage} alt='patient' className="patient-profile-picture" onClick={this.showUploader}/>
 							<em>{this.props.firstName + " " + this.props.lastName}</em>
-							<button className="upload-profile-picture-btn" onClick={this.showUploader}>
-								<img src={require('../../assets/svg/camera.svg')} alt="Upload a profile"/>
-							</button>
 						</div>
 						<ProfilePicUploader
 							showUploader={this.showUploader}
@@ -392,7 +380,7 @@ class PatientProfile extends Component {
 
 						<button
 							onClick={() => {
-								this.onButtonClick("home");
+								this.onButtonClick("home", "submit");
 							}}
 						>
 							{" "}
