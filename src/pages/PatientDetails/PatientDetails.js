@@ -62,7 +62,7 @@ class PatientDetails extends Component {
           date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
           return (
             <DoctorComment
-              name={remark.first_name + " " + remark.last_name}
+              name={"Doctor " + remark.doctor_id}
               content={remark.content}
               date={date}
               key={remark.id}
