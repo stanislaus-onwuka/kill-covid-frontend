@@ -14,3 +14,13 @@ export const setCurrentPatient = patient => ({
   type: doctorActionTypes.SET_CURRENT_PATIENT,
   payload: patient
 });
+
+export const setDoctorAccessToken = accessToken => ({
+  type: doctorActionTypes.SET_DOCTOR_ACCESS_TOKEN,
+  payload: accessToken
+});
+
+export const setDoctorRefreshToken = refreshToken => ({
+  type: doctorActionTypes.SET_DOCTOR_REFRESH_TOKEN,
+  payload: refreshToken
+});
