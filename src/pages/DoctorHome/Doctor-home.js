@@ -2,6 +2,7 @@ import React from "react";
 import njwt from "njwt";
 import { connect } from "react-redux";
 import { setDoctorPatients } from "./../../redux/doctor/doctor.actions";
+import { getAccessToken } from "../../utils/firebaseUtils";
 
 import Report from "../../components/DoctorHomeReports/DoctorHomeReports";
 import ProfilePic from "../../assets/svg/avatar.svg";
@@ -57,7 +58,7 @@ class doctorHome extends React.Component {
 
       //DON'T DELETE THE COMMENTS
 
-      // let userID = 'b4dd38a6-153d-4ca9-90b0-0c60914d6a8e'
+      //   let userID = "AhI5L5drm5XEmG4MA0yxQxjB3Q42";
       const {
         doctorAccessToken,
         doctorPatients,
@@ -67,17 +68,21 @@ class doctorHome extends React.Component {
       try {
         // The code below is to promote a user so they show on the doctor's page
         // Just set the user ID above to add another user
+        let accessToken = await getAccessToken();
+        console.log(accessToken);
 
-        // let userResponse = await fetch('https://fast-hamlet-28566.herokuapp.com/api/promoteuser',{
-        //   method: 'GET',
-        //   headers: {
-        //     'Content-Type': 'application/json;charset=utf-8',
-        //     'access-token': this.generateAccessToken(userID)
-        //   }
-        // })
+        let userResponse = await fetch(
+          "https://fast-hamlet-28566.herokuapp.com/api/promoteuser",
+          {
+            method: "GET",
+            headers: {
+              "access-token": accessToken,
+            },
+          }
+        );
 
-        // let user = await userResponse.json()
-        // console.log(user)
+        let user = await userResponse.json();
+        console.log(user);
 
         let patients;
 
