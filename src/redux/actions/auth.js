@@ -8,7 +8,6 @@ export const authWithGoogle = (history) => (dispatch) => {
     .then((data) => {
       const { user, additionalUserInfo } = data;
       
-      console.log("auth data", data);
       additionalUserInfo.profile.image_url = additionalUserInfo.profile.picture;
 
       const payload = {
@@ -42,8 +41,6 @@ export const authWithFacebook = (history) => (dispatch) => {
   signInWithFacebook()
     .then((data) => {
       const { user, additionalUserInfo } = data;
-      
-      console.log("auth data", data);
 
       //HACK : because facebook, twitter and google return different additionalUserInfo format
       additionalUserInfo.profile.family_name = additionalUserInfo.profile.last_name;
@@ -79,8 +76,6 @@ export const authWithTwitter = (history) => (dispatch) => {
   signInWithTwitter()
     .then((data) => {
       const { user, additionalUserInfo } = data;
-
-      console.log("auth data", data);
 
       //HACK : because facebook, twitter and google return different additionalUserInfo format
       additionalUserInfo.profile.family_name = additionalUserInfo.profile.name.split(' ')[1];
