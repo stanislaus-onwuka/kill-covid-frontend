@@ -93,8 +93,6 @@ class doctorHome extends React.Component {
           this.setState({ patients });
         }
 
-        console.log("doc access token", doctorAccessToken);
-
         let doctorResponse = await fetch(
           "https://fast-hamlet-28566.herokuapp.com/doctors/getpatients",
           {
@@ -111,7 +109,6 @@ class doctorHome extends React.Component {
         let result = await doctorResponse.json();
 
         if (result) {
-          console.log("get patients result", result);
           patients = result.map((patient) => this.getReportComponents(patient));
           this.setState({ patients });
           setDoctorPatients(result);
@@ -123,6 +120,7 @@ class doctorHome extends React.Component {
   }
 
   render() {
+
     return (
       <>
         <div className="dhomeContainer">

@@ -72,18 +72,21 @@ class App extends React.Component {
             accessToken={this.props.accessToken}
             path="/Patient-details"
             component={PatientDetails}
+            to='/doctor/login'
           />
           <ProtectedRoute
             auth={this.props.isAuthenticated}
             accessToken={this.props.accessToken}
             path="/doctor/home"
             component={DoctorHome}
+            to='/doctor/login'
           />
           <ProtectedRoute
             auth={this.props.isAuthenticated}
             accessToken={this.props.accessToken}
             path="/add-prescription"
             component={AddPrescription}
+            to='/doctor/login'
           />
           <Route path="/signup" exact component={Signup} />
         </Switch>
