@@ -175,6 +175,7 @@ class PatientDetails extends Component {
                   pathname: "/add-prescription",
                   user_id: patient.user_id,
                   doctor_id: this.props.currentDoctorId,
+                  doctorAccessToken: this.props.doctorAccessToken,
                 }}
               >
                 <img src={editIcon} alt="edit icon" />
@@ -380,6 +381,7 @@ class PatientDetails extends Component {
 const mapStateToProps = (state) => ({
   currentDoctorToken: state.doctor.doctorAccessToken,
   currentPatient: state.doctor.currentPatient,
+  doctorAccessToken: state.doctor.doctorAccessToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({

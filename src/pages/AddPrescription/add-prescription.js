@@ -67,14 +67,17 @@ class AddPrescription extends Component {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'doc-access-token': this.generateAccessToken(this.props.location.doctor_id)
+          'doc_csrf_access_token': this.props.location.doctorAccessToken,
+          'Access-Control-Allow-Origin': "*",
         },
+        credentials: "include",
         body: JSON.stringify(prescriptionInfo)
       };
 
       fetch(url, requestOptions)
         .then(response => {
           if (!response.ok) {
+            console.log(response)
             throw new Error('Network response was not ok');
           };
 
