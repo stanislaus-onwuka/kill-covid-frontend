@@ -75,14 +75,14 @@ class App extends React.Component {
             to='/doctor/login'
           />
           <ProtectedRoute
-            auth={this.props.isAuthenticated}
+            auth={this.props.isDoctorAuthenticated}
             accessToken={this.props.accessToken}
             path="/doctor/home"
             component={DoctorHome}
             to='/doctor/login'
           />
           <ProtectedRoute
-            auth={this.props.isAuthenticated}
+            auth={this.props.isDoctorAuthenticated}
             accessToken={this.props.accessToken}
             path="/add-prescription"
             component={AddPrescription}
@@ -98,6 +98,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.isAuthenticated,
+    isDoctorAuthenticated: state.doctor.isDoctorAuthenticated,
   };
 };
 

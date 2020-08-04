@@ -15,6 +15,11 @@ export const setCurrentPatient = patient => ({
   payload: patient
 });
 
+export const logDoctorIn = tokens => ({
+  type: doctorActionTypes.LOG_DOCTOR_IN,
+  payload: tokens
+});
+
 export const setDoctorAccessToken = accessToken => ({
   type: doctorActionTypes.SET_DOCTOR_ACCESS_TOKEN,
   payload: accessToken

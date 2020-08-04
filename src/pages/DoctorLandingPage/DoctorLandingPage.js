@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 
 import {
   setCurrentDoctor,
-  setDoctorAccessToken,
-  setDoctorRefreshToken,
+  logDoctorIn
 } from "./../../redux/doctor/doctor.actions";
 import docIcon from "./../../assets/svg/doctor.svg";
 import "./DoctorLandingPage.css";
@@ -20,7 +19,7 @@ class DoctorLandingPage extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { setDoctorAccessToken, setDoctorRefreshToken } = this.props;
+    const { logDoctorIn } = this.props;
 
     console.log("clicked submit");
     let body = this.state;
@@ -45,12 +44,11 @@ class DoctorLandingPage extends React.Component {
 
       let result = await response.json();
 
-      console.log("json parsed response", result);
-
       if (result.login) {
-        setDoctorAccessToken(result.dc_token);
-        setDoctorRefreshToken(result.dc_refresh_token);
-        // setCurrentDoctor(result.uid);
+        logDoctorIn({
+          accessToken: result.dc_token,
+          refreshToken: result.dc_refresh_token
+        })
         push("/doctor/home");
       }
     } catch (err) {
@@ -86,10 +84,7 @@ class DoctorLandingPage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentDoctor: (doctor) => dispatch(setCurrentDoctor(doctor)),
-  setDoctorAccessToken: (accessToken) =>
-    dispatch(setDoctorAccessToken(accessToken)),
-  setDoctorRefreshToken: (refreshToken) =>
-    dispatch(setDoctorRefreshToken(refreshToken)),
+  logDoctorIn: (tokens) => dispatch(logDoctorIn(tokens))
 });
 
 export default connect(null, mapDispatchToProps)(DoctorLandingPage);

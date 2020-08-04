@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   currentDoctorId: null,
   doctorAccessToken: null,
   doctorRefreshToken: null,
+  isDoctorAuthenticated: null,
 }
 
 const doctorReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +23,13 @@ const doctorReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentPatient: action.payload
+      }
+    case doctorActionTypes.LOG_DOCTOR_IN:
+      return {
+        ...state,
+        doctorAccessToken: action.payload.accessToken,
+        doctorRefreshToken: action.payload.refreshToken,
+        isDoctorAuthenticated: true
       }
     case doctorActionTypes.SET_DOCTOR_ACCESS_TOKEN:
       return {
