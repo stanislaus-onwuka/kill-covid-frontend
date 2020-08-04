@@ -66,7 +66,7 @@ class doctorHome extends React.Component {
       } = this.props;
 
       try {
-        // The code below is to promote a user so they show on the doctor's page
+          // The code below is to promote a user so they show on the doctor's page
         // Just set the user ID above to add another user
         let accessToken = await getAccessToken();
         console.log(accessToken);
@@ -83,7 +83,11 @@ class doctorHome extends React.Component {
 
         let user = await userResponse.json();
         console.log(user);
+      } catch (err) {
+        console.error("error promoting users:", err);
+      }
 
+      try {
         let patients;
 
         if (doctorPatients) {
@@ -114,7 +118,7 @@ class doctorHome extends React.Component {
           setDoctorPatients(result);
         }
       } catch (err) {
-        console.log("error on doctor home page:", err);
+        console.log("error getting patients:", err);
       }
     })();
   }
