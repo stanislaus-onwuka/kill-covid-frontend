@@ -26,7 +26,16 @@ class PatientDetails extends Component {
   }
 
   componentDidMount() {
-    this.setState({ remarks: this.props.currentPatient.remarks });
+    const { currentPatient } = this.props;
+
+    if (currentPatient) {
+      this.setState({ remarks: currentPatient.remarks });
+    }
+    // handling for occasional error 
+    // else {
+    //   // handling occasional 
+    //   this.setState({ remarks: location.patient.remarks });
+    // } 
   }
 
   generateAccessToken = (uid) => {

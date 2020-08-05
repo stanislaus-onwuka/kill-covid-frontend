@@ -68,7 +68,7 @@ class App extends React.Component {
             component={Patient}
           />
           <ProtectedRoute
-            auth={this.props.isAuthenticated}
+            auth={this.props.isDoctorAuthenticated}
             accessToken={this.props.accessToken}
             path="/Patient-details"
             component={PatientDetails}
