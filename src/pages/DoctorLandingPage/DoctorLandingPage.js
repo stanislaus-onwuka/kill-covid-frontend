@@ -13,16 +13,17 @@ class DoctorLandingPage extends React.Component {
     super();
     this.state = {
       doc_pass: "Hun0012",
+      logging_in : false
     };
   }
 
   handleSubmit = async (event) => {
     event.preventDefault();
-
+    this.setState({ logging_in : true });
     const { logDoctorIn } = this.props;
 
     console.log("clicked submit");
-    let body = this.state;
+    let body = { doc_pass : this.state.doc_pass };
     const {
       history: { push },
       //  setCurrentDoctor
@@ -53,6 +54,8 @@ class DoctorLandingPage extends React.Component {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      this.setState({ logging_in : false })
     }
   };
 
@@ -75,7 +78,7 @@ class DoctorLandingPage extends React.Component {
             name="doc_pass"
             value={this.state.doc_pass}
           />
-          <button className="doc-login"> Sign in </button>
+          <button disabled={this.state.logging_in} className="doc-login">{ this.state.logging_in ? 'Logging in...' : 'Sign in' } </button>
         </form>
       </div>
     );

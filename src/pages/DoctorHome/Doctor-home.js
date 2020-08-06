@@ -139,7 +139,7 @@ class doctorHome extends React.Component {
             </div>
           </div>
           <input name="search-home" className="search" />
-          <div className="reports">{this.state.patients}</div>
+          {this.state.patients.length  ? <div className="reports">{this.state.patients}</div> : <h2>Loading patients...</h2>}
         </div>
       </>
     );
