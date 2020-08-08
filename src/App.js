@@ -14,6 +14,7 @@ import DoctorHome from "./pages/DoctorHome/Doctor-home";
 import PatientDetails from "./pages/PatientDetails/PatientDetails";
 import AddPrescription from "./pages/AddPrescription/add-prescription";
 import LandingScreen from "./components/Landing screen/LandingScreen";
+import TermsAndCondition from "./components/TermsAndCondition/TermsAndCondition";
 import "./App.css";
 
 const ProtectedRoute = ({
@@ -89,6 +90,7 @@ class App extends React.Component {
             to='/doctor/login'
           />
           <Route path="/signup" exact component={Signup} />
+          <Route path="/tc" exact component={TermsAndCondition}/>
         </Switch>
       </div>
     );
