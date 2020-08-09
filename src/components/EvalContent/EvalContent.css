@@ -187,3 +187,26 @@ input:focus{
 .signup-update {
   color: #2b4c66;
 }
+.terms-container {
+  display: flex;
+  margin-top: 1rem;
+}
+.terms-container .terms {
+  margin-bottom: 0 !important;
+  margin-right: .5rem;
+}
+.alert-terms.alert-error {
+  top: .5rem;
+}
+.show-terms {
+  color: #3c8cb5;
+}
+.notification-modal_terms {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.notification-modal_content.notification-modal_terms-content {
+  margin: 5% auto;
+}

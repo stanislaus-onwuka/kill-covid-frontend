@@ -7,6 +7,7 @@ import { getAccessToken } from '../../utils/firebaseUtils';
 import { connect } from 'react-redux';
 import { updateUserDetails } from './../../redux/user/user.actions';
 import countries from './countries.js';
+import TermsAndCondition from '../TermsAndCondition/TermsAndCondition';
 import "./EvalContent.css";
 
 let countryOptions = countries.map(country => (
@@ -32,7 +33,8 @@ class EvalContent extends Component {
 			countryVisited: '',
 			country: '',
 			yesBtnActive: false,
-			pageNo: 2,
+			pageNo: 1,
+			showTermsOfService: true,
 			isSigningUp: false,
 			signUpStatus: '',
 		};
@@ -247,11 +249,40 @@ class EvalContent extends Component {
 								{errors.countryVisited && <span role="alert" className="alert-error">A country has to be selected</span>}
 							</>
 							}
+							<div className='terms-container'>
+								<input
+									className='terms'
+									id='terms'
+									type='checkbox'
+									name='terms'
+									ref={register({
+										required: true
+									})}
+								/>
+								<label for='terms'>I agree to the <span className='show-terms' onClick={this.handleTermsChange}>Terms of Service</span></label>
+							</div>
+							{errors.terms && <span role="alert" className="alert-error alert-terms">You have to agree to our terms of service to complete your registration.</span>}
+							{this.state.showTermsOfService &&
+								<div
+									onClick={() => this.setState({ showTermsOfService: false })}
+									className='notification-modal notification-modal_terms'
+								>
+									<div className='notification-modal_content notification-modal_terms-content'>
+										<TermsAndCondition />	
+										<button onClick={() => this.setState({ showTermsOfService: false })}>CLOSE</button>
+									</div>
+								</div>
+							}
 					</div>
 				);
 			default:
 				return <em> The end </em>;
 		}
+	};
+
+	handleTermsChange = event => {
+		event.preventDefault();
+		this.setState({ showTermsOfService: true });
 	};
 
 	yesButtonClick = event => {
