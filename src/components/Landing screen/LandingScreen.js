@@ -4,7 +4,7 @@ import './LandingScreen.css';
 class LandingScreen extends React.Component{
 
     componentDidMount(){
-        setTimeout(()=>this.props.history.push('/tc'), 2000);
+        setTimeout(()=>this.props.history.push('/signup'), 2000);
     }
 
     render(){
