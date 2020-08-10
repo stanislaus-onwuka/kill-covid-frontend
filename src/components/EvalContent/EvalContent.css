@@ -209,4 +209,19 @@ input:focus{
 }
 .notification-modal_content.notification-modal_terms-content {
   margin: 5% auto;
+  max-width: 40rem;
+  padding: 0.5rem;
+}
+
+.notification-modal_terms-content{
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-modal_terms-content img{
+  max-width:20px;
+  align-self: flex-start;
+  cursor: pointer;
+  padding: 0.2rem;
+  margin: 0.1rem;
 }

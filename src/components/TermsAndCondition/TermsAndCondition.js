@@ -175,16 +175,7 @@ const TermsAndCondition =()=>{
                     UNDERSTANDING THAT THE SITE SHOULD NOT BE USED AS A SUBSTITUTE FOR COMPETENT MEDICAL ADVICE FROM A LICENSED PHYSICIAN IN YOUR STATE. <br/><br/>
                 </p>
 
-            </div>
-            <div className="accept-checkbox">
-                <input type="checkbox" name="accept-tc-checkbox"/>
-                <label htmlFor="accept-tc-checkbox">I have read and I accept these terms and conditions</label>
-            </div>
-            <div className="tc-btns">
-                <button className="accept-tc">Accept</button>
-                <button className="reject-tc">Reject</button>
-            </div>
-            
+            </div>       
         </div>
     )
 }
