@@ -363,7 +363,7 @@ class EvalContent extends Component {
 				}
 			};
 
-			const signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname, headers);
+			const signUpResult = await axios.post("https://coveedapp.herokuapp.com/api/signup", addname, headers);
 			if (signUpResult.status !== 200) {
 				throw new Error("Couldn't sign user up", signUpResult);
 			} else {

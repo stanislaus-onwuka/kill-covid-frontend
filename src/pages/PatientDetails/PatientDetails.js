@@ -29,7 +29,7 @@ class PatientDetails extends Component {
     const { currentPatient } = this.props;
 
     if (currentPatient) {
-      this.setState({ remarks: currentPatient.remarks });
+      this.setState({ remarks: currentPatient.remarks || this.props.location.patient.remarks || [] });
     }
     // handling for occasional error 
     // else {
@@ -53,7 +53,7 @@ class PatientDetails extends Component {
   setRemarks = (limit) =>
     limit
       ? this.state.remarks
-          .filter((remark, index) => index < limit)
+          .filter((remar, index) => index < limit)
           .map((remark) => {
             let date = new Date(remark.date_created);
             date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
@@ -83,7 +83,7 @@ class PatientDetails extends Component {
     e.preventDefault();
     const { currentDoctorToken } = this.props;
 
-    fetch("https://fast-hamlet-28566.herokuapp.com/doctors/add_remark", {
+    fetch("https://coveedapp.herokuapp.com/doctors/add_remark", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -132,7 +132,7 @@ class PatientDetails extends Component {
 
     try {
       let response = await fetch(
-        "https://fast-hamlet-28566.herokuapp.com/doctors/flag",
+        "https://coveedapp.herokuapp.com/doctors/flag",
         {
           method: "POST",
           headers: {

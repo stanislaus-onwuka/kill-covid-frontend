@@ -42,7 +42,7 @@ class PatientConsultation extends React.Component{
     const { userId } = this.props 
     console.log(userId)
     try{
-      const url = 'https://fast-hamlet-28566.herokuapp.com/api/contact_emergency';
+      const url = 'https://coveedapp.herokuapp.com/api/contact_emergency';
       const accessToken = this.generateAccessToken(userId);
       const options = {
         method: 'GET',

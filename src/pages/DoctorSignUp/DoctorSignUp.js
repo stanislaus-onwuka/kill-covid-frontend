@@ -20,7 +20,7 @@ class DoctorSignUp extends React.Component {
     let body = this.state;
 
     try{
-      let response = await fetch('https://fast-hamlet-28566.herokuapp.com/doctors/register',{
+      let response = await fetch('https://coveedapp.herokuapp.com/doctors/register',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
