@@ -40,17 +40,10 @@
 }
 
 .sign-up-form input {
-  padding: 10px;
   border: 2px solid #234661;
-  border-radius: 10px;
-  margin: 0 auto;
-  display: block;
-  padding: 1rem;
-  width: 80%;
-  max-width: 550px;
-  border: solid 2px #234661;
   border-radius: 1rem;
-  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 100%;
   font-size: 1rem;
 }
 
@@ -96,6 +89,7 @@
   padding: 1rem;
   width: 80%;
   border-radius: 1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   text-decoration: none;
   color: #fff;

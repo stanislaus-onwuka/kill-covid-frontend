@@ -2,9 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { authWithGoogle, authWithFacebook, authWithTwitter } from "../../redux/actions/auth";
-import { addPhoneNumber } from "../../redux/user/user.actions.js";
+import {
+  authWithGoogle,
+  authWithFacebook,
+  authWithTwitter,
+  authWithPhone
+} from "../../redux/actions/auth";
 import ExtraLogin from '../../components/ExtraLogin/ExtraLogin';
+import PhoneLogin from '../../components/PhoneLogin/PhoneLogin';
 
 import "./sign-up.css";
 
@@ -12,29 +17,14 @@ class signup extends React.Component {
   constructor() {
     super();
     this.state = {
-      phoneNumber: "",
       signUpMethod: "Google-Account",
     };
   }
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-    const { history, addPhoneNumber } = this.props;
-
-    addPhoneNumber(this.state.phoneNumber);
-    history.push("/Eval");
-  }
 
   render() {
-    const { authWithGoogle, authWithFacebook, authWithTwitter, history } = this.props;
-    const { phoneNumber } = this.state;
-
+    const { authWithGoogle, authWithFacebook, authWithTwitter, history, authWithPhone } = this.props;
+  
     return (
       <div>
         <section className="signup">
@@ -43,23 +33,11 @@ class signup extends React.Component {
               <h2>Sign up</h2>
               <em>Create an account</em>
             </div>
-            <form onSubmit={this.handleSubmit} className="sign-up-form">
-              <input
-                name="phoneNumber"
-                type="tel"
-                onChange={this.handleChange}
-                value={phoneNumber}
-                placeholder="Phone Number"
-              />
-              { // till firebase authentication with phone number works
-                false &&        
-                  <input
-                  type="submit"
-                  value="Sign Up"
-                  className="signup-submit"
-                />
-              } 
-            </form>
+            <PhoneLogin
+              history={history}
+              authWithPhone={authWithPhone}
+              submitText='Sign Up'
+            />
             <ExtraLogin
               authWithGoogle={authWithGoogle}
               authWithFacebook={authWithFacebook}
@@ -85,7 +63,7 @@ const mapDispatchToProps = (dispatch) => {
     authWithGoogle: (history) => dispatch(authWithGoogle(history)),
     authWithFacebook : (history) => dispatch(authWithFacebook(history)),
     authWithTwitter : (history) => dispatch(authWithTwitter(history)),
-    addPhoneNumber: (number) => dispatch(addPhoneNumber(number)),
+    authWithPhone: (result, history) => dispatch(authWithPhone(result, history))
   };
 };
 
