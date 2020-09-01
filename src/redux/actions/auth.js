@@ -107,3 +107,28 @@ export const authWithTwitter = (history) => (dispatch) => {
       dispatch({ type: actionTypes.AUTH_WITH_SOCIAL_FAILED });
     });
 };
+
+export const authWithPhone = (data, history) => (dispatch) => {
+ const { user, additionalUserInfo } = data;
+  
+  const payload = {
+    userId: user.uid,
+    profile: user.profile ? user.profile : {},
+    additionalUserInfo,
+    phoneNumber: user.phoneNumber
+  };
+  
+  if (additionalUserInfo.isNewUser) {
+    dispatch({
+      type: actionTypes.SIGNED_UP_WITH_SOCIAL,
+      payload,
+    });
+    history.push('/Eval');
+  } else {
+    dispatch({
+      type: actionTypes.SIGNED_IN_WITH_SOCIAL,
+      payload,
+    });
+    history.push('/Patient');
+  }
+};

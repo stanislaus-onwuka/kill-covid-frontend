@@ -24,6 +24,7 @@ try {
 const providerGoogle = new firebase.auth.GoogleAuthProvider();
 const providerFacebook = new firebase.auth.FacebookAuthProvider();
 const providerTwitter = new firebase.auth.TwitterAuthProvider();
+const RecaptchaVerifier = firebase.auth.RecaptchaVerifier;
 
 const signInWithGoogle = () => auth.signInWithPopup(providerGoogle);
 
@@ -39,4 +40,6 @@ const signInWithTwitter = async () => {
   return data;
 };
 
-export { auth, signInWithGoogle, signInWithFacebook, signInWithTwitter };
+firebase.auth().useDeviceLanguage();
+
+export { auth, RecaptchaVerifier, signInWithGoogle, signInWithFacebook, signInWithTwitter };

@@ -99,7 +99,7 @@ class EvalContent extends Component {
 							name='firstName'
 							placeholder='First Name'
 							defaultValue={
-								currentUser.additionalUserInfo?.profile.given_name || ''
+								currentUser.additionalUserInfo?.profile?.given_name || ''
 							}
 							key="firstName"
 							ref={register({ required: true })}
@@ -112,7 +112,7 @@ class EvalContent extends Component {
 							name='lastName'
 							placeholder='Last Name'
 							defaultValue={
-								currentUser.additionalUserInfo?.profile.family_name || ''
+								currentUser.additionalUserInfo?.profile?.family_name || ''
 							}
 							key="lastName"
 							ref={register({ required: true })}
@@ -171,7 +171,7 @@ class EvalContent extends Component {
 							name='email'
 							placeholder='Email'
 							defaultValue={
-								currentUser.additionalUserInfo?.profile.email || ''
+								currentUser.additionalUserInfo?.profile?.email || ''
 							}
 							key="email"
 							ref={register({ required: true })}

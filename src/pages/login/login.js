@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import LoginHeader from "../../components/LoginHeader/LoginHeader";
-import InputBox from '../../components/InputBox/InputBox';
+import PhoneLogin from '../../components/PhoneLogin/PhoneLogin';
 import ExtraLogin from '../../components/ExtraLogin/ExtraLogin';
 import SignUp from '../../components/SignUp/SignUp';
 
-import { authWithGoogle, authWithFacebook, authWithTwitter } from "../../redux/actions/auth";
+import { authWithGoogle, authWithFacebook, authWithTwitter, authWithPhone } from "../../redux/actions/auth";
 import { connect } from 'react-redux';
 
 import './login.css';
@@ -20,7 +20,14 @@ class Login extends Component {
   }
 
   render() {
-    const { currentUser, history, authWithGoogle, authWithFacebook, authWithTwitter } = this.props;
+    const {
+      currentUser,
+      history,
+      authWithGoogle,
+      authWithFacebook,
+      authWithTwitter,
+      authWithPhone
+    } = this.props;
 
     if (currentUser?.guides) {
       return <Redirect to='/Patient' />;
@@ -29,7 +36,11 @@ class Login extends Component {
     return (
       <div className="container">
         <LoginHeader />
-        <InputBox />
+        <PhoneLogin
+          history={history}
+          authWithPhone={authWithPhone}
+          submitText='Log In'
+        />
         <ExtraLogin
           authWithGoogle={authWithGoogle}
           authWithFacebook={authWithFacebook}
@@ -51,6 +62,7 @@ const mapDispatchToProps = dispatch => ({
   authWithGoogle: (history) => dispatch(authWithGoogle(history)),
   authWithFacebook: (history) => dispatch(authWithFacebook(history)),
   authWithTwitter: (history) => dispatch(authWithTwitter(history)),
+  authWithPhone: (result, history) => dispatch(authWithPhone(result, history))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
