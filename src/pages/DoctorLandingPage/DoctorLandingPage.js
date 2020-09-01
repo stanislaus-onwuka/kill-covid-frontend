@@ -12,7 +12,7 @@ class DoctorLandingPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      doc_pass: "Hun0012",
+      doc_pass: "",
       logging_in : false
     };
   }
@@ -32,7 +32,7 @@ class DoctorLandingPage extends React.Component {
 
     try {
       let response = await fetch(
-        "https://fast-hamlet-28566.herokuapp.com/doctors/login",
+        "https://coveedapp.herokuapp.com/doctors/login",
         {
           method: "POST",
           headers: {

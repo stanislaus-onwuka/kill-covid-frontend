@@ -62,7 +62,7 @@ class AddPrescription extends Component {
         ]
       };
 
-      const url = 'https://fast-hamlet-28566.herokuapp.com/doctors/add_prescription';
+      const url = 'https://coveedapp.herokuapp.com/doctors/add_prescription';
       const requestOptions = {
         method: 'POST',
         headers: {

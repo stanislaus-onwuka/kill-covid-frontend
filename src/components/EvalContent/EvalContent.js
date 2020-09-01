@@ -259,7 +259,7 @@ class EvalContent extends Component {
 										required: true
 									})}
 								/>
-								<label for='terms'>I agree to the <span className='show-terms' onClick={this.handleTermsChange}>Terms of Service</span></label>
+								<label for='terms'>I have read and agree with the <span className='show-terms' onClick={this.handleTermsChange}>Terms of Service</span></label>
 							</div>
 							{errors.terms && <span role="alert" className="alert-error alert-terms">You have to agree to our terms of service to complete your registration.</span>}
 							{this.state.showTermsOfService &&
@@ -268,8 +268,9 @@ class EvalContent extends Component {
 									className='notification-modal notification-modal_terms'
 								>
 									<div className='notification-modal_content notification-modal_terms-content'>
+										<img onClick={() => this.setState({ showTermsOfService: false })} src={require('../../assets/close.svg')} alt="close"/>
 										<TermsAndCondition />	
-										<button onClick={() => this.setState({ showTermsOfService: false })}>CLOSE</button>
+										
 									</div>
 								</div>
 							}
@@ -362,7 +363,7 @@ class EvalContent extends Component {
 				}
 			};
 
-			const signUpResult = await axios.post("https://fast-hamlet-28566.herokuapp.com/api/signup", addname, headers);
+			const signUpResult = await axios.post("https://coveedapp.herokuapp.com/api/signup", addname, headers);
 			if (signUpResult.status !== 200) {
 				throw new Error("Couldn't sign user up", signUpResult);
 			} else {

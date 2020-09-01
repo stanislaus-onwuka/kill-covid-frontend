@@ -76,7 +76,7 @@ class PatientProfile extends Component {
 				this.setState({ isAddingSymptoms: true });
 				accessToken = await getAccessToken();
 				
-				const response = await axios.post('https://fast-hamlet-28566.herokuapp.com/api/add_symptoms',
+				const response = await axios.post('https://coveedapp.herokuapp.com/api/add_symptoms',
 					symptoms,{headers:{'access-token': accessToken}})
 				console.log(response.data);
 				await loadUser();

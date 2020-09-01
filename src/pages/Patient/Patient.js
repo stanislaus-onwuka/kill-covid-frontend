@@ -53,7 +53,7 @@ class Patient extends Component{
     let user = null;
     let remoteGuides = null;
 
-    const url = 'https://fast-hamlet-28566.herokuapp.com/api/getuser';
+    const url = 'https://coveedapp.herokuapp.com/api/getuser';
     const options = {
       method: 'GET',
       headers: {
@@ -86,7 +86,7 @@ class Patient extends Component{
       remoteGuides = user.guides;
 
       //the remarks in the user above have no doctor name, so fetch the remarks with doctor name and append to user
-      let remarks = await fetch('https://fast-hamlet-28566.herokuapp.com/api/getremarks', options);
+      let remarks = await fetch('https://coveedapp.herokuapp.com/api/getremarks', options);
       remarks = await remarks.json();
       user.remarks = remarks;
       user.imageUrl = user.profile_pic;

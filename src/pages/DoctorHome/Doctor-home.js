@@ -65,27 +65,27 @@ class doctorHome extends React.Component {
         setDoctorPatients,
       } = this.props;
 
-      try {
-          // The code below is to promote a user so they show on the doctor's page
-        // Just set the user ID above to add another user
-        let accessToken = await getAccessToken();
-        console.log(accessToken);
+      // try {
+      //     // The code below is to promote a user so they show on the doctor's page
+      //   // Just set the user ID above to add another user
+      //   let accessToken = await getAccessToken();
+      //   console.log(accessToken);
 
-        let userResponse = await fetch(
-          "https://fast-hamlet-28566.herokuapp.com/api/promoteuser",
-          {
-            method: "GET",
-            headers: {
-              "access-token": accessToken,
-            },
-          }
-        );
+      //   let userResponse = await fetch(
+      //     "https://coveedapp.herokuapp.com/api/promoteuser",
+      //     {
+      //       method: "GET",
+      //       headers: {
+      //         "access-token": accessToken,
+      //       },
+      //     }
+      //   );
 
-        let user = await userResponse.json();
-        console.log(user);
-      } catch (err) {
-        console.error("error promoting users:", err);
-      }
+      //   let user = await userResponse.json();
+      //   console.log(user);
+      // } catch (err) {
+      //   console.error("error promoting users:", err);
+      // }
 
       try {
         let patients;
@@ -98,7 +98,7 @@ class doctorHome extends React.Component {
         }
 
         let doctorResponse = await fetch(
-          "https://fast-hamlet-28566.herokuapp.com/doctors/getpatients",
+          "https://coveedapp.herokuapp.com/doctors/getpatients",
           {
             method: "GET",
             headers: {
