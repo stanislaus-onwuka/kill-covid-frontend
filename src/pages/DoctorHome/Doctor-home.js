@@ -2,7 +2,6 @@ import React from "react";
 import njwt from "njwt";
 import { connect } from "react-redux";
 import { setDoctorPatients } from "./../../redux/doctor/doctor.actions";
-import { getAccessToken } from "../../utils/firebaseUtils";
 
 import Report from "../../components/DoctorHomeReports/DoctorHomeReports";
 import ProfilePic from "../../assets/svg/avatar.svg";
