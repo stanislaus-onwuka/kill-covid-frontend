@@ -9,3 +9,46 @@
     text-align: left;
     margin: .3rem 0;
 }
+
+.notification-modal_phone-auth-content .phone-auth-error {
+    text-align: center;
+}
+
+.notification-modal_phone-auth-content {
+    margin: 30% auto !important;
+    font-weight: bold;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notification-modal_title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.notification-modal_phone-text {
+    font-size: 1rem;
+}
+
+.notification-modal_input {
+    margin: 0.5rem 0;
+    max-width: 90%;
+    padding: .5rem;
+}
+
+.notification-modal_buttons-wrapper {
+    margin-top: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 10rem;
+}
+
+@media only screen and (min-width: 40rem) {
+    .notification-modal_phone-auth-content {
+        margin-top: 7rem !important;
+    }
+}

@@ -42,4 +42,10 @@ const signInWithTwitter = async () => {
 
 firebase.auth().useDeviceLanguage();
 
-export { auth, RecaptchaVerifier, signInWithGoogle, signInWithFacebook, signInWithTwitter };
+export {
+  auth,
+  RecaptchaVerifier,
+  signInWithGoogle,
+  signInWithFacebook,
+  signInWithTwitter
+};

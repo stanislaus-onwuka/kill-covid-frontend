@@ -7,7 +7,7 @@ import './ExtraLogin.css';
 function ExtraLogin({ authWithGoogle, history, authPage, authWithFacebook, authWithTwitter }) {
   return (
       <div className="extra-login-container">
-        <p>{`${authPage} with`}</p>
+        <p>{`or ${authPage} with`}</p>
         <div className="login-links-container">
           <button
             onClick={() => authWithTwitter(history)}

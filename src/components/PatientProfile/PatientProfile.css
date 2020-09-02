@@ -19,8 +19,7 @@
 .notification-modal_content {
   background-color: white;
   margin: 15% auto;
-  width: 50%;
-  min-width: 15rem;
+  width: 90%;
   max-width: 25rem;
   padding-bottom: 1rem;
   border-radius: 0.5rem;
@@ -286,8 +285,6 @@
   padding: 1rem ;
   margin-bottom: .5rem;
 }
-
-
 
 @media screen and (max-width:360px){
   .patient-profile-container .quarantine .objective span:first-child,.patient-profile-container .quarantine .countdown span:first-child{
