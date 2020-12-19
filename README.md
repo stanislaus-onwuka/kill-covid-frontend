@@ -21,5 +21,5 @@ Kill-Coveed is a remote health guide that helps patients (who can be classified 
 ✅ More cases can be brought under the radar, lots of people here in Nigeria , are either afraid to go for tests or ignorant, with this we can keep an eye on them.<br/>
 
 ### Live test
-https://kill-coveed-test.netlify.app
+https://kill-covid.netlify.app/
 
