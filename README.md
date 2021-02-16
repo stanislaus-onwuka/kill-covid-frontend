@@ -9,7 +9,7 @@ Kill-Coveed is a remote health guide that helps patients (who can be classified 
 
 **How it Works**<br/>
 ✅ A user signs up and he gets to add his/her symptoms on a daily basis to the app, and the app records that data over the space of two weeks.<br/>
-✅ The data is then sent to a review staging area.where a certified medical practioner (MP) can review the progress of the patient based on his/her medical history. The MP can     recommend that the patient stays on the app for an extra two weeks in isolation or schedule a test for the patient , and can as well flag a patient for emergency.<br/>
+✅ The data is then sent to a review staging area,where a certified medical practioner (MP) can review the progress of the patient based on his/her medical history. The MP can     recommend that the patient stays on the app for an extra two weeks in isolation or schedule a test for the patient , and can as well flag a patient for emergency.<br/>
 
 ✅ While a patient is on the app the patient can willingly contact emergency, and will consent to having his location revealed to health agencies, and be picked up to a proper isolation center if he observes that he's unstable.<br/>
 
